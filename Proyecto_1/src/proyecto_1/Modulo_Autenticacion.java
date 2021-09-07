@@ -7,30 +7,31 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+public class Modulo_Autenticacion {
 
-public class Modulo_Autenticacion extends JFrame{
-    Modulo_Administracion ad = new Modulo_Administracion();
-    
+    private JFrame ventanaAutentic = new JFrame();
     private JPanel panel;
-    JTextField Text_codigo1 = new JTextField();
-    JPasswordField Text_contraseña1 = new JPasswordField();
-    
-    public void ventanaPrincipal(){
-        this.setSize(350, 250);
-        this.setTitle("Autenticación");
-        this.setLocationRelativeTo(null);
-        this.setMinimumSize(new Dimension(200, 200));
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);    //Permite cerrar todo el programa
-        this.setResizable(false);
-        this.setVisible(true);
+    private JTextField Text_codigo1 = new JTextField();
+    private JPasswordField Text_contraseña1 = new JPasswordField();
+
+    public void ventanaPrincipal() {
+        ventanaAutentic.setSize(350, 250);
+        ventanaAutentic.setTitle("Autenticación");
+        ventanaAutentic.setLocationRelativeTo(null);
+        ventanaAutentic.setMinimumSize(new Dimension(200, 200));
+        ventanaAutentic.setDefaultCloseOperation(EXIT_ON_CLOSE);    //Permite cerrar todo el programa
+        ventanaAutentic.setResizable(false);
+        ventanaAutentic.setVisible(true);
         iniciarComponentes();
     }
+
     private void iniciarComponentes() {
         colocarPanel();
         colocarEtiquetas();
@@ -42,7 +43,7 @@ public class Modulo_Autenticacion extends JFrame{
         panel = new JPanel();
         panel.setBackground(Color.LIGHT_GRAY);
         panel.setLayout(null);
-        this.getContentPane().add(panel);
+        ventanaAutentic.getContentPane().add(panel);
     }
 
     private void colocarEtiquetas() {
@@ -101,15 +102,15 @@ public class Modulo_Autenticacion extends JFrame{
         ActionListener accion = (ActionEvent ae) -> {
             //                for (int i = 0; i < ; i++) {
             if (Text_codigo1.getText().equals("admin") && Text_contraseña1.getText().equals("admin")) {
+
+                Modulo_Administracion ad = new Modulo_Administracion();
                 ad.ventanaAdmin();
-                dispose();
-            }             
-//                    else if () {
-//                       
-//                        profe.setVisible(true);
-//                        dispose();
-//                    }
-            else {
+                ventanaAutentic.dispose();
+            } else if (Text_codigo1.getText().equals("vende") && Text_contraseña1.getText().equals("vende")) {   // Esto falta arreglarlo porque no esta completo
+                Modulo_Vendedores ven = new Modulo_Vendedores();
+                ven.ventanaVendedores();
+                ventanaAutentic.dispose();
+            } else {
                 JOptionPane.showMessageDialog(null, "Codigo o Contraseña incorrectos");
             }
 //                    break;
