@@ -34,7 +34,6 @@ public class Modulo_Vendedores {
     private void iniciarComponentes() {
         colocarPanel();
         colocarBotones();
-
     }
 
     private void colocarPanel() {
@@ -53,7 +52,7 @@ public class Modulo_Vendedores {
         panel2.setBackground(Color.ORANGE);
         panel2.setBounds(21, 21, 730, 730);
         panel2.setLayout(null);
-        
+
         primeras_pestañas.setBounds(20, 20, 750, 730);
         primeras_pestañas.addTab("Nueva Venta", panel.add(panel1));
         primeras_pestañas.addTab("Ventas", panel.add(panel2));
