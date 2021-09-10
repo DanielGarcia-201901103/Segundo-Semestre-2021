@@ -22,6 +22,10 @@ public class Modulo_Administracion {
     private JFrame ventanaAdmin = new JFrame();
     private JPanel panel, panel1, panel2, panel3, panel4;
     private JTabbedPane primeras_pestañas = new JTabbedPane();
+    //Datos para vendedor
+    int tamañoVectorVendedor = 1;
+    Vendedor guardarVendedor[] = new Vendedor[tamañoVectorVendedor];
+    DefaultTableModel modelo_tabVende = new DefaultTableModel();
 
     public void ventanaAdmin() {
         ventanaAdmin.setSize(800, 800);
@@ -263,7 +267,7 @@ public class Modulo_Administracion {
         panel3.add(boton);
         //Agregando eventos de tipo ActionListener
         ActionListener accion = (ActionEvent ae) -> {
-
+            clientes_vCrear();
         };
         boton.addActionListener(accion);
 
@@ -291,7 +295,7 @@ public class Modulo_Administracion {
         panel3.add(boton2);
         //Agregando eventos de tipo ActionListener
         ActionListener accion2 = (ActionEvent ae) -> {
-
+            clientes_vActualizar();
         };
         boton2.addActionListener(accion2);
 
@@ -335,7 +339,7 @@ public class Modulo_Administracion {
         panel4.add(boton);
         //Agregando eventos de tipo ActionListener
         ActionListener accion = (ActionEvent ae) -> {
-
+            vendedores_vCrear();
         };
         boton.addActionListener(accion);
 
@@ -363,7 +367,7 @@ public class Modulo_Administracion {
         panel4.add(boton2);
         //Agregando eventos de tipo ActionListener
         ActionListener accion2 = (ActionEvent ae) -> {
-
+            vendedores_vActualizar();
         };
         boton2.addActionListener(accion2);
 
@@ -484,7 +488,7 @@ public class Modulo_Administracion {
         p_Crear.add(b_agregar);
         //Agregando eventos de tipo ActionListener
         ActionListener a_agregar = (ActionEvent ae) -> {
-           
+
         };
         b_agregar.addActionListener(a_agregar);
     }
@@ -576,7 +580,414 @@ public class Modulo_Administracion {
         p_Actualizar.add(b_actualizar);
         //Agregando eventos de tipo ActionListener
         ActionListener a_actualizar = (ActionEvent ae) -> {
-           
+
+        };
+        b_actualizar.addActionListener(a_actualizar);
+    }
+
+    // ########################## Acciones de Botones Clientes ###############################################
+    private void clientes_vCrear() {
+        //Creando la ventana
+        JFrame vCrear = new JFrame();
+        vCrear.setSize(400, 400);
+        vCrear.setTitle("Cliente (Crear)");
+        vCrear.setLocationRelativeTo(null);
+        vCrear.setMinimumSize(new Dimension(200, 200));
+        vCrear.setDefaultCloseOperation(HIDE_ON_CLOSE);    //Permite cerrar la pestaña
+        vCrear.setResizable(false);
+        vCrear.setVisible(true);
+        //Agregando panel
+        JPanel p_Crear = new JPanel();
+        p_Crear.setBackground(Color.GREEN);
+        p_Crear.setLayout(null);
+        vCrear.add(p_Crear);
+        //Agregando Label
+        JLabel t1 = new JLabel("Crear Nuevo Cliente");
+        t1.setBounds(150, 10, 200, 30);
+        t1.setForeground(Color.BLACK);
+//      etiqueta.setOpaque(true);   //otorga permiso para poder darle color a la etiqueta
+//      etiqueta.setBackground(Color.yellow); // cambia el color de la etiqueta
+//      etiqueta.setHorizontalAlignment(SwingConstants.CENTER);  pone la palabra en el centro de la etiqueta 
+        t1.setFont(new Font("arial", Font.BOLD, 15));
+        p_Crear.add(t1);
+
+        JLabel t2 = new JLabel("Código");
+        t2.setBounds(30, 50, 100, 30);
+        t2.setForeground(Color.BLACK);
+        t2.setFont(new Font("arial", Font.BOLD, 13));
+        p_Crear.add(t2);
+
+        JLabel t3 = new JLabel("Nombre");
+        t3.setBounds(30, 100, 100, 30);
+        t3.setForeground(Color.BLACK);
+        t3.setFont(new Font("arial", Font.BOLD, 13));
+        p_Crear.add(t3);
+
+        JLabel t4 = new JLabel("NIT");
+        t4.setBounds(30, 150, 100, 30);
+        t4.setForeground(Color.BLACK);
+        t4.setFont(new Font("arial", Font.BOLD, 13));
+        p_Crear.add(t4);
+
+        JLabel t5 = new JLabel("Correo");
+        t5.setBounds(30, 200, 100, 30);
+        t5.setForeground(Color.BLACK);
+        t5.setFont(new Font("arial", Font.BOLD, 13));
+        p_Crear.add(t5);
+
+        JLabel t6 = new JLabel("Género");
+        t6.setBounds(30, 250, 100, 30);
+        t6.setForeground(Color.BLACK);
+        t6.setFont(new Font("arial", Font.BOLD, 13));
+        p_Crear.add(t6);
+
+        //Agregando JText
+        JTextField c1 = new JTextField();
+        c1.setBounds(110, 50, 250, 27);
+        p_Crear.add(c1);
+
+        JTextField c2 = new JTextField();
+        c2.setBounds(110, 100, 250, 27);
+        p_Crear.add(c2);
+
+        JTextField c3 = new JTextField();
+        c3.setBounds(110, 150, 250, 27);
+        p_Crear.add(c3);
+
+        JTextField c4 = new JTextField();
+        c4.setBounds(110, 200, 250, 27);
+        p_Crear.add(c4);
+
+        JTextField c5 = new JTextField();
+        c5.setBounds(110, 250, 250, 27);
+        p_Crear.add(c5);
+
+        //Boton agregar
+        JButton b_agregar = new JButton("Agregar");
+        b_agregar.setBounds(110, 310, 250, 30);
+        b_agregar.setEnabled(true); //interaccion del encendido del boton,habilita o desabilita los botones
+        b_agregar.setMnemonic(32); //establecemos alt + letra y se cliquea el boton
+        b_agregar.setForeground(Color.BLACK);//establecemos el color de la letra en el boton
+        b_agregar.setFont(new Font("arial", Font.BOLD, 13));  //establecemos la fuente de la letra del boton
+        b_agregar.setBackground(Color.LIGHT_GRAY); //cambia el color del fondo del boton
+        p_Crear.add(b_agregar);
+        //Agregando eventos de tipo ActionListener
+        ActionListener a_agregar = (ActionEvent ae) -> {
+
+        };
+        b_agregar.addActionListener(a_agregar);
+    }
+
+    private void clientes_vActualizar() {
+        //Creando la ventana
+        JFrame vActualizar = new JFrame();
+        vActualizar.setSize(400, 400);
+        vActualizar.setTitle("Cliente (Actualizar)");
+        vActualizar.setLocationRelativeTo(null);
+        vActualizar.setMinimumSize(new Dimension(200, 200));
+        vActualizar.setDefaultCloseOperation(HIDE_ON_CLOSE);    //Permite cerrar la pestaña
+        vActualizar.setResizable(false);
+        vActualizar.setVisible(true);
+        //Agregando panel
+        JPanel p_Actualizar = new JPanel();
+        p_Actualizar.setBackground(Color.GREEN);
+        p_Actualizar.setLayout(null);
+        vActualizar.add(p_Actualizar);
+        //Agregando Label
+        JLabel t1 = new JLabel("Actualizar Datos Cliente");
+        t1.setBounds(150, 10, 200, 30);
+        t1.setForeground(Color.BLACK);
+//      etiqueta.setOpaque(true);   //otorga permiso para poder darle color a la etiqueta
+//      etiqueta.setBackground(Color.yellow); // cambia el color de la etiqueta
+//      etiqueta.setHorizontalAlignment(SwingConstants.CENTER);  pone la palabra en el centro de la etiqueta 
+        t1.setFont(new Font("arial", Font.BOLD, 15));
+        p_Actualizar.add(t1);
+
+        JLabel t2 = new JLabel("Código");
+        t2.setBounds(30, 50, 100, 30);
+        t2.setForeground(Color.BLACK);
+        t2.setFont(new Font("arial", Font.BOLD, 13));
+        p_Actualizar.add(t2);
+
+        JLabel t3 = new JLabel("Nombre");
+        t3.setBounds(30, 100, 100, 30);
+        t3.setForeground(Color.BLACK);
+        t3.setFont(new Font("arial", Font.BOLD, 13));
+        p_Actualizar.add(t3);
+
+        JLabel t4 = new JLabel("NIT");
+        t4.setBounds(30, 150, 100, 30);
+        t4.setForeground(Color.BLACK);
+        t4.setFont(new Font("arial", Font.BOLD, 13));
+        p_Actualizar.add(t4);
+
+        JLabel t5 = new JLabel("Correo");
+        t5.setBounds(30, 200, 100, 30);
+        t5.setForeground(Color.BLACK);
+        t5.setFont(new Font("arial", Font.BOLD, 13));
+        p_Actualizar.add(t5);
+
+        JLabel t6 = new JLabel("Género");
+        t6.setBounds(30, 250, 100, 30);
+        t6.setForeground(Color.BLACK);
+        t6.setFont(new Font("arial", Font.BOLD, 13));
+        p_Actualizar.add(t6);
+
+        //Agregando JText
+        JTextField c1 = new JTextField();
+        c1.setBounds(110, 50, 250, 27);
+        p_Actualizar.add(c1);
+
+        JTextField c2 = new JTextField();
+        c2.setBounds(110, 100, 250, 27);
+        p_Actualizar.add(c2);
+
+        JTextField c3 = new JTextField();
+        c3.setBounds(110, 150, 250, 27);
+        p_Actualizar.add(c3);
+
+        JTextField c4 = new JTextField();
+        c4.setBounds(110, 200, 250, 27);
+        p_Actualizar.add(c4);
+
+        JTextField c5 = new JTextField();
+        c5.setBounds(110, 250, 250, 27);
+        p_Actualizar.add(c5);
+
+        //Boton agregar
+        JButton b_actualizar = new JButton("Actualizar");
+        b_actualizar.setBounds(110, 310, 250, 30);
+        b_actualizar.setEnabled(true); //interaccion del encendido del boton,habilita o desabilita los botones
+        b_actualizar.setMnemonic(32); //establecemos alt + letra y se cliquea el boton
+        b_actualizar.setForeground(Color.BLACK);//establecemos el color de la letra en el boton
+        b_actualizar.setFont(new Font("arial", Font.BOLD, 13));  //establecemos la fuente de la letra del boton
+        b_actualizar.setBackground(Color.LIGHT_GRAY); //cambia el color del fondo del boton
+        p_Actualizar.add(b_actualizar);
+        //Agregando eventos de tipo ActionListener
+        ActionListener a_actualizar = (ActionEvent ae) -> {
+
+        };
+        b_actualizar.addActionListener(a_actualizar);
+    }
+
+    // ########################## Acciones de Botones Vendedores ###############################################
+    private void vendedores_vCrear() {
+        //Creando la ventana
+        JFrame vCrear = new JFrame();
+        vCrear.setSize(400, 450);
+        vCrear.setTitle("Vendedor (Crear)");
+        vCrear.setLocationRelativeTo(null);
+        vCrear.setMinimumSize(new Dimension(200, 200));
+        vCrear.setDefaultCloseOperation(HIDE_ON_CLOSE);    //Permite cerrar la pestaña
+        vCrear.setResizable(false);
+        vCrear.setVisible(true);
+        //Agregando panel
+        JPanel p_Crear = new JPanel();
+        p_Crear.setBackground(Color.GREEN);
+        p_Crear.setLayout(null);
+        vCrear.add(p_Crear);
+        //Agregando Label
+        JLabel t1 = new JLabel("Crear Nuevo Vendedor");
+        t1.setBounds(150, 10, 200, 30);
+        t1.setForeground(Color.BLACK);
+//      etiqueta.setOpaque(true);   //otorga permiso para poder darle color a la etiqueta
+//      etiqueta.setBackground(Color.yellow); // cambia el color de la etiqueta
+//      etiqueta.setHorizontalAlignment(SwingConstants.CENTER);  pone la palabra en el centro de la etiqueta 
+        t1.setFont(new Font("arial", Font.BOLD, 15));
+        p_Crear.add(t1);
+
+        JLabel t2 = new JLabel("Código");
+        t2.setBounds(30, 50, 100, 30);
+        t2.setForeground(Color.BLACK);
+        t2.setFont(new Font("arial", Font.BOLD, 13));
+        p_Crear.add(t2);
+
+        JLabel t3 = new JLabel("Nombre");
+        t3.setBounds(30, 100, 100, 30);
+        t3.setForeground(Color.BLACK);
+        t3.setFont(new Font("arial", Font.BOLD, 13));
+        p_Crear.add(t3);
+
+        JLabel t4 = new JLabel("Caja");
+        t4.setBounds(30, 150, 100, 30);
+        t4.setForeground(Color.BLACK);
+        t4.setFont(new Font("arial", Font.BOLD, 13));
+        p_Crear.add(t4);
+
+        JLabel t5 = new JLabel("Ventas");
+        t5.setBounds(30, 200, 100, 30);
+        t5.setForeground(Color.BLACK);
+        t5.setFont(new Font("arial", Font.BOLD, 13));
+        p_Crear.add(t5);
+
+        JLabel t6 = new JLabel("Género");
+        t6.setBounds(30, 250, 100, 30);
+        t6.setForeground(Color.BLACK);
+        t6.setFont(new Font("arial", Font.BOLD, 13));
+        p_Crear.add(t6);
+
+        JLabel t7 = new JLabel("Password");
+        t7.setBounds(30, 300, 100, 30);
+        t7.setForeground(Color.BLACK);
+        t7.setFont(new Font("arial", Font.BOLD, 13));
+        p_Crear.add(t7);
+
+        //Agregando JText
+        JTextField c1 = new JTextField();
+        c1.setBounds(110, 50, 250, 27);
+        p_Crear.add(c1);
+
+        JTextField c2 = new JTextField();
+        c2.setBounds(110, 100, 250, 27);
+        p_Crear.add(c2);
+
+        JTextField c3 = new JTextField();
+        c3.setBounds(110, 150, 250, 27);
+        p_Crear.add(c3);
+
+        JTextField c4 = new JTextField();
+        c4.setBounds(110, 200, 250, 27);
+        p_Crear.add(c4);
+
+        JTextField c5 = new JTextField();
+        c5.setBounds(110, 250, 250, 27);
+        p_Crear.add(c5);
+
+        JTextField c6 = new JTextField();
+        c6.setBounds(110, 300, 250, 27);
+        p_Crear.add(c6);
+
+        //Boton agregar
+        JButton b_agregar = new JButton("Agregar");
+        b_agregar.setBounds(110, 360, 250, 30);
+        b_agregar.setEnabled(true); //interaccion del encendido del boton,habilita o desabilita los botones
+        b_agregar.setMnemonic(32); //establecemos alt + letra y se cliquea el boton
+        b_agregar.setForeground(Color.BLACK);//establecemos el color de la letra en el boton
+        b_agregar.setFont(new Font("arial", Font.BOLD, 13));  //establecemos la fuente de la letra del boton
+        b_agregar.setBackground(Color.LIGHT_GRAY); //cambia el color del fondo del boton
+        p_Crear.add(b_agregar);
+        //Agregando eventos de tipo ActionListener
+        ActionListener a_agregar = (ActionEvent ae) -> {
+
+            for (int i = 0; i < guardarVendedor.length; i++) {
+//                int codigoVend = Integer.parseInt(c1.getText());
+                String codigoVend = c1.getText();
+                String nombreVend = c2.getText();
+//                int cajaVend = Integer.parseInt(c3.getText());
+                String cajaVend = c3.getText();
+//                int ventasVend = Integer.parseInt(c3.getText());
+                String ventasVend = c4.getText();
+                String generoVend = c5.getText();
+                String passwordVend = c6.getText();
+                
+                guardarVendedor[i] = new Vendedor(codigoVend, nombreVend, cajaVend, ventasVend, generoVend, passwordVend);
+                String almacenaVendedor[] = {guardarVendedor[i].getCodigo(),guardarVendedor[i].getNombre(),guardarVendedor[i].getVendedorCaja(),guardarVendedor[i].getVendedorVentas(),guardarVendedor[i].getGenero()};
+                modelo_tabVende.addRow(almacenaVendedor);
+                
+            }
+            tamañoVectorVendedor = tamañoVectorVendedor + 1;
+        };
+        b_agregar.addActionListener(a_agregar);
+    }
+
+    private void vendedores_vActualizar() {
+        //Creando la ventana
+        JFrame vActualizar = new JFrame();
+        vActualizar.setSize(400, 450);
+        vActualizar.setTitle("Vendedor (Actualizar)");
+        vActualizar.setLocationRelativeTo(null);
+        vActualizar.setMinimumSize(new Dimension(200, 200));
+        vActualizar.setDefaultCloseOperation(HIDE_ON_CLOSE);    //Permite cerrar la pestaña
+        vActualizar.setResizable(false);
+        vActualizar.setVisible(true);
+        //Agregando panel
+        JPanel p_Actualizar = new JPanel();
+        p_Actualizar.setBackground(Color.GREEN);
+        p_Actualizar.setLayout(null);
+        vActualizar.add(p_Actualizar);
+        //Agregando Label
+        JLabel t1 = new JLabel("Actualizar Datos Vendedor");
+        t1.setBounds(150, 10, 200, 30);
+        t1.setForeground(Color.BLACK);
+//      etiqueta.setOpaque(true);   //otorga permiso para poder darle color a la etiqueta
+//      etiqueta.setBackground(Color.yellow); // cambia el color de la etiqueta
+//      etiqueta.setHorizontalAlignment(SwingConstants.CENTER);  pone la palabra en el centro de la etiqueta 
+        t1.setFont(new Font("arial", Font.BOLD, 15));
+        p_Actualizar.add(t1);
+
+        JLabel t2 = new JLabel("Código");
+        t2.setBounds(30, 50, 100, 30);
+        t2.setForeground(Color.BLACK);
+        t2.setFont(new Font("arial", Font.BOLD, 13));
+        p_Actualizar.add(t2);
+
+        JLabel t3 = new JLabel("Nombre");
+        t3.setBounds(30, 100, 100, 30);
+        t3.setForeground(Color.BLACK);
+        t3.setFont(new Font("arial", Font.BOLD, 13));
+        p_Actualizar.add(t3);
+
+        JLabel t4 = new JLabel("Caja");
+        t4.setBounds(30, 150, 100, 30);
+        t4.setForeground(Color.BLACK);
+        t4.setFont(new Font("arial", Font.BOLD, 13));
+        p_Actualizar.add(t4);
+
+        JLabel t5 = new JLabel("Ventas");
+        t5.setBounds(30, 200, 100, 30);
+        t5.setForeground(Color.BLACK);
+        t5.setFont(new Font("arial", Font.BOLD, 13));
+        p_Actualizar.add(t5);
+
+        JLabel t6 = new JLabel("Género");
+        t6.setBounds(30, 250, 100, 30);
+        t6.setForeground(Color.BLACK);
+        t6.setFont(new Font("arial", Font.BOLD, 13));
+        p_Actualizar.add(t6);
+
+        JLabel t7 = new JLabel("Password");
+        t7.setBounds(30, 300, 100, 30);
+        t7.setForeground(Color.BLACK);
+        t7.setFont(new Font("arial", Font.BOLD, 13));
+        p_Actualizar.add(t7);
+
+        //Agregando JText
+        JTextField c1 = new JTextField();
+        c1.setBounds(110, 50, 250, 27);
+        p_Actualizar.add(c1);
+
+        JTextField c2 = new JTextField();
+        c2.setBounds(110, 100, 250, 27);
+        p_Actualizar.add(c2);
+
+        JTextField c3 = new JTextField();
+        c3.setBounds(110, 150, 250, 27);
+        p_Actualizar.add(c3);
+
+        JTextField c4 = new JTextField();
+        c4.setBounds(110, 200, 250, 27);
+        p_Actualizar.add(c4);
+
+        JTextField c5 = new JTextField();
+        c5.setBounds(110, 250, 250, 27);
+        p_Actualizar.add(c5);
+
+        JTextField c6 = new JTextField();
+        c6.setBounds(110, 300, 250, 27);
+        p_Actualizar.add(c6);
+
+        //Boton agregar
+        JButton b_actualizar = new JButton("Actualizar");
+        b_actualizar.setBounds(110, 360, 250, 30);
+        b_actualizar.setEnabled(true); //interaccion del encendido del boton,habilita o desabilita los botones
+        b_actualizar.setMnemonic(32); //establecemos alt + letra y se cliquea el boton
+        b_actualizar.setForeground(Color.BLACK);//establecemos el color de la letra en el boton
+        b_actualizar.setFont(new Font("arial", Font.BOLD, 13));  //establecemos la fuente de la letra del boton
+        b_actualizar.setBackground(Color.LIGHT_GRAY); //cambia el color del fondo del boton
+        p_Actualizar.add(b_actualizar);
+        //Agregando eventos de tipo ActionListener
+        ActionListener a_actualizar = (ActionEvent ae) -> {
+
         };
         b_actualizar.addActionListener(a_actualizar);
     }
@@ -634,13 +1045,12 @@ public class Modulo_Administracion {
     }
 
     private void colocarTabla_Vendedores() {
-        DefaultTableModel modelo_tab = new DefaultTableModel();
-        modelo_tab.addColumn("Código");
-        modelo_tab.addColumn("Nombre");
-        modelo_tab.addColumn("Caja");
-        modelo_tab.addColumn("Ventas");
-        modelo_tab.addColumn("Género");
-        JTable tab = new JTable(modelo_tab);
+        modelo_tabVende.addColumn("Código");
+        modelo_tabVende.addColumn("Nombre");
+        modelo_tabVende.addColumn("Caja");
+        modelo_tabVende.addColumn("Ventas");
+        modelo_tabVende.addColumn("Género");
+        JTable tab = new JTable(modelo_tabVende);
         JScrollPane scr = new JScrollPane(tab);
         scr.setBounds(25, 20, 400, 650);
         panel4.add(scr);
@@ -648,6 +1058,7 @@ public class Modulo_Administracion {
 //        String [] dat1 = {"2","ale","9 calle b","ca@g.com","549875"};
 //        modelo_tab.addRow(dat);    el .addRow() agrega una fila a la tabla 
 //        modelo_tab.addRow(dat1);
+
     }
 
     // ########################## Graficos ###############################################

@@ -100,13 +100,13 @@ public class Modulo_Autenticacion {
         panel.add(boton1);
         //Agregando eventos de tipo ActionListener
         ActionListener accion = (ActionEvent ae) -> {
-            //                for (int i = 0; i < ; i++) {
+//                            for (int i = 0; i < ; i++) {
             if (Text_codigo1.getText().equals("admin") && Text_contraseña1.getText().equals("admin")) {
 
                 Modulo_Administracion ad = new Modulo_Administracion();
                 ad.ventanaAdmin();
                 ventanaAutentic.dispose();
-            } else if (Text_codigo1.getText().equals("vende") && Text_contraseña1.getText().equals("vende")) {   // Esto falta arreglarlo porque no esta completo
+            } else if (   Text_codigo1.getText().equals("Vende") && Text_contraseña1.getText().equals("vende")) {   // Esto falta arreglarlo porque no esta completo
                 Modulo_Vendedores ven = new Modulo_Vendedores();
                 ven.ventanaVendedores();
                 ventanaAutentic.dispose();
