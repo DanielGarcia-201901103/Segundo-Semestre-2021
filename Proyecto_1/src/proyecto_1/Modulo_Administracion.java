@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -26,7 +27,7 @@ public class Modulo_Administracion {
     int tamañoVectorVendedor = 1;
     Vendedor guardarVendedor[] = new Vendedor[tamañoVectorVendedor];
     DefaultTableModel modelo_tabVende = new DefaultTableModel();
-
+    String almacenaVendedor[][]= new String [tamañoVectorVendedor][6];
     public void ventanaAdmin() {
         ventanaAdmin.setSize(800, 800);
         ventanaAdmin.setTitle("Administración");
@@ -853,7 +854,7 @@ public class Modulo_Administracion {
         c5.setBounds(110, 250, 250, 27);
         p_Crear.add(c5);
 
-        JTextField c6 = new JTextField();
+        JPasswordField c6 = new JPasswordField();
         c6.setBounds(110, 300, 250, 27);
         p_Crear.add(c6);
 
@@ -881,9 +882,13 @@ public class Modulo_Administracion {
                 String passwordVend = c6.getText();
                 
                 guardarVendedor[i] = new Vendedor(codigoVend, nombreVend, cajaVend, ventasVend, generoVend, passwordVend);
-                String almacenaVendedor[] = {guardarVendedor[i].getCodigo(),guardarVendedor[i].getNombre(),guardarVendedor[i].getVendedorCaja(),guardarVendedor[i].getVendedorVentas(),guardarVendedor[i].getGenero()};
-                modelo_tabVende.addRow(almacenaVendedor);
-                
+                almacenaVendedor[i][0] = guardarVendedor[i].getCodigo();
+                almacenaVendedor[i][1] = guardarVendedor[i].getNombre();
+                almacenaVendedor[i][2] =guardarVendedor[i].getVendedorCaja();
+                almacenaVendedor[i][3] = guardarVendedor[i].getVendedorVentas();
+                almacenaVendedor[i][4] = guardarVendedor[i].getGenero();
+                modelo_tabVende.addRow(almacenaVendedor[i]);
+                vCrear.dispose();
             }
             tamañoVectorVendedor = tamañoVectorVendedor + 1;
         };
@@ -972,7 +977,7 @@ public class Modulo_Administracion {
         c5.setBounds(110, 250, 250, 27);
         p_Actualizar.add(c5);
 
-        JTextField c6 = new JTextField();
+        JPasswordField c6 = new JPasswordField();
         c6.setBounds(110, 300, 250, 27);
         p_Actualizar.add(c6);
 
@@ -987,7 +992,30 @@ public class Modulo_Administracion {
         p_Actualizar.add(b_actualizar);
         //Agregando eventos de tipo ActionListener
         ActionListener a_actualizar = (ActionEvent ae) -> {
-
+               for (int i = 0; i < guardarVendedor.length; i++) {
+//                int codigoVend = Integer.parseInt(c1.getText());
+                String codigoVend = c1.getText();
+                String nombreVend = c2.getText();
+//                int cajaVend = Integer.parseInt(c3.getText());
+                String cajaVend = c3.getText();
+//                int ventasVend = Integer.parseInt(c3.getText());
+                String ventasVend = c4.getText();
+                String generoVend = c5.getText();
+                String passwordVend = c6.getText();
+                int indice = Integer.parseInt(c1.getText());
+                if(i == (indice-1)){
+                guardarVendedor[i] = new Vendedor(codigoVend, nombreVend, cajaVend, ventasVend, generoVend, passwordVend);
+                almacenaVendedor[i][0] = guardarVendedor[i].getCodigo();
+                almacenaVendedor[i][1] = guardarVendedor[i].getNombre();
+                almacenaVendedor[i][2] = guardarVendedor[i].getVendedorCaja();
+                almacenaVendedor[i][3] = guardarVendedor[i].getVendedorVentas();
+                almacenaVendedor[i][4] = guardarVendedor[i].getGenero();
+                modelo_tabVende.addRow(almacenaVendedor[i]); 
+                
+                }
+                vActualizar.dispose();
+                
+            }
         };
         b_actualizar.addActionListener(a_actualizar);
     }
