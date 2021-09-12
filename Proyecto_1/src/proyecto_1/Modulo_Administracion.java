@@ -1,5 +1,4 @@
 package proyecto_1;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -24,10 +23,9 @@ public class Modulo_Administracion {
     private JPanel panel, panel1, panel2, panel3, panel4;
     private JTabbedPane primeras_pestañas = new JTabbedPane();
     //Datos para vendedor
-    int tamañoVectorVendedor = 1;
-    Vendedor guardarVendedor[] = new Vendedor[tamañoVectorVendedor];
     DefaultTableModel modelo_tabVende = new DefaultTableModel();
-    String almacenaVendedor[][]= new String [tamañoVectorVendedor][6];
+    String almacenaVendedor[][]= new String [GuardarObjetos.tamañoVectorVendedor][6];   // almacenamiento temporal para los vendedores y agregarlos a la tabla
+    
     public void ventanaAdmin() {
         ventanaAdmin.setSize(800, 800);
         ventanaAdmin.setTitle("Administración");
@@ -38,7 +36,7 @@ public class Modulo_Administracion {
         ventanaAdmin.setVisible(true);
         iniciarComponentes();
     }
-
+     // inicia cada componente de la ventana  tablas, pestañas, paneles, botones , etc
     private void iniciarComponentes() {
         colocarPanel();
         colocarBotones();
@@ -93,7 +91,7 @@ public class Modulo_Administracion {
         panel.add(primeras_pestañas);
 
     }
-
+    // BOTON PARA CERRAR SESION
     private void colocarBotones() {
         JButton boton1 = new JButton("Cerrar Sesión");
         boton1.setBounds(635, 5, 140, 25);
@@ -870,28 +868,28 @@ public class Modulo_Administracion {
         //Agregando eventos de tipo ActionListener
         ActionListener a_agregar = (ActionEvent ae) -> {
 
-            for (int i = 0; i < guardarVendedor.length; i++) {
-//                int codigoVend = Integer.parseInt(c1.getText());
-                String codigoVend = c1.getText();
+            for (int i = 0; i < GuardarObjetos.guardarVendedor.length; i++) {
+                int codigoVend = Integer.parseInt(c1.getText());
                 String nombreVend = c2.getText();
-//                int cajaVend = Integer.parseInt(c3.getText());
-                String cajaVend = c3.getText();
-//                int ventasVend = Integer.parseInt(c3.getText());
-                String ventasVend = c4.getText();
+                int cajaVend = Integer.parseInt(c3.getText());
+                int ventasVend = Integer.parseInt(c4.getText());
                 String generoVend = c5.getText();
                 String passwordVend = c6.getText();
                 
-                guardarVendedor[i] = new Vendedor(codigoVend, nombreVend, cajaVend, ventasVend, generoVend, passwordVend);
-                almacenaVendedor[i][0] = guardarVendedor[i].getCodigo();
-                almacenaVendedor[i][1] = guardarVendedor[i].getNombre();
-                almacenaVendedor[i][2] =guardarVendedor[i].getVendedorCaja();
-                almacenaVendedor[i][3] = guardarVendedor[i].getVendedorVentas();
-                almacenaVendedor[i][4] = guardarVendedor[i].getGenero();
+                GuardarObjetos.guardarVendedor[i] = new Vendedor(codigoVend, nombreVend, cajaVend, ventasVend, generoVend, passwordVend);
+                
+                almacenaVendedor[i][0] = Integer.toString(GuardarObjetos.guardarVendedor[i].getVendedorCodigo()) ;
+                almacenaVendedor[i][1] = GuardarObjetos.guardarVendedor[i].getVendedorNombre();
+                almacenaVendedor[i][2] = Integer.toString(GuardarObjetos.guardarVendedor[i].getVendedorCaja());
+                almacenaVendedor[i][3] = Integer.toString(GuardarObjetos.guardarVendedor[i].getVendedorVentas());
+                almacenaVendedor[i][4] = GuardarObjetos.guardarVendedor[i].getVendedorGenero();
                 modelo_tabVende.addRow(almacenaVendedor[i]);
                 vCrear.dispose();
             }
-            tamañoVectorVendedor = tamañoVectorVendedor + 1;
+            GuardarObjetos.tamañoVectorVendedor = GuardarObjetos.tamañoVectorVendedor + 1;
+             System.out.println(GuardarObjetos.tamañoVectorVendedor );
         };
+       
         b_agregar.addActionListener(a_agregar);
     }
 
@@ -992,7 +990,7 @@ public class Modulo_Administracion {
         p_Actualizar.add(b_actualizar);
         //Agregando eventos de tipo ActionListener
         ActionListener a_actualizar = (ActionEvent ae) -> {
-               for (int i = 0; i < guardarVendedor.length; i++) {
+               for (int i = 0; i <= GuardarObjetos.guardarVendedor.length; i++) {
 //                int codigoVend = Integer.parseInt(c1.getText());
                 String codigoVend = c1.getText();
                 String nombreVend = c2.getText();
@@ -1002,16 +1000,21 @@ public class Modulo_Administracion {
                 String ventasVend = c4.getText();
                 String generoVend = c5.getText();
                 String passwordVend = c6.getText();
-                int indice = Integer.parseInt(c1.getText());
+                int indice = Integer.parseInt(codigoVend);
                 if(i == (indice-1)){
-                guardarVendedor[i] = new Vendedor(codigoVend, nombreVend, cajaVend, ventasVend, generoVend, passwordVend);
-                almacenaVendedor[i][0] = guardarVendedor[i].getCodigo();
-                almacenaVendedor[i][1] = guardarVendedor[i].getNombre();
-                almacenaVendedor[i][2] = guardarVendedor[i].getVendedorCaja();
-                almacenaVendedor[i][3] = guardarVendedor[i].getVendedorVentas();
-                almacenaVendedor[i][4] = guardarVendedor[i].getGenero();
-                modelo_tabVende.addRow(almacenaVendedor[i]); 
-                
+//                guardarVendedor[i] = new Vendedor(codigoVend, nombreVend, cajaVend, ventasVend, generoVend, passwordVend);
+//                almacenaVendedor[i][0] = guardarVendedor[i].getCodigo();
+//                almacenaVendedor[i][1] = guardarVendedor[i].getNombre();
+//                almacenaVendedor[i][2] = guardarVendedor[i].getVendedorCaja();
+//                almacenaVendedor[i][3] = guardarVendedor[i].getVendedorVentas();
+//                almacenaVendedor[i][4] = guardarVendedor[i].getGenero();
+//                modelo_tabVende.addRow(almacenaVendedor[i]); 
+//                    System.out.println(i+"  "+almacenaVendedor[i][0]);
+//                    System.out.println(almacenaVendedor[i][1]);
+//                    System.out.println(almacenaVendedor[i][2]);
+//                    System.out.println(almacenaVendedor[i][3]);
+//                    System.out.println(almacenaVendedor[i][4]);
+//                modelo_tabVende.setValueAt(almacenaVendedor, i, 0);// no funciona 
                 }
                 vActualizar.dispose();
                 
