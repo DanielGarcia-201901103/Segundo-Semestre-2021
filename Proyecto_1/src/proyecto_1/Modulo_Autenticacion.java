@@ -21,6 +21,9 @@ public class Modulo_Autenticacion {
     private JTextField Text_codigo1 = new JTextField();
     private JPasswordField Text_contraseña1 = new JPasswordField();
 
+    public Modulo_Autenticacion() {
+    }
+    
     public void ventanaPrincipal() {
         ventanaAutentic.setSize(350, 250);
         ventanaAutentic.setTitle("Autenticación");
@@ -100,20 +103,20 @@ public class Modulo_Autenticacion {
         panel.add(boton1);
         //Agregando eventos de tipo ActionListener
         ActionListener accion = (ActionEvent ae) -> {
-            for (int i = 0; i < GuardarObjetos.guardarVendedor.length; i++) {
+            try{
                 if (Text_codigo1.getText().equals("admin") && Text_contraseña1.getText().equals("admin")) {
-
                     Modulo_Administracion ad = new Modulo_Administracion();
                     ad.ventanaAdmin();
                     ventanaAutentic.dispose();
-                } else if (Text_codigo1.getText().equals(Integer.toString(GuardarObjetos.guardarVendedor[i].getVendedorCodigo())) && Text_contraseña1.getText().equals(GuardarObjetos.guardarVendedor[i].getVendedorPassword())) {   // Esto falta arreglarlo porque no esta completo
+                } else if (Text_codigo1.getText().equals(Integer.toString(GuardarObjetos.guardarVendedor[Integer.parseInt(Text_codigo1.getText())  -1].getVendedorCodigo())) && Text_contraseña1.getText().equals(GuardarObjetos.guardarVendedor[Integer.parseInt(Text_codigo1.getText())  -1].getVendedorPassword())) {   // Esto falta arreglarlo porque no esta completo
                     Modulo_Vendedores ven = new Modulo_Vendedores();
                     ven.ventanaVendedores();
                     ventanaAutentic.dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Codigo o Contraseña incorrectos");
                 }
-                break;
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Codigo o Contraseña incorrectos");
             }
         };
         boton1.addActionListener(accion);
