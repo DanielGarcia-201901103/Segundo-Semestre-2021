@@ -44,30 +44,31 @@ public class Modulo_Administracion {
     private JFrame ventanaAdmin = new JFrame();
     private JPanel panel, panel1, panel2, panel3, panel4;
     private JTabbedPane primeras_pestañas = new JTabbedPane();
-    
+
     //Datos para vendedor
     int contador_Vendedor = 0;
     DefaultTableModel modelo_tabVende = new DefaultTableModel();
     String almacenaVendedor[][] = new String[GuardarObjetos.guardarVendedor.length][6];   // almacenamiento temporal para los vendedores y agregarlos a la tabla
     JTable tab_Vendedores;
-    
+
     //Datos para cliente
     int contador_Cliente = 0;
     DefaultTableModel modelo_tabCliente = new DefaultTableModel();
     String almacenaCliente[][] = new String[GuardarObjetos.guardarCliente.length][5];
     JTable tab_Clientes;
-    
+
     //Datos para productos
     int contador_Producto = 0;
     DefaultTableModel modelo_tabProducto = new DefaultTableModel();
     String almacenaProducto[][] = new String[GuardarObjetos.guardarProductos.length][5];
     JTable tab_Productos;
-    
+
     //Datos para sucursales
     int contador_Sucursal = 0;
     DefaultTableModel modelo_tabSucursal = new DefaultTableModel();
     String almacenaSucursal[][] = new String[GuardarObjetos.guardarSucursales.length][5];
     JTable tab_Sucursal;
+
     public void ventanaAdmin() {
         ventanaAdmin.setSize(800, 800);
         ventanaAdmin.setTitle("Administración");
@@ -220,7 +221,7 @@ public class Modulo_Administracion {
                     modelo_tabSucursal.removeRow(tab_Sucursal.getSelectedRow());
                     for (int i = 0; i < GuardarObjetos.guardarSucursales.length; i++) {
                         if (convertirIndiceCodigo == GuardarObjetos.guardarSucursales[i].getSucursalCodigo()) {
-                            GuardarObjetos.guardarSucursales[i] = new Sucursal(0,null,null,null,null);
+                            GuardarObjetos.guardarSucursales[i] = new Sucursal(0, null, null, null, null);
                             break;
                         }
                     }
@@ -298,7 +299,7 @@ public class Modulo_Administracion {
         panel2.add(boton3);
         //Agregando eventos de tipo ActionListener
         ActionListener accion3 = (ActionEvent ae) -> {
-             if (tab_Productos.getSelectedRow() < 0) {
+            if (tab_Productos.getSelectedRow() < 0) {
                 JOptionPane.showMessageDialog(null, "Seleccione la fila a eliminar");
             } else {
                 int indiceEliminar = tab_Productos.getSelectedRow(); // obtiene la fila seleccionada
@@ -310,7 +311,7 @@ public class Modulo_Administracion {
                     modelo_tabProducto.removeRow(tab_Productos.getSelectedRow());
                     for (int i = 0; i < GuardarObjetos.guardarProductos.length; i++) {
                         if (convertirIndiceCodigo == GuardarObjetos.guardarProductos[i].getProductoCodigo()) {
-                            GuardarObjetos.guardarProductos[i] = new Producto(0,null,null,0,0);
+                            GuardarObjetos.guardarProductos[i] = new Producto(0, null, null, 0, 0);
                             break;
                         }
                     }
@@ -400,7 +401,7 @@ public class Modulo_Administracion {
                     modelo_tabCliente.removeRow(tab_Clientes.getSelectedRow());
                     for (int i = 0; i < GuardarObjetos.guardarCliente.length; i++) {
                         if (convertirIndiceCodigo == GuardarObjetos.guardarCliente[i].getClienteCodigo()) {
-                            GuardarObjetos.guardarCliente[i] = new Cliente(0,null,0,null,null);
+                            GuardarObjetos.guardarCliente[i] = new Cliente(0, null, 0, null, null);
                             break;
                         }
                     }
@@ -1572,6 +1573,20 @@ public class Modulo_Administracion {
         JScrollPane scr = new JScrollPane(tab_Vendedores);
         scr.setBounds(25, 20, 400, 650);
         panel4.add(scr);
+
+//            if (GuardarObjetos.guardarVendedor[indiceL].getVendedorCodigo() != 0) {
+//        for (int indiceL = 0; indiceL < GuardarObjetos.guardarVendedor.length; indiceL++) {
+//            if (GuardarObjetos.guardarVendedor[indiceL].getVendedorCodigo() != 0) {
+//                almacenaVendedor[indiceL][0] = Integer.toString(GuardarObjetos.guardarVendedor[indiceL].getVendedorCodigo());
+//                almacenaVendedor[indiceL][1] = GuardarObjetos.guardarVendedor[indiceL].getVendedorNombre();
+//                almacenaVendedor[indiceL][2] = Integer.toString(GuardarObjetos.guardarVendedor[indiceL].getVendedorCaja());
+//                almacenaVendedor[indiceL][3] = Integer.toString(GuardarObjetos.guardarVendedor[indiceL].getVendedorVentas());
+//                almacenaVendedor[indiceL][4] = GuardarObjetos.guardarVendedor[indiceL].getVendedorGenero();
+//                modelo_tabVende.addRow(almacenaVendedor[indiceL]);
+//            } else if(GuardarObjetos.guardarVendedor[indiceL].getVendedorCodigo() == 0){
+//                break;
+//            }
+//        }
 
     }
 
