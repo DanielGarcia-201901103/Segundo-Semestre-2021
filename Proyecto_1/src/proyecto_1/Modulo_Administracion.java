@@ -44,26 +44,30 @@ public class Modulo_Administracion {
     private JFrame ventanaAdmin = new JFrame();
     private JPanel panel, panel1, panel2, panel3, panel4;
     private JTabbedPane primeras_pestañas = new JTabbedPane();
+    
     //Datos para vendedor
     int contador_Vendedor = 0;
     DefaultTableModel modelo_tabVende = new DefaultTableModel();
     String almacenaVendedor[][] = new String[GuardarObjetos.guardarVendedor.length][6];   // almacenamiento temporal para los vendedores y agregarlos a la tabla
     JTable tab_Vendedores;
+    
     //Datos para cliente
     int contador_Cliente = 0;
     DefaultTableModel modelo_tabCliente = new DefaultTableModel();
     String almacenaCliente[][] = new String[GuardarObjetos.guardarCliente.length][5];
-
+    JTable tab_Clientes;
+    
     //Datos para productos
     int contador_Producto = 0;
     DefaultTableModel modelo_tabProducto = new DefaultTableModel();
     String almacenaProducto[][] = new String[GuardarObjetos.guardarProductos.length][5];
-
-    //Datos para productos
+    JTable tab_Productos;
+    
+    //Datos para sucursales
     int contador_Sucursal = 0;
     DefaultTableModel modelo_tabSucursal = new DefaultTableModel();
     String almacenaSucursal[][] = new String[GuardarObjetos.guardarSucursales.length][5];
-
+    JTable tab_Sucursal;
     public void ventanaAdmin() {
         ventanaAdmin.setSize(800, 800);
         ventanaAdmin.setTitle("Administración");
@@ -204,7 +208,25 @@ public class Modulo_Administracion {
         panel1.add(boton3);
         //Agregando eventos de tipo ActionListener
         ActionListener accion3 = (ActionEvent ae) -> {
-
+            if (tab_Sucursal.getSelectedRow() < 0) {
+                JOptionPane.showMessageDialog(null, "Seleccione la fila a eliminar");
+            } else {
+                int indiceEliminar = tab_Sucursal.getSelectedRow(); // obtiene la fila seleccionada
+                Object indiceFilaCodigo = tab_Sucursal.getValueAt(indiceEliminar, 0); // obtiene el valor que se encuentra en la columna de la fila seleccionada
+                int convertirIndiceCodigo = Integer.valueOf((String) indiceFilaCodigo);
+//                System.out.println("" + indiceEliminar + " " + indiceFilaCodigo+ "  codigo: " +convertirIndiceCodigo);
+                int conf = JOptionPane.showConfirmDialog(null, "Desea eliminar el elemento seleccionado?");
+                if (JOptionPane.OK_OPTION == conf) {
+                    modelo_tabSucursal.removeRow(tab_Sucursal.getSelectedRow());
+                    for (int i = 0; i < GuardarObjetos.guardarSucursales.length; i++) {
+                        if (convertirIndiceCodigo == GuardarObjetos.guardarSucursales[i].getSucursalCodigo()) {
+                            GuardarObjetos.guardarSucursales[i] = new Sucursal(0,null,null,null,null);
+                            break;
+                        }
+                    }
+                    JOptionPane.showMessageDialog(null, "El elemento seleccionado fue eliminado");
+                }
+            }
         };
         boton3.addActionListener(accion3);
 
@@ -276,7 +298,25 @@ public class Modulo_Administracion {
         panel2.add(boton3);
         //Agregando eventos de tipo ActionListener
         ActionListener accion3 = (ActionEvent ae) -> {
-
+             if (tab_Productos.getSelectedRow() < 0) {
+                JOptionPane.showMessageDialog(null, "Seleccione la fila a eliminar");
+            } else {
+                int indiceEliminar = tab_Productos.getSelectedRow(); // obtiene la fila seleccionada
+                Object indiceFilaCodigo = tab_Productos.getValueAt(indiceEliminar, 0); // obtiene el valor que se encuentra en la columna de la fila seleccionada
+                int convertirIndiceCodigo = Integer.valueOf((String) indiceFilaCodigo);
+//                System.out.println("" + indiceEliminar + " " + indiceFilaCodigo+ "  codigo: " +convertirIndiceCodigo);
+                int conf = JOptionPane.showConfirmDialog(null, "Desea eliminar el elemento seleccionado?");
+                if (JOptionPane.OK_OPTION == conf) {
+                    modelo_tabProducto.removeRow(tab_Productos.getSelectedRow());
+                    for (int i = 0; i < GuardarObjetos.guardarProductos.length; i++) {
+                        if (convertirIndiceCodigo == GuardarObjetos.guardarProductos[i].getProductoCodigo()) {
+                            GuardarObjetos.guardarProductos[i] = new Producto(0,null,null,0,0);
+                            break;
+                        }
+                    }
+                    JOptionPane.showMessageDialog(null, "El elemento seleccionado fue eliminado");
+                }
+            }
         };
         boton3.addActionListener(accion3);
 
@@ -348,7 +388,25 @@ public class Modulo_Administracion {
         panel3.add(boton3);
         //Agregando eventos de tipo ActionListener
         ActionListener accion3 = (ActionEvent ae) -> {
-
+            if (tab_Clientes.getSelectedRow() < 0) {
+                JOptionPane.showMessageDialog(null, "Seleccione la fila a eliminar");
+            } else {
+                int indiceEliminar = tab_Clientes.getSelectedRow(); // obtiene la fila seleccionada
+                Object indiceFilaCodigo = tab_Clientes.getValueAt(indiceEliminar, 0); // obtiene el valor que se encuentra en la columna de la fila seleccionada
+                int convertirIndiceCodigo = Integer.valueOf((String) indiceFilaCodigo);
+//                System.out.println("" + indiceEliminar + " " + indiceFilaCodigo+ "  codigo: " +convertirIndiceCodigo);
+                int conf = JOptionPane.showConfirmDialog(null, "Desea eliminar el elemento seleccionado?");
+                if (JOptionPane.OK_OPTION == conf) {
+                    modelo_tabCliente.removeRow(tab_Clientes.getSelectedRow());
+                    for (int i = 0; i < GuardarObjetos.guardarCliente.length; i++) {
+                        if (convertirIndiceCodigo == GuardarObjetos.guardarCliente[i].getClienteCodigo()) {
+                            GuardarObjetos.guardarCliente[i] = new Cliente(0,null,0,null,null);
+                            break;
+                        }
+                    }
+                    JOptionPane.showMessageDialog(null, "El elemento seleccionado fue eliminado");
+                }
+            }
         };
         boton3.addActionListener(accion3);
 
@@ -426,24 +484,25 @@ public class Modulo_Administracion {
         panel4.add(boton3);
         //Agregando eventos de tipo ActionListener
         ActionListener accion3 = (ActionEvent ae) -> {
-            // elimina todas las filas pero no funciona para eliminar la fila seleccionada
-//            int filaEliminar = modelo_tabVende.getRowCount();
-//            for (int cont = filaEliminar - 1; cont >= 0; cont--) {
-//                System.out.println("fila:" + cont);
-//                modelo_tabVende.removeRow(cont);
-//            }
             if (tab_Vendedores.getSelectedRow() < 0) {
                 JOptionPane.showMessageDialog(null, "Seleccione la fila a eliminar");
             } else {
+                int indiceEliminar = tab_Vendedores.getSelectedRow(); // obtiene la fila seleccionada
+                Object indiceFilaCodigo = tab_Vendedores.getValueAt(indiceEliminar, 0); // obtiene el valor que se encuentra en la columna de la fila seleccionada
+                int convertirIndiceCodigo = Integer.valueOf((String) indiceFilaCodigo);
+//                System.out.println("" + indiceEliminar + " " + indiceFilaCodigo+ "  codigo: " +convertirIndiceCodigo);
                 int conf = JOptionPane.showConfirmDialog(null, "Desea eliminar el elemento seleccionado?");
                 if (JOptionPane.OK_OPTION == conf) {
                     modelo_tabVende.removeRow(tab_Vendedores.getSelectedRow());
+                    for (int i = 0; i < GuardarObjetos.guardarVendedor.length; i++) {
+                        if (convertirIndiceCodigo == GuardarObjetos.guardarVendedor[i].getVendedorCodigo()) {
+                            GuardarObjetos.guardarVendedor[i] = new Vendedor(0, null, 0, 0, null, null);
+                            break;
+                        }
+                    }
                     JOptionPane.showMessageDialog(null, "El elemento seleccionado fue eliminado");
-//                    GuardarObjetos.guardarVendedor[] = new Vendedor(0, null, 0, 0, null, null);
-//falta encontrar el numero de fila que se elimina y asi buscar en el objeto y convertir valores a nulos
                 }
             }
-
         };
         boton3.addActionListener(accion3);
 
@@ -1225,7 +1284,6 @@ public class Modulo_Administracion {
         p_Crear.add(b_agregar);
         //Agregando eventos de tipo ActionListener
         ActionListener a_agregar = (ActionEvent ae) -> {
-
             int codigoVend = Integer.parseInt(c1.getText());
             String nombreVend = c2.getText();
             int cajaVend = Integer.parseInt(c3.getText());
@@ -1245,7 +1303,6 @@ public class Modulo_Administracion {
             }
 
             vCrear.dispose();
-            GuardarObjetos.tamañoVectorVendedor = GuardarObjetos.tamañoVectorVendedor + 1;
 
         };
 
@@ -1475,8 +1532,8 @@ public class Modulo_Administracion {
         modelo_tabSucursal.addColumn("Dirección");
         modelo_tabSucursal.addColumn("Correo");
         modelo_tabSucursal.addColumn("Teléfono");
-        JTable tab = new JTable(modelo_tabSucursal);
-        JScrollPane scr = new JScrollPane(tab);
+        tab_Sucursal = new JTable(modelo_tabSucursal);
+        JScrollPane scr = new JScrollPane(tab_Sucursal);
         scr.setBounds(25, 20, 400, 650);
         panel1.add(scr);
     }
@@ -1487,8 +1544,8 @@ public class Modulo_Administracion {
         modelo_tabProducto.addColumn("Descripción");
         modelo_tabProducto.addColumn("Cantidad");
         modelo_tabProducto.addColumn("Precio");
-        JTable tab = new JTable(modelo_tabProducto);
-        JScrollPane scr = new JScrollPane(tab);
+        tab_Productos = new JTable(modelo_tabProducto);
+        JScrollPane scr = new JScrollPane(tab_Productos);
         scr.setBounds(25, 20, 400, 650);
         panel2.add(scr);
     }
@@ -1499,8 +1556,8 @@ public class Modulo_Administracion {
         modelo_tabCliente.addColumn("NIT");
         modelo_tabCliente.addColumn("Correo");
         modelo_tabCliente.addColumn("Género");
-        JTable tab = new JTable(modelo_tabCliente);
-        JScrollPane scr = new JScrollPane(tab);
+        tab_Clientes = new JTable(modelo_tabCliente);
+        JScrollPane scr = new JScrollPane(tab_Clientes);
         scr.setBounds(25, 20, 400, 650);
         panel3.add(scr);
     }
