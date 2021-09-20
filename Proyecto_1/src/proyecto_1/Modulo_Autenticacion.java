@@ -117,7 +117,8 @@ public class Modulo_Autenticacion {
                         break;
                     }
                 }
-                } else {
+                }else if(GuardarObjetos.guardarVendedor== null){
+                }else {
                     JOptionPane.showMessageDialog(null, "Codigo o Contraseña incorrectos");
                 }
                 

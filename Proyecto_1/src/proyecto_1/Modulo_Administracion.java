@@ -1537,6 +1537,25 @@ public class Modulo_Administracion {
         JScrollPane scr = new JScrollPane(tab_Sucursal);
         scr.setBounds(25, 20, 400, 650);
         panel1.add(scr);
+
+        try {
+            for (int indiceL = 0; indiceL < GuardarObjetos.guardarSucursales.length; indiceL++) {
+                if (GuardarObjetos.guardarSucursales[indiceL] != null) {
+                    almacenaSucursal[indiceL][0] = Integer.toString(GuardarObjetos.guardarSucursales[indiceL].getSucursalCodigo());
+                    almacenaSucursal[indiceL][1] = GuardarObjetos.guardarSucursales[indiceL].getSucursalNombre();
+                    almacenaSucursal[indiceL][2] = GuardarObjetos.guardarSucursales[indiceL].getSucursalDireccion();
+                    almacenaSucursal[indiceL][3] = GuardarObjetos.guardarSucursales[indiceL].getSucursalCorreo();
+                    almacenaSucursal[indiceL][4] = GuardarObjetos.guardarSucursales[indiceL].getSucursalTelefono();
+                    modelo_tabSucursal.addRow(almacenaSucursal[indiceL]);
+                } else if (GuardarObjetos.guardarSucursales[indiceL] == null) {
+
+                    break;
+                }
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     private void colocarTabla_Productos() {
@@ -1549,6 +1568,25 @@ public class Modulo_Administracion {
         JScrollPane scr = new JScrollPane(tab_Productos);
         scr.setBounds(25, 20, 400, 650);
         panel2.add(scr);
+
+        try {
+            for (int indiceL = 0; indiceL < GuardarObjetos.guardarProductos.length; indiceL++) {
+                if (GuardarObjetos.guardarProductos[indiceL] != null) {
+                    almacenaProducto[indiceL][0] = Integer.toString(GuardarObjetos.guardarProductos[indiceL].getProductoCodigo());
+                    almacenaProducto[indiceL][1] = GuardarObjetos.guardarProductos[indiceL].getProductoNombre();
+                    almacenaProducto[indiceL][2] = GuardarObjetos.guardarProductos[indiceL].getProductoDescripcion();
+                    almacenaProducto[indiceL][3] = Integer.toString(GuardarObjetos.guardarProductos[indiceL].getProductoCantidad());
+                    almacenaProducto[indiceL][4] = Float.toString(GuardarObjetos.guardarProductos[indiceL].getProductoPrecio());
+                    modelo_tabProducto.addRow(almacenaProducto[indiceL]);
+                } else if (GuardarObjetos.guardarProductos[indiceL] == null) {
+
+                    break;
+                }
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     private void colocarTabla_Clientes() {
@@ -1561,6 +1599,24 @@ public class Modulo_Administracion {
         JScrollPane scr = new JScrollPane(tab_Clientes);
         scr.setBounds(25, 20, 400, 650);
         panel3.add(scr);
+        try {
+            for (int indiceL = 0; indiceL < GuardarObjetos.guardarCliente.length; indiceL++) {
+                if (GuardarObjetos.guardarCliente[indiceL] != null) {
+                    almacenaCliente[indiceL][0] = Integer.toString(GuardarObjetos.guardarCliente[indiceL].getClienteCodigo());
+                    almacenaCliente[indiceL][1] = GuardarObjetos.guardarCliente[indiceL].getClienteNombre();
+                    almacenaCliente[indiceL][2] = Integer.toString(GuardarObjetos.guardarCliente[indiceL].getClienteNit());
+                    almacenaCliente[indiceL][3] = GuardarObjetos.guardarCliente[indiceL].getClienteCorreo();
+                    almacenaCliente[indiceL][4] = GuardarObjetos.guardarCliente[indiceL].getClienteGenero();
+                    modelo_tabCliente.addRow(almacenaCliente[indiceL]);
+                } else if (GuardarObjetos.guardarCliente[indiceL] == null) {
+
+                    break;
+                }
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     private void colocarTabla_Vendedores() {
@@ -1573,21 +1629,24 @@ public class Modulo_Administracion {
         JScrollPane scr = new JScrollPane(tab_Vendedores);
         scr.setBounds(25, 20, 400, 650);
         panel4.add(scr);
+        try {
+            for (int indiceL = 0; indiceL < GuardarObjetos.guardarVendedor.length; indiceL++) {
+                if (GuardarObjetos.guardarVendedor[indiceL] != null) {
+                    almacenaVendedor[indiceL][0] = Integer.toString(GuardarObjetos.guardarVendedor[indiceL].getVendedorCodigo());
+                    almacenaVendedor[indiceL][1] = GuardarObjetos.guardarVendedor[indiceL].getVendedorNombre();
+                    almacenaVendedor[indiceL][2] = Integer.toString(GuardarObjetos.guardarVendedor[indiceL].getVendedorCaja());
+                    almacenaVendedor[indiceL][3] = Integer.toString(GuardarObjetos.guardarVendedor[indiceL].getVendedorVentas());
+                    almacenaVendedor[indiceL][4] = GuardarObjetos.guardarVendedor[indiceL].getVendedorGenero();
+                    modelo_tabVende.addRow(almacenaVendedor[indiceL]);
+                } else if (GuardarObjetos.guardarVendedor[indiceL] == null) {
 
-//            if (GuardarObjetos.guardarVendedor[indiceL].getVendedorCodigo() != 0) {
-//        for (int indiceL = 0; indiceL < GuardarObjetos.guardarVendedor.length; indiceL++) {
-//            if (GuardarObjetos.guardarVendedor[indiceL].getVendedorCodigo() != 0) {
-//                almacenaVendedor[indiceL][0] = Integer.toString(GuardarObjetos.guardarVendedor[indiceL].getVendedorCodigo());
-//                almacenaVendedor[indiceL][1] = GuardarObjetos.guardarVendedor[indiceL].getVendedorNombre();
-//                almacenaVendedor[indiceL][2] = Integer.toString(GuardarObjetos.guardarVendedor[indiceL].getVendedorCaja());
-//                almacenaVendedor[indiceL][3] = Integer.toString(GuardarObjetos.guardarVendedor[indiceL].getVendedorVentas());
-//                almacenaVendedor[indiceL][4] = GuardarObjetos.guardarVendedor[indiceL].getVendedorGenero();
-//                modelo_tabVende.addRow(almacenaVendedor[indiceL]);
-//            } else if(GuardarObjetos.guardarVendedor[indiceL].getVendedorCodigo() == 0){
-//                break;
-//            }
-//        }
+                    break;
+                }
 
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     // ########################## Graficos ###############################################
@@ -1601,5 +1660,44 @@ public class Modulo_Administracion {
 
     private void colocarGrafico_Vendedores() {
 
+    }
+
+    private void ordenamiento_burbujaVendedores() {
+        int auxiliar_vendedorCodigo;
+        String auxiliar_vendedorNombre;
+        int auxiliar_vendedorCaja;
+        int auxiliar_vendedorVentas;
+        String auxiliar_vendedorGenero;
+        String auxiliar_vendedorPassword;
+        for (int i = 0; i < GuardarObjetos.guardarVendedor.length; i++) {
+            for (int j = 0; j < GuardarObjetos.guardarVendedor.length; j++) {
+                if ((GuardarObjetos.guardarVendedor[j].getVendedorCodigo() > GuardarObjetos.guardarVendedor[j + 1].getVendedorCodigo()) && (GuardarObjetos.guardarVendedor[j].getVendedorCodigo() != 0)) {
+                    //cambiando codigo
+                    auxiliar_vendedorCodigo = GuardarObjetos.guardarVendedor[j].getVendedorCodigo();
+                    GuardarObjetos.guardarVendedor[j].setVendedorCodigo(GuardarObjetos.guardarVendedor[j + 1].getVendedorCodigo());
+                    GuardarObjetos.guardarVendedor[j + 1].setVendedorCodigo(auxiliar_vendedorCodigo);
+                    //cambiando nombre
+                    auxiliar_vendedorNombre = GuardarObjetos.guardarVendedor[j].getVendedorNombre();
+                    GuardarObjetos.guardarVendedor[j].setVendedorNombre(GuardarObjetos.guardarVendedor[j + 1].getVendedorNombre());
+                    GuardarObjetos.guardarVendedor[j + 1].setVendedorNombre(auxiliar_vendedorNombre);
+                    //cambiando caja
+                    auxiliar_vendedorCaja = GuardarObjetos.guardarVendedor[j].getVendedorCaja();
+                    GuardarObjetos.guardarVendedor[j].setVendedorCaja(GuardarObjetos.guardarVendedor[j + 1].getVendedorCaja());
+                    GuardarObjetos.guardarVendedor[j + 1].setVendedorCaja(auxiliar_vendedorCaja);
+                    //cambiando ventas
+                    auxiliar_vendedorVentas = GuardarObjetos.guardarVendedor[j].getVendedorVentas();
+                    GuardarObjetos.guardarVendedor[j].setVendedorVentas(GuardarObjetos.guardarVendedor[j + 1].getVendedorVentas());
+                    GuardarObjetos.guardarVendedor[j + 1].setVendedorVentas(auxiliar_vendedorVentas);
+                    //cambiando genero
+                    auxiliar_vendedorGenero = GuardarObjetos.guardarVendedor[j].getVendedorGenero();
+                    GuardarObjetos.guardarVendedor[j].setVendedorGenero(GuardarObjetos.guardarVendedor[j + 1].getVendedorGenero());
+                    GuardarObjetos.guardarVendedor[j + 1].setVendedorGenero(auxiliar_vendedorGenero);
+                    //cambiando password
+                    auxiliar_vendedorPassword = GuardarObjetos.guardarVendedor[j].getVendedorPassword();
+                    GuardarObjetos.guardarVendedor[j].setVendedorPassword(GuardarObjetos.guardarVendedor[j + 1].getVendedorPassword());
+                    GuardarObjetos.guardarVendedor[j + 1].setVendedorPassword(auxiliar_vendedorPassword);
+                }
+            }
+        }
     }
 }
