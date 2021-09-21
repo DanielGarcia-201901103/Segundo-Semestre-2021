@@ -1,0 +1,121 @@
+[{
+	"codigo": 1,
+	"nombre": "sucursal1",
+	"direccion": "564",
+	"coreo": "sucursal1@empresagg.com",
+	"telefono": 56465465
+}, {
+	"codigo": 2,
+	"nombre": "sucursal2",
+	"direccion": "516",
+	"coreo": "sucursal2@empresagg.com",
+	"telefono": 65465454
+}, {
+	"codigo": 3,
+	"nombre": "sucursal3",
+	"direccion": "561",
+	"coreo": "sucursal3@empresagg.com",
+	"telefono": 654654655
+}, {
+	"codigo": 4,
+	"nombre": "sucursal4",
+	"direccion": "2516",
+	"coreo": "sucursal4@empresagg.com",
+	"telefono": 465465
+}, {
+	"codigo": 5,
+	"nombre": "sucursal5",
+	"direccion": "213",
+	"coreo": "sucursal5@empresagg.com",
+	"telefono": 546544
+}, {
+	"codigo": 6,
+	"nombre": "sucursal6",
+	"direccion": "2316",
+	"coreo": "sucursal6@empresagg.com",
+	"telefono": 54654
+}, {
+	"codigo": 7,
+	"nombre": "sucursal7",
+	"direccion": "651",
+	"coreo": "sucursal7@empresagg.com",
+	"telefono": 546546
+}, {
+	"codigo": 8,
+	"nombre": "sucursal8",
+	"direccion": "2321",
+	"coreo": "sucursal8@empresagg.com",
+	"telefono": 56465465
+}, {
+	"codigo": 9,
+	"nombre": "sucursal9",
+	"direccion": "23125",
+	"coreo": "sucursal9@empresagg.com",
+	"telefono": 654654
+}, {
+	"codigo": 10,
+	"nombre": "sucursal10",
+	"direccion": "23",
+	"coreo": "sucursal10@empresagg.com",
+	"telefono": 654654654
+}, {
+	"codigo": 11,
+	"nombre": "sucursal11",
+	"direccion": "56",
+	"coreo": "sucursal11@empresagg.com",
+	"telefono": 54645654
+}, {
+	"codigo": 12,
+	"nombre": "sucursal12",
+	"direccion": "265",
+	"coreo": "sucursal12@empresagg.com",
+	"telefono": 654564645
+}, {
+	"codigo": 13,
+	"nombre": "sucursal13",
+	"direccion": "651",
+	"coreo": "sucursal13@empresagg.com",
+	"telefono": 65465466
+}, {
+	"codigo": 14,
+	"nombre": "sucursal14",
+	"direccion": "2135",
+	"coreo": "sucursal14@empresagg.com",
+	"telefono": 6546546
+}, {
+	"codigo": 15,
+	"nombre": "sucursal15",
+	"direccion": "2321",
+	"coreo": "sucursal15@empresagg.com",
+	"telefono": 65465456
+}, {
+	"codigo": 16,
+	"nombre": "sucursal16",
+	"direccion": "186",
+	"coreo": "sucursal16@empresagg.com",
+	"telefono": 5646546
+}, {
+	"codigo": 17,
+	"nombre": "sucursal17",
+	"direccion": "98",
+	"coreo": "sucursal17@empresagg.com",
+	"telefono": 5645466
+}, {
+	"codigo": 18,
+	"nombre": "sucursal18",
+	"direccion": "984",
+	"coreo": "sucursal18@empresagg.com",
+	"telefono": 654654
+}, {
+	"codigo": 19,
+	"nombre": "sucursal19",
+	"direccion": "8945",
+	"coreo": "sucursal19@empresagg.com",
+	"telefono": 6546546
+}, {
+	"codigo": 20,
+	"nombre": "sucursal20",
+	"direccion": "654",
+	"coreo": "sucursal20@empresagg.com",
+	"telefono": 65465465
+}]

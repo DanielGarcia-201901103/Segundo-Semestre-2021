@@ -1,0 +1,121 @@
+[{
+	"codigo": 1,
+	"nombre": "Juan",
+	"nit": "145896-9",
+	"correo": "juanitoelcoquetoo@gmail.com",
+	"genero": "M"
+}, {
+	"codigo": 2,
+	"nombre": "Jose",
+	"nit": "321548-6",
+	"correo": "josechepito@yopmail.com",
+	"genero": "F"
+}, {
+	"codigo": 3,
+	"nombre": "Maria",
+	"nit": "321200-d",
+	"correo": "mariajuaquilu@hotmail.com",
+	"genero": "F"
+}, {
+	"codigo": 4,
+	"nombre": "Marcos",
+	"nit": "251654-6",
+	"correo": "marquitosmeneses@elcorreo.com",
+	"genero": "M"
+}, {
+	"codigo": 5,
+	"nombre": "Pedro",
+	"nit": "213214-6",
+	"correo": "pedritoooo@ggmail.com",
+	"genero": "M"
+}, {
+	"codigo": 6,
+	"nombre": "Miguelangela",
+	"nit": "662316-7",
+	"correo": "lanegritachula@gmail.com",
+	"genero": "F"
+}, {
+	"codigo": 7,
+	"nombre": "Angela",
+	"nit": "651658-6",
+	"correo": "colocha69@yopmail.com",
+	"genero": "F"
+}, {
+	"codigo": 8,
+	"nombre": "Rigoberta",
+	"nit": "232166-6",
+	"correo": "rigo@gmail.com",
+	"genero": "F"
+}, {
+	"codigo": 9,
+	"nombre": "Juana",
+	"nit": "231254-6",
+	"correo": "juanabanana@yahoo.com",
+	"genero": "F"
+}, {
+	"codigo": 10,
+	"nombre": "Rosa",
+	"nit": "236932-4",
+	"correo": "rosamel@usac.edu",
+	"genero": "F"
+}, {
+	"codigo": 11,
+	"nombre": "Filemona",
+	"nit": "564758-6",
+	"correo": "filemonagomes@gmail.com",
+	"genero": "F"
+}, {
+	"codigo": 12,
+	"nombre": "Esdras",
+	"nit": "265963-6",
+	"correo": "esdrasnehmiasesterjob@gmail.com",
+	"genero": "M"
+}, {
+	"codigo": 13,
+	"nombre": "Ester",
+	"nit": "651651-k",
+	"correo": "esterf8556@gmail.com",
+	"genero": "F"
+}, {
+	"codigo": 14,
+	"nombre": "Job",
+	"nit": "213514-6",
+	"correo": "jobbb@hotmail.com",
+	"genero": "M"
+}, {
+	"codigo": 15,
+	"nombre": "Ricardo",
+	"nit": "232164-5",
+	"correo": "relchocha@gmail.com",
+	"genero": "M"
+}, {
+	"codigo": 16,
+	"nombre": "Javier",
+	"nit": "186777-5",
+	"correo": "javiiiii@hotmail.com",
+	"genero": "M"
+}, {
+	"codigo": 17,
+	"nombre": "Josue",
+	"nit": "981485-e",
+	"correo": "josuelel@yahoo.com",
+	"genero": "M"
+}, {
+	"codigo": 18,
+	"nombre": "Timoteo",
+	"nit": "984874-O",
+	"correo": "timtom@hotmail.com",
+	"genero": "M"
+}, {
+	"codigo": 19,
+	"nombre": "Sara",
+	"nit": "894514-4",
+	"correo": "saragg@gmail.com",
+	"genero": "F"
+}, {
+	"codigo": 20,
+	"nombre": "Manuela",
+	"nit": "654111-0",
+	"correo": "laamigadetodos@yahoo.com",
+	"genero": "F"
+}]

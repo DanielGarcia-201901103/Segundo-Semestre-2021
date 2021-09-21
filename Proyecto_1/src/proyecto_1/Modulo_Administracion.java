@@ -1448,34 +1448,10 @@ public class Modulo_Administracion {
             JSONParser pr = new JSONParser();
             System.out.println("asdfasdfasdfasdf");
 //            JSONArray arregloDatos = (JSONArray) pr.parse(pathR);
-            JSONArray arregloDatos = (JSONArray) pr.parse(pathR);
-            System.out.println("asdfasdfasdfasdf");
-            int cont = 0;
-            System.out.println("asdfasdfasdfasdf");
-            do {
-                for (int i = 0; i < arregloDatos.size(); i++) {
-                    JSONObject objeto = (JSONObject) arregloDatos.get(i);
-                    cont += 1;
-
-                    int codigoVendedor = (int) objeto.get("codigo");
-                    String nombreVendedor = (String) objeto.get("nombre");
-                    int cajaVendedor = (int) objeto.get("caja");
-                    int ventasVendedor = (int) objeto.get("ventas");
-                    String generoVendedor = (String) objeto.get("genero");
-                    String passwordVendedor = (String) objeto.get("password");
-                    Vendedor n = new Vendedor(codigoVendedor, nombreVendedor, cajaVendedor, ventasVendedor, generoVendedor, passwordVendedor);
-                    GuardarObjetos.guardarVendedor[i] = n;
-
-                    System.out.println("codigo: " + GuardarObjetos.guardarVendedor[i].getVendedorCodigo());
-                    System.out.println("nombre: " + GuardarObjetos.guardarVendedor[i].getVendedorNombre());
-                    System.out.println("caja: " + GuardarObjetos.guardarVendedor[i].getVendedorCaja());
-                    System.out.println("ventas: " + GuardarObjetos.guardarVendedor[i].getVendedorVentas());
-                    System.out.println("genero: " + GuardarObjetos.guardarVendedor[i].getVendedorGenero());
-                    System.out.println("password: " + GuardarObjetos.guardarVendedor[i].getVendedorPassword());
-
-                }
-            } while (cont <= 20);
-
+            JSONArray arregloDatos = (JSONArray) pr.parse(new FileReader(pathR));
+            System.out.println("asdfasdfasdfasdf"); // hasta aqui ya funciona
+          
+            
         } catch (FileNotFoundException e) {
 
         } catch (IOException e) {
@@ -1663,7 +1639,8 @@ public class Modulo_Administracion {
     private void colocarGrafico_Vendedores() {
 
     }
-
+    
+    // ########################## Ordenamiento Burbuja ###############################################
     private void ordenamiento_burbujaVendedores() {
         int auxiliar_vendedorCodigo;
         String auxiliar_vendedorNombre;
