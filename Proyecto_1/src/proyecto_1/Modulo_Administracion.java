@@ -1599,6 +1599,7 @@ public class Modulo_Administracion {
         JScrollPane scr = new JScrollPane(tab_Clientes);
         scr.setBounds(25, 20, 400, 650);
         panel3.add(scr);
+        ordenamiento_burbujaClientes();
         try {
             for (int indiceL = 0; indiceL < GuardarObjetos.guardarCliente.length; indiceL++) {
                 if (GuardarObjetos.guardarCliente[indiceL] != null) {
@@ -1706,35 +1707,35 @@ public class Modulo_Administracion {
     }
     
     private void ordenamiento_burbujaClientes(){
-        int auxiliar_vendedorCodigo;
-        String auxiliar_vendedorNombre;
-        int auxiliar_vendedorCaja;
-        int auxiliar_vendedorVentas;
-        String auxiliar_vendedorGenero;
-        for (int i = 0; i < GuardarObjetos.guardarVendedor.length; i++) {
-            for (int j = 0; j < GuardarObjetos.guardarVendedor.length; j++) {
-                if ((GuardarObjetos.guardarVendedor[j] != null) && (GuardarObjetos.guardarVendedor[j + 1] != null)) {
-                    if ((GuardarObjetos.guardarVendedor[j].getVendedorCodigo() > GuardarObjetos.guardarVendedor[j + 1].getVendedorCodigo())) {
+        int auxiliar_clienteCodigo;
+        String auxiliar_clienteNombre;
+        int auxiliar_clienteNit;
+        String auxiliar_clienteCorreo;
+        String auxiliar_clienteGenero;
+        for (int i = 0; i < GuardarObjetos.guardarCliente.length; i++) {
+            for (int j = 0; j < GuardarObjetos.guardarCliente.length; j++) {
+                if ((GuardarObjetos.guardarCliente[j] != null) && (GuardarObjetos.guardarCliente[j + 1] != null)) {
+                    if ((GuardarObjetos.guardarCliente[j].getClienteCodigo() > GuardarObjetos.guardarCliente[j + 1].getClienteCodigo())) {
                         //cambiando codigo
-                        auxiliar_vendedorCodigo = GuardarObjetos.guardarVendedor[j].getVendedorCodigo();
-                        GuardarObjetos.guardarVendedor[j].setVendedorCodigo(GuardarObjetos.guardarVendedor[j + 1].getVendedorCodigo());
-                        GuardarObjetos.guardarVendedor[j + 1].setVendedorCodigo(auxiliar_vendedorCodigo);
+                        auxiliar_clienteCodigo = GuardarObjetos.guardarCliente[j].getClienteCodigo();
+                        GuardarObjetos.guardarCliente[j].setClienteCodigo(GuardarObjetos.guardarCliente[j + 1].getClienteCodigo());
+                        GuardarObjetos.guardarCliente[j + 1].setClienteCodigo(auxiliar_clienteCodigo);
                         //cambiando nombre
-                        auxiliar_vendedorNombre = GuardarObjetos.guardarVendedor[j].getVendedorNombre();
-                        GuardarObjetos.guardarVendedor[j].setVendedorNombre(GuardarObjetos.guardarVendedor[j + 1].getVendedorNombre());
-                        GuardarObjetos.guardarVendedor[j + 1].setVendedorNombre(auxiliar_vendedorNombre);
-                        //cambiando caja
-                        auxiliar_vendedorCaja = GuardarObjetos.guardarVendedor[j].getVendedorCaja();
-                        GuardarObjetos.guardarVendedor[j].setVendedorCaja(GuardarObjetos.guardarVendedor[j + 1].getVendedorCaja());
-                        GuardarObjetos.guardarVendedor[j + 1].setVendedorCaja(auxiliar_vendedorCaja);
-                        //cambiando ventas
-                        auxiliar_vendedorVentas = GuardarObjetos.guardarVendedor[j].getVendedorVentas();
-                        GuardarObjetos.guardarVendedor[j].setVendedorVentas(GuardarObjetos.guardarVendedor[j + 1].getVendedorVentas());
-                        GuardarObjetos.guardarVendedor[j + 1].setVendedorVentas(auxiliar_vendedorVentas);
+                        auxiliar_clienteNombre = GuardarObjetos.guardarCliente[j].getClienteNombre();
+                        GuardarObjetos.guardarCliente[j].setClienteNombre(GuardarObjetos.guardarCliente[j + 1].getClienteNombre());
+                        GuardarObjetos.guardarCliente[j + 1].setClienteNombre(auxiliar_clienteNombre);
+                        //cambiando nit
+                        auxiliar_clienteNit = GuardarObjetos.guardarCliente[j].getClienteNit();
+                        GuardarObjetos.guardarCliente[j].setClienteNit(GuardarObjetos.guardarCliente[j + 1].getClienteNit());
+                        GuardarObjetos.guardarCliente[j + 1].setClienteNit(auxiliar_clienteNit);
+                        //cambiando correo
+                        auxiliar_clienteCorreo = GuardarObjetos.guardarCliente[j].getClienteCorreo();
+                        GuardarObjetos.guardarCliente[j].setClienteCorreo(GuardarObjetos.guardarCliente[j + 1].getClienteCorreo());
+                        GuardarObjetos.guardarCliente[j + 1].setClienteCorreo(auxiliar_clienteCorreo);
                         //cambiando genero
-                        auxiliar_vendedorGenero = GuardarObjetos.guardarVendedor[j].getVendedorGenero();
-                        GuardarObjetos.guardarVendedor[j].setVendedorGenero(GuardarObjetos.guardarVendedor[j + 1].getVendedorGenero());
-                        GuardarObjetos.guardarVendedor[j + 1].setVendedorGenero(auxiliar_vendedorGenero);
+                        auxiliar_clienteGenero = GuardarObjetos.guardarCliente[j].getClienteGenero();
+                        GuardarObjetos.guardarCliente[j].setClienteGenero(GuardarObjetos.guardarCliente[j + 1].getClienteGenero());
+                        GuardarObjetos.guardarCliente[j + 1].setClienteGenero(auxiliar_clienteGenero);
                     }
 
                 }
@@ -1743,7 +1744,40 @@ public class Modulo_Administracion {
     }
     
     private void ordenamiento_burbujaProductos(){
-        
+       int auxiliar_clienteCodigo;
+        String auxiliar_clienteNombre;
+        int auxiliar_clienteNit;
+        String auxiliar_clienteCorreo;
+        String auxiliar_clienteGenero;
+        for (int i = 0; i < GuardarObjetos.guardarCliente.length; i++) {
+            for (int j = 0; j < GuardarObjetos.guardarCliente.length; j++) {
+                if ((GuardarObjetos.guardarCliente[j] != null) && (GuardarObjetos.guardarCliente[j + 1] != null)) {
+                    if ((GuardarObjetos.guardarCliente[j].getClienteCodigo() > GuardarObjetos.guardarCliente[j + 1].getClienteCodigo())) {
+                        //cambiando codigo
+                        auxiliar_clienteCodigo = GuardarObjetos.guardarCliente[j].getClienteCodigo();
+                        GuardarObjetos.guardarCliente[j].setClienteCodigo(GuardarObjetos.guardarCliente[j + 1].getClienteCodigo());
+                        GuardarObjetos.guardarCliente[j + 1].setClienteCodigo(auxiliar_clienteCodigo);
+                        //cambiando nombre
+                        auxiliar_clienteNombre = GuardarObjetos.guardarCliente[j].getClienteNombre();
+                        GuardarObjetos.guardarCliente[j].setClienteNombre(GuardarObjetos.guardarCliente[j + 1].getClienteNombre());
+                        GuardarObjetos.guardarCliente[j + 1].setClienteNombre(auxiliar_clienteNombre);
+                        //cambiando nit
+                        auxiliar_clienteNit = GuardarObjetos.guardarCliente[j].getClienteNit();
+                        GuardarObjetos.guardarCliente[j].setClienteNit(GuardarObjetos.guardarCliente[j + 1].getClienteNit());
+                        GuardarObjetos.guardarCliente[j + 1].setClienteNit(auxiliar_clienteNit);
+                        //cambiando correo
+                        auxiliar_clienteCorreo = GuardarObjetos.guardarCliente[j].getClienteCorreo();
+                        GuardarObjetos.guardarCliente[j].setClienteCorreo(GuardarObjetos.guardarCliente[j + 1].getClienteCorreo());
+                        GuardarObjetos.guardarCliente[j + 1].setClienteCorreo(auxiliar_clienteCorreo);
+                        //cambiando genero
+                        auxiliar_clienteGenero = GuardarObjetos.guardarCliente[j].getClienteGenero();
+                        GuardarObjetos.guardarCliente[j].setClienteGenero(GuardarObjetos.guardarCliente[j + 1].getClienteGenero());
+                        GuardarObjetos.guardarCliente[j + 1].setClienteGenero(auxiliar_clienteGenero);
+                    }
+
+                }
+            }
+        } 
     }
     
     private void ordenamiento_burbujaSucursales(){
