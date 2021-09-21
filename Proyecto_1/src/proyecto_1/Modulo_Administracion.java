@@ -1302,7 +1302,7 @@ public class Modulo_Administracion {
                 contador_Vendedor = contador_Vendedor + 1;
 
             }
-            
+
             vCrear.dispose();
 
         };
@@ -1537,7 +1537,7 @@ public class Modulo_Administracion {
         JScrollPane scr = new JScrollPane(tab_Sucursal);
         scr.setBounds(25, 20, 400, 650);
         panel1.add(scr);
-
+        ordenamiento_burbujaSucursales();
         try {
             for (int indiceL = 0; indiceL < GuardarObjetos.guardarSucursales.length; indiceL++) {
                 if (GuardarObjetos.guardarSucursales[indiceL] != null) {
@@ -1568,7 +1568,7 @@ public class Modulo_Administracion {
         JScrollPane scr = new JScrollPane(tab_Productos);
         scr.setBounds(25, 20, 400, 650);
         panel2.add(scr);
-
+        ordenamiento_burbujaProductos();
         try {
             for (int indiceL = 0; indiceL < GuardarObjetos.guardarProductos.length; indiceL++) {
                 if (GuardarObjetos.guardarProductos[indiceL] != null) {
@@ -1706,7 +1706,7 @@ public class Modulo_Administracion {
         }
     }
     
-    private void ordenamiento_burbujaClientes(){
+    private void ordenamiento_burbujaClientes() {
         int auxiliar_clienteCodigo;
         String auxiliar_clienteNombre;
         int auxiliar_clienteNit;
@@ -1742,45 +1742,78 @@ public class Modulo_Administracion {
             }
         }
     }
-    
-    private void ordenamiento_burbujaProductos(){
-       int auxiliar_clienteCodigo;
-        String auxiliar_clienteNombre;
-        int auxiliar_clienteNit;
-        String auxiliar_clienteCorreo;
-        String auxiliar_clienteGenero;
-        for (int i = 0; i < GuardarObjetos.guardarCliente.length; i++) {
-            for (int j = 0; j < GuardarObjetos.guardarCliente.length; j++) {
-                if ((GuardarObjetos.guardarCliente[j] != null) && (GuardarObjetos.guardarCliente[j + 1] != null)) {
-                    if ((GuardarObjetos.guardarCliente[j].getClienteCodigo() > GuardarObjetos.guardarCliente[j + 1].getClienteCodigo())) {
+
+    private void ordenamiento_burbujaProductos() {
+        int auxiliar_productoCodigo;
+        String auxiliar_productoNombre;
+        String auxiliar_productoDescripcion;
+        int auxiliar_productoCantidad;
+        float auxiliar_productoPrecio;
+        for (int i = 0; i < GuardarObjetos.guardarProductos.length; i++) {
+            for (int j = 0; j < GuardarObjetos.guardarProductos.length; j++) {
+                if ((GuardarObjetos.guardarProductos[j] != null) && (GuardarObjetos.guardarProductos[j + 1] != null)) {
+                    if ((GuardarObjetos.guardarProductos[j].getProductoCodigo() > GuardarObjetos.guardarProductos[j + 1].getProductoCodigo())) {
                         //cambiando codigo
-                        auxiliar_clienteCodigo = GuardarObjetos.guardarCliente[j].getClienteCodigo();
-                        GuardarObjetos.guardarCliente[j].setClienteCodigo(GuardarObjetos.guardarCliente[j + 1].getClienteCodigo());
-                        GuardarObjetos.guardarCliente[j + 1].setClienteCodigo(auxiliar_clienteCodigo);
+                        auxiliar_productoCodigo = GuardarObjetos.guardarProductos[j].getProductoCodigo();
+                        GuardarObjetos.guardarProductos[j].setProductoCodigo(GuardarObjetos.guardarProductos[j + 1].getProductoCodigo());
+                        GuardarObjetos.guardarProductos[j + 1].setProductoCodigo(auxiliar_productoCodigo);
                         //cambiando nombre
-                        auxiliar_clienteNombre = GuardarObjetos.guardarCliente[j].getClienteNombre();
-                        GuardarObjetos.guardarCliente[j].setClienteNombre(GuardarObjetos.guardarCliente[j + 1].getClienteNombre());
-                        GuardarObjetos.guardarCliente[j + 1].setClienteNombre(auxiliar_clienteNombre);
-                        //cambiando nit
-                        auxiliar_clienteNit = GuardarObjetos.guardarCliente[j].getClienteNit();
-                        GuardarObjetos.guardarCliente[j].setClienteNit(GuardarObjetos.guardarCliente[j + 1].getClienteNit());
-                        GuardarObjetos.guardarCliente[j + 1].setClienteNit(auxiliar_clienteNit);
-                        //cambiando correo
-                        auxiliar_clienteCorreo = GuardarObjetos.guardarCliente[j].getClienteCorreo();
-                        GuardarObjetos.guardarCliente[j].setClienteCorreo(GuardarObjetos.guardarCliente[j + 1].getClienteCorreo());
-                        GuardarObjetos.guardarCliente[j + 1].setClienteCorreo(auxiliar_clienteCorreo);
-                        //cambiando genero
-                        auxiliar_clienteGenero = GuardarObjetos.guardarCliente[j].getClienteGenero();
-                        GuardarObjetos.guardarCliente[j].setClienteGenero(GuardarObjetos.guardarCliente[j + 1].getClienteGenero());
-                        GuardarObjetos.guardarCliente[j + 1].setClienteGenero(auxiliar_clienteGenero);
+                        auxiliar_productoNombre = GuardarObjetos.guardarProductos[j].getProductoNombre();
+                        GuardarObjetos.guardarProductos[j].setProductoNombre(GuardarObjetos.guardarProductos[j + 1].getProductoNombre());
+                        GuardarObjetos.guardarProductos[j + 1].setProductoNombre(auxiliar_productoNombre);
+                        //cambiando descripcion
+                        auxiliar_productoDescripcion = GuardarObjetos.guardarProductos[j].getProductoDescripcion();
+                        GuardarObjetos.guardarProductos[j].setProductoDescripcion(GuardarObjetos.guardarProductos[j + 1].getProductoDescripcion());
+                        GuardarObjetos.guardarProductos[j + 1].setProductoDescripcion(auxiliar_productoDescripcion);
+                        //cambiando cantidad
+                        auxiliar_productoCantidad = GuardarObjetos.guardarProductos[j].getProductoCantidad();
+                        GuardarObjetos.guardarProductos[j].setProductoCantidad(GuardarObjetos.guardarProductos[j + 1].getProductoCantidad());
+                        GuardarObjetos.guardarProductos[j + 1].setProductoCantidad(auxiliar_productoCantidad);
+                        //cambiando precio
+                        auxiliar_productoPrecio = GuardarObjetos.guardarProductos[j].getProductoPrecio();
+                        GuardarObjetos.guardarProductos[j].setProductoPrecio(GuardarObjetos.guardarProductos[j + 1].getProductoPrecio());
+                        GuardarObjetos.guardarProductos[j + 1].setProductoPrecio(auxiliar_productoPrecio);
                     }
 
                 }
             }
-        } 
+        }
     }
-    
-    private void ordenamiento_burbujaSucursales(){
-        
+
+    private void ordenamiento_burbujaSucursales() {
+         int auxiliar_sucursalCodigo;
+        String auxiliar_sucursalNombre;
+        String auxiliar_sucursalDireccion;
+        String auxiliar_sucursalCorreo;
+        String auxiliar_sucursalTelefono;
+        for (int i = 0; i < GuardarObjetos.guardarSucursales.length; i++) {
+            for (int j = 0; j < GuardarObjetos.guardarSucursales.length; j++) {
+                if ((GuardarObjetos.guardarSucursales[j] != null) && (GuardarObjetos.guardarSucursales[j + 1] != null)) {
+                    if ((GuardarObjetos.guardarSucursales[j].getSucursalCodigo() > GuardarObjetos.guardarSucursales[j + 1].getSucursalCodigo())) {
+                        //cambiando codigo
+                        auxiliar_sucursalCodigo = GuardarObjetos.guardarSucursales[j].getSucursalCodigo();
+                        GuardarObjetos.guardarSucursales[j].setSucursalCodigo(GuardarObjetos.guardarSucursales[j + 1].getSucursalCodigo());
+                        GuardarObjetos.guardarSucursales[j + 1].setSucursalCodigo(auxiliar_sucursalCodigo);
+                        //cambiando nombre
+                        auxiliar_sucursalNombre = GuardarObjetos.guardarSucursales[j].getSucursalNombre();
+                        GuardarObjetos.guardarSucursales[j].setSucursalNombre(GuardarObjetos.guardarSucursales[j + 1].getSucursalNombre());
+                        GuardarObjetos.guardarSucursales[j + 1].setSucursalNombre(auxiliar_sucursalNombre);
+                        //cambiando direccion
+                        auxiliar_sucursalDireccion = GuardarObjetos.guardarSucursales[j].getSucursalDireccion();
+                        GuardarObjetos.guardarSucursales[j].setSucursalDireccion(GuardarObjetos.guardarSucursales[j + 1].getSucursalDireccion());
+                        GuardarObjetos.guardarSucursales[j + 1].setSucursalDireccion(auxiliar_sucursalDireccion);
+                        //cambiando correo
+                        auxiliar_sucursalCorreo = GuardarObjetos.guardarSucursales[j].getSucursalCorreo();
+                        GuardarObjetos.guardarSucursales[j].setSucursalCorreo(GuardarObjetos.guardarSucursales[j + 1].getSucursalCorreo());
+                        GuardarObjetos.guardarSucursales[j + 1].setSucursalCorreo(auxiliar_sucursalCorreo);
+                        //cambiando telefono
+                        auxiliar_sucursalTelefono = GuardarObjetos.guardarSucursales[j].getSucursalTelefono();
+                        GuardarObjetos.guardarSucursales[j].setSucursalTelefono(GuardarObjetos.guardarSucursales[j + 1].getSucursalTelefono());
+                        GuardarObjetos.guardarSucursales[j + 1].setSucursalTelefono(auxiliar_sucursalTelefono);
+                    }
+
+                }
+            }
+        }
     }
 }
