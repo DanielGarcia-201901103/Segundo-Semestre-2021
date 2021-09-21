@@ -16,20 +16,15 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
@@ -42,8 +37,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
-import org.json.simple.JSONArray;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class Modulo_Administracion {
@@ -248,7 +241,11 @@ public class Modulo_Administracion {
         panel1.add(boton4);
         //Agregando eventos de tipo ActionListener
         ActionListener accion4 = (ActionEvent ae) -> {
-
+            try {
+                sucursales_PDF();
+            } catch (DocumentException ex) {
+                Logger.getLogger(Modulo_Administracion.class.getName()).log(Level.SEVERE, null, ex);
+            }
         };
         boton4.addActionListener(accion4);
     }
@@ -338,7 +335,11 @@ public class Modulo_Administracion {
         panel2.add(boton4);
         //Agregando eventos de tipo ActionListener
         ActionListener accion4 = (ActionEvent ae) -> {
-
+            try {
+                productos_PDF();
+            } catch (DocumentException ex) {
+                Logger.getLogger(Modulo_Administracion.class.getName()).log(Level.SEVERE, null, ex);
+            }
         };
         boton4.addActionListener(accion4);
     }
@@ -759,7 +760,85 @@ public class Modulo_Administracion {
         };
         b_actualizar.addActionListener(a_actualizar);
     }
+    
+    private void sucursales_PDF() throws DocumentException {
+        try {
+            Document docu1;
+            FileOutputStream arch1 = new FileOutputStream("Listado sucursales" + ".pdf");
+            Paragraph tit1 = new Paragraph("Listado Sucursales");
+            docu1 = new Document();
+            PdfWriter.getInstance((com.itextpdf.text.Document) docu1, arch1);
+            docu1.open();
+            tit1.setAlignment(1);
+            docu1.add(tit1);
+            docu1.add(Chunk.NEWLINE);
+            Paragraph texto = new Paragraph("Los datos de las sucursales son las siguientes:");//aqui dentro va todo lo que lleve el documento
 
+            texto.setAlignment(Element.ALIGN_JUSTIFIED);
+            docu1.add(texto);
+            docu1.add(Chunk.NEWLINE);
+            PdfPTable tab1 = new PdfPTable(6);
+            tab1.setWidthPercentage(100);
+            PdfPCell cod2 = new PdfPCell(new Phrase("Codigo"));
+            cod2.setBackgroundColor(BaseColor.ORANGE);
+            PdfPCell name2 = new PdfPCell(new Phrase("Nombre"));
+            name2.setBackgroundColor(BaseColor.ORANGE);
+            PdfPCell direccion = new PdfPCell(new Phrase("Dirección"));
+            direccion.setBackgroundColor(BaseColor.ORANGE);
+            PdfPCell correo = new PdfPCell(new Phrase("Correo"));
+            correo.setBackgroundColor(BaseColor.ORANGE);
+            PdfPCell telefono = new PdfPCell(new Phrase("Telefono"));
+            telefono.setBackgroundColor(BaseColor.ORANGE);
+            tab1.addCell(cod2);
+            tab1.addCell(name2);
+            tab1.addCell(direccion);
+            tab1.addCell(correo);
+            tab1.addCell(telefono);
+            ordenamiento_burbujaSucursales() ;
+            for (int i = 0; i < GuardarObjetos.guardarSucursales.length; i++) {
+                if (GuardarObjetos.guardarSucursales[i] != null) {
+                    String tempCodigo2 = Integer.toString(GuardarObjetos.guardarSucursales[i].getSucursalCodigo());
+                    tab1.addCell(tempCodigo2);
+                    String tempNombre2 = GuardarObjetos.guardarSucursales[i].getSucursalNombre();
+                    tab1.addCell(tempNombre2);
+                    String tempDireccion = GuardarObjetos.guardarSucursales[i].getSucursalDireccion();
+                    tab1.addCell(tempDireccion);
+                    String tempCorreo = GuardarObjetos.guardarSucursales[i].getSucursalCorreo();
+                    tab1.addCell(tempCorreo);
+                    String tempTelefono = GuardarObjetos.guardarSucursales[i].getSucursalTelefono();
+                    tab1.addCell(tempTelefono);
+                } else if (GuardarObjetos.guardarSucursales[i] == null) {
+                    break;
+                }
+            }
+
+            docu1.add(tab1);
+            docu1.add(Chunk.NEWLINE);
+
+//            Para manejar la fecha es 
+            LocalDate fecha1 = LocalDate.now();
+            String fech1 = fecha1.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            Paragraph texto2 = new Paragraph(fech1);//aqui dentro va la fecha 
+            texto2.setAlignment(Element.ALIGN_JUSTIFIED);
+            docu1.add(texto2);
+            docu1.close();
+            JOptionPane.showMessageDialog(null, "El archivo PDF se creó correctamente");
+            //abre archivo automaticamente
+            try {
+                File enlace1 = new File("Listado sucursales" + ".pdf");
+                Desktop.getDesktop().open(enlace1);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex, "Alerta", 2);
+            }
+
+        } catch (FileNotFoundException e) {
+
+        } catch (DocumentException e) {
+
+        }
+
+    }
+    
     // ########################## Acciones de Botones Sucursales ###############################################
     private void productos_vCrear() {
         //Creando la ventana
@@ -987,7 +1066,7 @@ public class Modulo_Administracion {
     private void productos_PDF() throws DocumentException {
         try {
             Document docu1;
-            FileOutputStream arch1 = new FileOutputStream("Listado Productos" + ".pdf");
+            FileOutputStream arch1 = new FileOutputStream("Listado productos" + ".pdf");
             Paragraph tit1 = new Paragraph("Listado Productos");
             docu1 = new Document();
             PdfWriter.getInstance((com.itextpdf.text.Document) docu1, arch1);
@@ -1002,34 +1081,35 @@ public class Modulo_Administracion {
             docu1.add(Chunk.NEWLINE);
             PdfPTable tab1 = new PdfPTable(6);
             tab1.setWidthPercentage(100);
-            PdfPCell cod1 = new PdfPCell(new Phrase("Codigo"));
-            cod1.setBackgroundColor(BaseColor.ORANGE);
-            PdfPCell name1 = new PdfPCell(new Phrase("Nombre"));
-            name1.setBackgroundColor(BaseColor.ORANGE);
-            PdfPCell nit = new PdfPCell(new Phrase("Descripción"));
-            nit.setBackgroundColor(BaseColor.ORANGE);
-            PdfPCell correo = new PdfPCell(new Phrase("Cantidad"));
-            correo.setBackgroundColor(BaseColor.ORANGE);
-            PdfPCell gen1 = new PdfPCell(new Phrase("Precio"));
-            gen1.setBackgroundColor(BaseColor.ORANGE);
-            tab1.addCell(cod1);
-            tab1.addCell(name1);
-            tab1.addCell(nit);
-            tab1.addCell(correo);
-            tab1.addCell(gen1);
-            for (int i = 0; i < GuardarObjetos.guardarCliente.length; i++) {
-                if (GuardarObjetos.guardarCliente[i] != null) {
-                    String tempCodigo1 = Integer.toString(GuardarObjetos.guardarCliente[i].getClienteCodigo());
-                    tab1.addCell(tempCodigo1);
-                    String tempNombre1 = GuardarObjetos.guardarCliente[i].getClienteNombre();
-                    tab1.addCell(tempNombre1);
-                    String tempNit = Integer.toString(GuardarObjetos.guardarCliente[i].getClienteNit());
-                    tab1.addCell(tempNit);
-                    String tempCorreo = GuardarObjetos.guardarCliente[i].getClienteCorreo();
-                    tab1.addCell(tempCorreo);
-                    String tempGenero1 = GuardarObjetos.guardarCliente[i].getClienteGenero();
-                    tab1.addCell(tempGenero1);
-                } else if (GuardarObjetos.guardarVendedor[i] == null) {
+            PdfPCell cod2 = new PdfPCell(new Phrase("Codigo"));
+            cod2.setBackgroundColor(BaseColor.ORANGE);
+            PdfPCell name2 = new PdfPCell(new Phrase("Nombre"));
+            name2.setBackgroundColor(BaseColor.ORANGE);
+            PdfPCell descripcion = new PdfPCell(new Phrase("Descripción"));
+            descripcion.setBackgroundColor(BaseColor.ORANGE);
+            PdfPCell cantidad = new PdfPCell(new Phrase("Cantidad"));
+            cantidad.setBackgroundColor(BaseColor.ORANGE);
+            PdfPCell precio = new PdfPCell(new Phrase("Precio"));
+            precio.setBackgroundColor(BaseColor.ORANGE);
+            tab1.addCell(cod2);
+            tab1.addCell(name2);
+            tab1.addCell(descripcion);
+            tab1.addCell(cantidad);
+            tab1.addCell(precio);
+            ordenamiento_burbujaProductos();
+            for (int i = 0; i < GuardarObjetos.guardarProductos.length; i++) {
+                if (GuardarObjetos.guardarProductos[i] != null) {
+                    String tempCodigo2 = Integer.toString(GuardarObjetos.guardarProductos[i].getProductoCodigo());
+                    tab1.addCell(tempCodigo2);
+                    String tempNombre2 = GuardarObjetos.guardarProductos[i].getProductoNombre();
+                    tab1.addCell(tempNombre2);
+                    String tempDescripcion = GuardarObjetos.guardarProductos[i].getProductoDescripcion();
+                    tab1.addCell(tempDescripcion);
+                    String tempCantidad = Integer.toString(GuardarObjetos.guardarProductos[i].getProductoCantidad());
+                    tab1.addCell(tempCantidad);
+                    String tempPrecio = Float.toString(GuardarObjetos.guardarProductos[i].getProductoPrecio());
+                    tab1.addCell(tempPrecio);
+                } else if (GuardarObjetos.guardarProductos[i] == null) {
                     break;
                 }
             }
@@ -1047,7 +1127,7 @@ public class Modulo_Administracion {
             JOptionPane.showMessageDialog(null, "El archivo PDF se creó correctamente");
             //abre archivo automaticamente
             try {
-                File enlace1 = new File("Listado vendedores" + ".pdf");
+                File enlace1 = new File("Listado productos" + ".pdf");
                 Desktop.getDesktop().open(enlace1);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex, "Alerta", 2);
@@ -1314,6 +1394,7 @@ public class Modulo_Administracion {
             tab1.addCell(nit);
             tab1.addCell(correo);
             tab1.addCell(gen1);
+            ordenamiento_burbujaClientes();
             for (int i = 0; i < GuardarObjetos.guardarCliente.length; i++) {
                 if (GuardarObjetos.guardarCliente[i] != null) {
                     String tempCodigo1 = Integer.toString(GuardarObjetos.guardarCliente[i].getClienteCodigo());
@@ -1344,7 +1425,7 @@ public class Modulo_Administracion {
             JOptionPane.showMessageDialog(null, "El archivo PDF se creó correctamente");
             //abre archivo automaticamente
             try {
-                File enlace1 = new File("Listado vendedores" + ".pdf");
+                File enlace1 = new File("Listado clientes" + ".pdf");
                 Desktop.getDesktop().open(enlace1);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex, "Alerta", 2);
@@ -1668,6 +1749,7 @@ public class Modulo_Administracion {
             tab.addCell(vent);
             tab.addCell(gen);
             tab.addCell(pas);
+            ordenamiento_burbujaVendedores();
             for (int i = 0; i < GuardarObjetos.guardarVendedor.length; i++) {
                 if (GuardarObjetos.guardarVendedor[i] != null) {
                     String tempCodigo = Integer.toString(GuardarObjetos.guardarVendedor[i].getVendedorCodigo());
