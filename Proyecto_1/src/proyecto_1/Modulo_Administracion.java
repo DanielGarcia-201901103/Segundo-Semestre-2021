@@ -1302,7 +1302,7 @@ public class Modulo_Administracion {
                 contador_Vendedor = contador_Vendedor + 1;
 
             }
-
+            
             vCrear.dispose();
 
         };
@@ -1629,6 +1629,7 @@ public class Modulo_Administracion {
         JScrollPane scr = new JScrollPane(tab_Vendedores);
         scr.setBounds(25, 20, 400, 650);
         panel4.add(scr);
+        ordenamiento_burbujaVendedores();
         try {
             for (int indiceL = 0; indiceL < GuardarObjetos.guardarVendedor.length; indiceL++) {
                 if (GuardarObjetos.guardarVendedor[indiceL] != null) {
@@ -1671,33 +1672,81 @@ public class Modulo_Administracion {
         String auxiliar_vendedorPassword;
         for (int i = 0; i < GuardarObjetos.guardarVendedor.length; i++) {
             for (int j = 0; j < GuardarObjetos.guardarVendedor.length; j++) {
-                if ((GuardarObjetos.guardarVendedor[j].getVendedorCodigo() > GuardarObjetos.guardarVendedor[j + 1].getVendedorCodigo()) && (GuardarObjetos.guardarVendedor[j].getVendedorCodigo() != 0)) {
-                    //cambiando codigo
-                    auxiliar_vendedorCodigo = GuardarObjetos.guardarVendedor[j].getVendedorCodigo();
-                    GuardarObjetos.guardarVendedor[j].setVendedorCodigo(GuardarObjetos.guardarVendedor[j + 1].getVendedorCodigo());
-                    GuardarObjetos.guardarVendedor[j + 1].setVendedorCodigo(auxiliar_vendedorCodigo);
-                    //cambiando nombre
-                    auxiliar_vendedorNombre = GuardarObjetos.guardarVendedor[j].getVendedorNombre();
-                    GuardarObjetos.guardarVendedor[j].setVendedorNombre(GuardarObjetos.guardarVendedor[j + 1].getVendedorNombre());
-                    GuardarObjetos.guardarVendedor[j + 1].setVendedorNombre(auxiliar_vendedorNombre);
-                    //cambiando caja
-                    auxiliar_vendedorCaja = GuardarObjetos.guardarVendedor[j].getVendedorCaja();
-                    GuardarObjetos.guardarVendedor[j].setVendedorCaja(GuardarObjetos.guardarVendedor[j + 1].getVendedorCaja());
-                    GuardarObjetos.guardarVendedor[j + 1].setVendedorCaja(auxiliar_vendedorCaja);
-                    //cambiando ventas
-                    auxiliar_vendedorVentas = GuardarObjetos.guardarVendedor[j].getVendedorVentas();
-                    GuardarObjetos.guardarVendedor[j].setVendedorVentas(GuardarObjetos.guardarVendedor[j + 1].getVendedorVentas());
-                    GuardarObjetos.guardarVendedor[j + 1].setVendedorVentas(auxiliar_vendedorVentas);
-                    //cambiando genero
-                    auxiliar_vendedorGenero = GuardarObjetos.guardarVendedor[j].getVendedorGenero();
-                    GuardarObjetos.guardarVendedor[j].setVendedorGenero(GuardarObjetos.guardarVendedor[j + 1].getVendedorGenero());
-                    GuardarObjetos.guardarVendedor[j + 1].setVendedorGenero(auxiliar_vendedorGenero);
-                    //cambiando password
-                    auxiliar_vendedorPassword = GuardarObjetos.guardarVendedor[j].getVendedorPassword();
-                    GuardarObjetos.guardarVendedor[j].setVendedorPassword(GuardarObjetos.guardarVendedor[j + 1].getVendedorPassword());
-                    GuardarObjetos.guardarVendedor[j + 1].setVendedorPassword(auxiliar_vendedorPassword);
+                if ((GuardarObjetos.guardarVendedor[j] != null) && (GuardarObjetos.guardarVendedor[j + 1] != null)) {
+                    if ((GuardarObjetos.guardarVendedor[j].getVendedorCodigo() > GuardarObjetos.guardarVendedor[j + 1].getVendedorCodigo())) {
+                        //cambiando codigo
+                        auxiliar_vendedorCodigo = GuardarObjetos.guardarVendedor[j].getVendedorCodigo();
+                        GuardarObjetos.guardarVendedor[j].setVendedorCodigo(GuardarObjetos.guardarVendedor[j + 1].getVendedorCodigo());
+                        GuardarObjetos.guardarVendedor[j + 1].setVendedorCodigo(auxiliar_vendedorCodigo);
+                        //cambiando nombre
+                        auxiliar_vendedorNombre = GuardarObjetos.guardarVendedor[j].getVendedorNombre();
+                        GuardarObjetos.guardarVendedor[j].setVendedorNombre(GuardarObjetos.guardarVendedor[j + 1].getVendedorNombre());
+                        GuardarObjetos.guardarVendedor[j + 1].setVendedorNombre(auxiliar_vendedorNombre);
+                        //cambiando caja
+                        auxiliar_vendedorCaja = GuardarObjetos.guardarVendedor[j].getVendedorCaja();
+                        GuardarObjetos.guardarVendedor[j].setVendedorCaja(GuardarObjetos.guardarVendedor[j + 1].getVendedorCaja());
+                        GuardarObjetos.guardarVendedor[j + 1].setVendedorCaja(auxiliar_vendedorCaja);
+                        //cambiando ventas
+                        auxiliar_vendedorVentas = GuardarObjetos.guardarVendedor[j].getVendedorVentas();
+                        GuardarObjetos.guardarVendedor[j].setVendedorVentas(GuardarObjetos.guardarVendedor[j + 1].getVendedorVentas());
+                        GuardarObjetos.guardarVendedor[j + 1].setVendedorVentas(auxiliar_vendedorVentas);
+                        //cambiando genero
+                        auxiliar_vendedorGenero = GuardarObjetos.guardarVendedor[j].getVendedorGenero();
+                        GuardarObjetos.guardarVendedor[j].setVendedorGenero(GuardarObjetos.guardarVendedor[j + 1].getVendedorGenero());
+                        GuardarObjetos.guardarVendedor[j + 1].setVendedorGenero(auxiliar_vendedorGenero);
+                        //cambiando password
+                        auxiliar_vendedorPassword = GuardarObjetos.guardarVendedor[j].getVendedorPassword();
+                        GuardarObjetos.guardarVendedor[j].setVendedorPassword(GuardarObjetos.guardarVendedor[j + 1].getVendedorPassword());
+                        GuardarObjetos.guardarVendedor[j + 1].setVendedorPassword(auxiliar_vendedorPassword);
+                    }
+
                 }
             }
         }
+    }
+    
+    private void ordenamiento_burbujaClientes(){
+        int auxiliar_vendedorCodigo;
+        String auxiliar_vendedorNombre;
+        int auxiliar_vendedorCaja;
+        int auxiliar_vendedorVentas;
+        String auxiliar_vendedorGenero;
+        for (int i = 0; i < GuardarObjetos.guardarVendedor.length; i++) {
+            for (int j = 0; j < GuardarObjetos.guardarVendedor.length; j++) {
+                if ((GuardarObjetos.guardarVendedor[j] != null) && (GuardarObjetos.guardarVendedor[j + 1] != null)) {
+                    if ((GuardarObjetos.guardarVendedor[j].getVendedorCodigo() > GuardarObjetos.guardarVendedor[j + 1].getVendedorCodigo())) {
+                        //cambiando codigo
+                        auxiliar_vendedorCodigo = GuardarObjetos.guardarVendedor[j].getVendedorCodigo();
+                        GuardarObjetos.guardarVendedor[j].setVendedorCodigo(GuardarObjetos.guardarVendedor[j + 1].getVendedorCodigo());
+                        GuardarObjetos.guardarVendedor[j + 1].setVendedorCodigo(auxiliar_vendedorCodigo);
+                        //cambiando nombre
+                        auxiliar_vendedorNombre = GuardarObjetos.guardarVendedor[j].getVendedorNombre();
+                        GuardarObjetos.guardarVendedor[j].setVendedorNombre(GuardarObjetos.guardarVendedor[j + 1].getVendedorNombre());
+                        GuardarObjetos.guardarVendedor[j + 1].setVendedorNombre(auxiliar_vendedorNombre);
+                        //cambiando caja
+                        auxiliar_vendedorCaja = GuardarObjetos.guardarVendedor[j].getVendedorCaja();
+                        GuardarObjetos.guardarVendedor[j].setVendedorCaja(GuardarObjetos.guardarVendedor[j + 1].getVendedorCaja());
+                        GuardarObjetos.guardarVendedor[j + 1].setVendedorCaja(auxiliar_vendedorCaja);
+                        //cambiando ventas
+                        auxiliar_vendedorVentas = GuardarObjetos.guardarVendedor[j].getVendedorVentas();
+                        GuardarObjetos.guardarVendedor[j].setVendedorVentas(GuardarObjetos.guardarVendedor[j + 1].getVendedorVentas());
+                        GuardarObjetos.guardarVendedor[j + 1].setVendedorVentas(auxiliar_vendedorVentas);
+                        //cambiando genero
+                        auxiliar_vendedorGenero = GuardarObjetos.guardarVendedor[j].getVendedorGenero();
+                        GuardarObjetos.guardarVendedor[j].setVendedorGenero(GuardarObjetos.guardarVendedor[j + 1].getVendedorGenero());
+                        GuardarObjetos.guardarVendedor[j + 1].setVendedorGenero(auxiliar_vendedorGenero);
+                    }
+
+                }
+            }
+        }
+    }
+    
+    private void ordenamiento_burbujaProductos(){
+        
+    }
+    
+    private void ordenamiento_burbujaSucursales(){
+        
     }
 }
