@@ -22,6 +22,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -424,7 +428,11 @@ public class Modulo_Administracion {
         panel3.add(boton4);
         //Agregando eventos de tipo ActionListener
         ActionListener accion4 = (ActionEvent ae) -> {
-
+            try {
+                clientes_PDF();
+            } catch (DocumentException ex) {
+                Logger.getLogger(Modulo_Administracion.class.getName()).log(Level.SEVERE, null, ex);
+            }
         };
         boton4.addActionListener(accion4);
     }
@@ -976,6 +984,83 @@ public class Modulo_Administracion {
         b_actualizar.addActionListener(a_actualizar);
     }
 
+    private void productos_PDF() throws DocumentException {
+        try {
+            Document docu1;
+            FileOutputStream arch1 = new FileOutputStream("Listado Productos" + ".pdf");
+            Paragraph tit1 = new Paragraph("Listado Productos");
+            docu1 = new Document();
+            PdfWriter.getInstance((com.itextpdf.text.Document) docu1, arch1);
+            docu1.open();
+            tit1.setAlignment(1);
+            docu1.add(tit1);
+            docu1.add(Chunk.NEWLINE);
+            Paragraph texto = new Paragraph("Los datos de los productos son los siguientes:");//aqui dentro va todo lo que lleve el documento
+
+            texto.setAlignment(Element.ALIGN_JUSTIFIED);
+            docu1.add(texto);
+            docu1.add(Chunk.NEWLINE);
+            PdfPTable tab1 = new PdfPTable(6);
+            tab1.setWidthPercentage(100);
+            PdfPCell cod1 = new PdfPCell(new Phrase("Codigo"));
+            cod1.setBackgroundColor(BaseColor.ORANGE);
+            PdfPCell name1 = new PdfPCell(new Phrase("Nombre"));
+            name1.setBackgroundColor(BaseColor.ORANGE);
+            PdfPCell nit = new PdfPCell(new Phrase("Descripción"));
+            nit.setBackgroundColor(BaseColor.ORANGE);
+            PdfPCell correo = new PdfPCell(new Phrase("Cantidad"));
+            correo.setBackgroundColor(BaseColor.ORANGE);
+            PdfPCell gen1 = new PdfPCell(new Phrase("Precio"));
+            gen1.setBackgroundColor(BaseColor.ORANGE);
+            tab1.addCell(cod1);
+            tab1.addCell(name1);
+            tab1.addCell(nit);
+            tab1.addCell(correo);
+            tab1.addCell(gen1);
+            for (int i = 0; i < GuardarObjetos.guardarCliente.length; i++) {
+                if (GuardarObjetos.guardarCliente[i] != null) {
+                    String tempCodigo1 = Integer.toString(GuardarObjetos.guardarCliente[i].getClienteCodigo());
+                    tab1.addCell(tempCodigo1);
+                    String tempNombre1 = GuardarObjetos.guardarCliente[i].getClienteNombre();
+                    tab1.addCell(tempNombre1);
+                    String tempNit = Integer.toString(GuardarObjetos.guardarCliente[i].getClienteNit());
+                    tab1.addCell(tempNit);
+                    String tempCorreo = GuardarObjetos.guardarCliente[i].getClienteCorreo();
+                    tab1.addCell(tempCorreo);
+                    String tempGenero1 = GuardarObjetos.guardarCliente[i].getClienteGenero();
+                    tab1.addCell(tempGenero1);
+                } else if (GuardarObjetos.guardarVendedor[i] == null) {
+                    break;
+                }
+            }
+
+            docu1.add(tab1);
+            docu1.add(Chunk.NEWLINE);
+
+//            Para manejar la fecha es 
+            LocalDate fecha1 = LocalDate.now();
+            String fech1 = fecha1.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            Paragraph texto2 = new Paragraph(fech1);//aqui dentro va la fecha 
+            texto2.setAlignment(Element.ALIGN_JUSTIFIED);
+            docu1.add(texto2);
+            docu1.close();
+            JOptionPane.showMessageDialog(null, "El archivo PDF se creó correctamente");
+            //abre archivo automaticamente
+            try {
+                File enlace1 = new File("Listado vendedores" + ".pdf");
+                Desktop.getDesktop().open(enlace1);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex, "Alerta", 2);
+            }
+
+        } catch (FileNotFoundException e) {
+
+        } catch (DocumentException e) {
+
+        }
+
+    }
+
     // ########################## Acciones de Botones Clientes ###############################################
     private void clientes_vCrear() {
         //Creando la ventana
@@ -1194,6 +1279,83 @@ public class Modulo_Administracion {
 
         };
         b_actualizar.addActionListener(a_actualizar);
+    }
+    
+    private void clientes_PDF() throws DocumentException {
+        try {
+            Document docu1;
+            FileOutputStream arch1 = new FileOutputStream("Listado clientes" + ".pdf");
+            Paragraph tit1 = new Paragraph("Listado Clientes");
+            docu1 = new Document();
+            PdfWriter.getInstance((com.itextpdf.text.Document) docu1, arch1);
+            docu1.open();
+            tit1.setAlignment(1);
+            docu1.add(tit1);
+            docu1.add(Chunk.NEWLINE);
+            Paragraph texto = new Paragraph("Los datos de los clientes son los siguientes:");//aqui dentro va todo lo que lleve el documento
+
+            texto.setAlignment(Element.ALIGN_JUSTIFIED);
+            docu1.add(texto);
+            docu1.add(Chunk.NEWLINE);
+            PdfPTable tab1 = new PdfPTable(6);
+            tab1.setWidthPercentage(100);
+            PdfPCell cod1 = new PdfPCell(new Phrase("Codigo"));
+            cod1.setBackgroundColor(BaseColor.ORANGE);
+            PdfPCell name1 = new PdfPCell(new Phrase("Nombre"));
+            name1.setBackgroundColor(BaseColor.ORANGE);
+            PdfPCell nit = new PdfPCell(new Phrase("NIT"));
+            nit.setBackgroundColor(BaseColor.ORANGE);
+            PdfPCell correo = new PdfPCell(new Phrase("Correo"));
+            correo.setBackgroundColor(BaseColor.ORANGE);
+            PdfPCell gen1 = new PdfPCell(new Phrase("Genero"));
+            gen1.setBackgroundColor(BaseColor.ORANGE);
+            tab1.addCell(cod1);
+            tab1.addCell(name1);
+            tab1.addCell(nit);
+            tab1.addCell(correo);
+            tab1.addCell(gen1);
+            for (int i = 0; i < GuardarObjetos.guardarCliente.length; i++) {
+                if (GuardarObjetos.guardarCliente[i] != null) {
+                    String tempCodigo1 = Integer.toString(GuardarObjetos.guardarCliente[i].getClienteCodigo());
+                    tab1.addCell(tempCodigo1);
+                    String tempNombre1 = GuardarObjetos.guardarCliente[i].getClienteNombre();
+                    tab1.addCell(tempNombre1);
+                    String tempNit = Integer.toString(GuardarObjetos.guardarCliente[i].getClienteNit());
+                    tab1.addCell(tempNit);
+                    String tempCorreo = GuardarObjetos.guardarCliente[i].getClienteCorreo();
+                    tab1.addCell(tempCorreo);
+                    String tempGenero1 = GuardarObjetos.guardarCliente[i].getClienteGenero();
+                    tab1.addCell(tempGenero1);
+                } else if (GuardarObjetos.guardarVendedor[i] == null) {
+                    break;
+                }
+            }
+
+            docu1.add(tab1);
+            docu1.add(Chunk.NEWLINE);
+
+//            Para manejar la fecha es 
+            LocalDate fecha1 = LocalDate.now();
+            String fech1 = fecha1.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            Paragraph texto2 = new Paragraph(fech1);//aqui dentro va la fecha 
+            texto2.setAlignment(Element.ALIGN_JUSTIFIED);
+            docu1.add(texto2);
+            docu1.close();
+            JOptionPane.showMessageDialog(null, "El archivo PDF se creó correctamente");
+            //abre archivo automaticamente
+            try {
+                File enlace1 = new File("Listado vendedores" + ".pdf");
+                Desktop.getDesktop().open(enlace1);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex, "Alerta", 2);
+            }
+
+        } catch (FileNotFoundException e) {
+
+        } catch (DocumentException e) {
+
+        }
+
     }
 
     // ########################## Acciones de Botones Vendedores ###############################################
@@ -1482,7 +1644,7 @@ public class Modulo_Administracion {
             docu.add(tit);
             docu.add(Chunk.NEWLINE);
             Paragraph texto = new Paragraph("Los datos de los vendedores son los siguientes:");//aqui dentro va todo lo que lleve el documento
-            // es similar al html
+
             texto.setAlignment(Element.ALIGN_JUSTIFIED);
             docu.add(texto);
             docu.add(Chunk.NEWLINE);
@@ -1506,41 +1668,44 @@ public class Modulo_Administracion {
             tab.addCell(vent);
             tab.addCell(gen);
             tab.addCell(pas);
-            for(int i=0; i<GuardarObjetos.guardarVendedor.length;i++){
+            for (int i = 0; i < GuardarObjetos.guardarVendedor.length; i++) {
                 if (GuardarObjetos.guardarVendedor[i] != null) {
-                String tempCodigo= Integer.toString(GuardarObjetos.guardarVendedor[i].getVendedorCodigo());
-                tab.addCell(tempCodigo);
-                String tempNombre = GuardarObjetos.guardarVendedor[i].getVendedorNombre();
-                tab.addCell(tempNombre);
-                String tempCaja = Integer.toString(GuardarObjetos.guardarVendedor[i].getVendedorCaja());
-                tab.addCell(tempCaja);
-                String tempVenta = Integer.toString(GuardarObjetos.guardarVendedor[i].getVendedorVentas());
-                tab.addCell(tempVenta);
-                String tempGenero = GuardarObjetos.guardarVendedor[i].getVendedorGenero();
-                tab.addCell(tempGenero);
-                String tempPassword = GuardarObjetos.guardarVendedor[i].getVendedorPassword();
-                tab.addCell(tempPassword);
-                }else if(GuardarObjetos.guardarVendedor[i] != null){
+                    String tempCodigo = Integer.toString(GuardarObjetos.guardarVendedor[i].getVendedorCodigo());
+                    tab.addCell(tempCodigo);
+                    String tempNombre = GuardarObjetos.guardarVendedor[i].getVendedorNombre();
+                    tab.addCell(tempNombre);
+                    String tempCaja = Integer.toString(GuardarObjetos.guardarVendedor[i].getVendedorCaja());
+                    tab.addCell(tempCaja);
+                    String tempVenta = Integer.toString(GuardarObjetos.guardarVendedor[i].getVendedorVentas());
+                    tab.addCell(tempVenta);
+                    String tempGenero = GuardarObjetos.guardarVendedor[i].getVendedorGenero();
+                    tab.addCell(tempGenero);
+                    String tempPassword = GuardarObjetos.guardarVendedor[i].getVendedorPassword();
+                    tab.addCell(tempPassword);
+                } else if (GuardarObjetos.guardarVendedor[i] == null) {
                     break;
                 }
             }
-            
-            
+
             docu.add(tab);
-            
+            docu.add(Chunk.NEWLINE);
+
+//            Para manejar la fecha es 
+            LocalDate fecha = LocalDate.now();
+            String fech = fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            Paragraph texto1 = new Paragraph(fech);//aqui dentro va la fecha 
+            texto1.setAlignment(Element.ALIGN_JUSTIFIED);
+            docu.add(texto1);
             docu.close();
             JOptionPane.showMessageDialog(null, "El archivo PDF se creó correctamente");
-            
-            try{
-            File enlace = new File ("Listado vendedores" + ".pdf");
-            Desktop.getDesktop().open(enlace);
-            }catch(Exception ex){
-                JOptionPane.showMessageDialog(null,ex,"Alerta",2);
+            //abre archivo automaticamente
+            try {
+                File enlace = new File("Listado vendedores" + ".pdf");
+                Desktop.getDesktop().open(enlace);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex, "Alerta", 2);
             }
-            //Para manejar la fecha es 
-            // Date date = new Date();
-            // Long fecha = date.getTime();
-            // String fech = fecha.toString();
+
         } catch (FileNotFoundException e) {
 
         } catch (DocumentException e) {
