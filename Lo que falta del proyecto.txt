@@ -1,0 +1,8 @@
+Falta en el proyecto
+Serializacion 
+Modulo admin
+Graficas
+Carga Masiva (Leer archivos JSON y cargarlos a tablas)
+Modulo Vendedores
+Falta hacer todo 
+Documentacion

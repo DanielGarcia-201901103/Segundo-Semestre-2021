@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.font.TextAttribute;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import static javafx.scene.text.Font.font;
 import javax.swing.BorderFactory;
@@ -13,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -24,11 +27,17 @@ import javax.swing.table.DefaultTableModel;
 public class Modulo_Vendedores {
 
     private JFrame ventanaVende = new JFrame();
-    private JPanel panel, panel1, panel2, panelSeleccionarC, panelAgregarP,panelListaG;
+    private JPanel panel, panel1, panel2, panelSeleccionarC, panelAgregarP, panelListaG;
     private JTextField Text_codigo = new JTextField();
     private JTextField Text_contraseña = new JTextField();
     private JTabbedPane primeras_pestañas = new JTabbedPane();
-
+    private int codigoVendedorRecib;
+    private String nombreVendedorEncontrado;
+    
+    int contador_Product = 0;
+    private DefaultTableModel modelo_agregarProd = new DefaultTableModel();
+    String almProducto[][] = new String[GuardarObjetos.guardarProductos.length][5];
+    float subTot[] = new float[contador_Product+1];
     public void ventanaVendedores() {
         ventanaVende.setSize(800, 800);
         ventanaVende.setTitle("Modulo Vendedores");
@@ -38,6 +47,26 @@ public class Modulo_Vendedores {
         ventanaVende.setResizable(false);
         ventanaVende.setVisible(true);
         iniciarComponentes();
+
+    }
+
+    public void recibirCodigoAutenticacion(int codigoVendedorRecib) { // recibe el codigo del vendedor y se almacena el nombre en una variable
+        this.codigoVendedorRecib = codigoVendedorRecib;
+        for (int i = 0; i < GuardarObjetos.guardarVendedor.length; i++) {
+            if (this.codigoVendedorRecib == GuardarObjetos.guardarVendedor[i].getVendedorCodigo()) {
+                nombreVendedorEncontrado = GuardarObjetos.guardarVendedor[i].getVendedorNombre();
+                break;
+            }
+        }
+
+        // buscando el nombre del vendedor de acuerdo al codigo recibido
+        JLabel etiqueta_nom = new JLabel();
+        etiqueta_nom.setText("¡Bienvenido " + nombreVendedorEncontrado + " !");
+        etiqueta_nom.setBounds(350, 5, 300, 25);
+        etiqueta_nom.setForeground(Color.WHITE);
+        etiqueta_nom.setFont(new Font("arial", Font.ROMAN_BASELINE, 13));
+        etiqueta_nom.setHorizontalAlignment(SwingConstants.CENTER); // pone la palabra en el centro de la etiqueta 
+        panel.add(etiqueta_nom);
 
     }
 
@@ -83,7 +112,7 @@ public class Modulo_Vendedores {
         panelAgregarP.setBounds(30, 350, 685, 300);
         panelAgregarP.setLayout(null);
         panel1.add(panelAgregarP);
-        
+
         // Ventas listado general
         panelListaG = new JPanel();
         panelListaG.setBackground(Color.WHITE);
@@ -108,6 +137,7 @@ public class Modulo_Vendedores {
             ventanaVende.dispose();
         };
         boton1.addActionListener(accion);
+
     }
 
     private void nuevaVenta_SeleccionarC() {
@@ -210,7 +240,23 @@ public class Modulo_Vendedores {
         panelSeleccionarC.add(boton1);
         //Agregando eventos de tipo ActionListener
         ActionListener accion = (ActionEvent ae) -> {
+            String seleccionar_clienteNombre = c_nom.getText();
+            int seleccionar_clienteNit = Integer.parseInt(c_nit.getText());
+            String seleccionar_clienteCorreo = c_correo.getText();
+            String seleccionar_clienteGenero = c_genero.getText();
 
+            for (int i = 0; i < GuardarObjetos.guardarCliente.length; i++) {
+                if (seleccionar_clienteNombre.equals(GuardarObjetos.guardarCliente[i].getClienteNombre()) && (seleccionar_clienteNit == GuardarObjetos.guardarCliente[i].getClienteNit())
+                        && (seleccionar_clienteCorreo.equals(GuardarObjetos.guardarCliente[i].getClienteCorreo())) && (seleccionar_clienteGenero.equals(GuardarObjetos.guardarCliente[i].getClienteGenero()))) {
+                    // falta el componente para mostrar el dato
+                    JOptionPane.showMessageDialog(null, GuardarObjetos.guardarCliente[i].getClienteNombre());
+                    break;
+                } else if (!(seleccionar_clienteNombre.equals(GuardarObjetos.guardarCliente[i].getClienteNombre()) && (seleccionar_clienteNit == GuardarObjetos.guardarCliente[i].getClienteNit())
+                        && (seleccionar_clienteCorreo.equals(GuardarObjetos.guardarCliente[i].getClienteCorreo())) && (seleccionar_clienteGenero.equals(GuardarObjetos.guardarCliente[i].getClienteGenero())))) {
+                    JOptionPane.showMessageDialog(null, "El cliente no existe por favor crear uno nuevo");
+                    break;
+                }
+            }
         };
         boton1.addActionListener(accion);
 
@@ -223,8 +269,29 @@ public class Modulo_Vendedores {
         boton2.setBackground(Color.LIGHT_GRAY); //cambia el color del fondo del boton
         panelSeleccionarC.add(boton2);
         //Agregando eventos de tipo ActionListener
-        ActionListener accion2 = (ActionEvent ae) -> {
-
+        ActionListener accion2 = (ActionEvent ae) -> {  // no me funciona el crear nuevo
+//            String seleccionarN_clienteNombre = c_nom.getText();
+//            int seleccionarN_clienteNit = Integer.parseInt(c_nit.getText());
+//            String seleccionarN_clienteCorreo = c_correo.getText();
+//            String seleccionarN_clienteGenero = c_genero.getText();
+//            int seleccionarN_clienteClodigo = GuardarObjetos.guardarCliente[0].getClienteCodigo();
+//            int temporal_indice = 0;
+//            // encontrar el codigo mas alto y sumarle 1 para agregarle el codigo al nuevo cliente
+//            for (int i = 1; i < GuardarObjetos.guardarCliente.length; i++) {
+//                if (GuardarObjetos.guardarCliente[i].getClienteCodigo() > seleccionarN_clienteClodigo) {
+//                    seleccionarN_clienteClodigo = GuardarObjetos.guardarCliente[i].getClienteCodigo();
+//                    temporal_indice = i;
+//                }
+//            }
+//            System.out.println(""+  GuardarObjetos.guardarCliente[temporal_indice].getClienteCodigo());
+//            int nuevoCod = GuardarObjetos.guardarCliente[temporal_indice].getClienteCodigo() + 1;
+//            System.out.println(""+nuevoCod );
+//            for (int i = 0; i < GuardarObjetos.guardarCliente.length; i++) {
+//                if (GuardarObjetos.guardarCliente[i] == null && i < GuardarObjetos.guardarCliente.length) {
+//                    GuardarObjetos.guardarCliente[i] = new Cliente(nuevoCod, seleccionarN_clienteNombre, seleccionarN_clienteNit, seleccionarN_clienteCorreo, seleccionarN_clienteGenero);
+//                    break;
+//                }
+//            }
         };
         boton2.addActionListener(accion2);
     }
@@ -284,8 +351,12 @@ public class Modulo_Vendedores {
         panelAgregarP.add(etiqueta_total);
 
         // etiquetas modificables con la fecha y el numero
+        // Para manejar la fecha es 
+        LocalDate fecha1 = LocalDate.now();
+        String fech1 = fecha1.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
         JLabel etimod_fecha = new JLabel();
-        etimod_fecha.setText("Pendiente");
+        etimod_fecha.setText(fech1);
         etimod_fecha.setBounds(355, 5, 100, 25);
         etimod_fecha.setForeground(Color.BLACK);
         etimod_fecha.setFont(new Font("arial", Font.ROMAN_BASELINE, 13));
@@ -324,7 +395,35 @@ public class Modulo_Vendedores {
         panelAgregarP.add(boton1);
         //Agregando eventos de tipo ActionListener
         ActionListener accion = (ActionEvent ae) -> {
-
+            int codigoA = Integer.parseInt(c_codigo.getText());
+            int cantidadA = Integer.parseInt(c_cantidad.getText());
+            
+            
+            for (int i = 0; i < GuardarObjetos.guardarProductos.length; i++) {
+                if (codigoA == GuardarObjetos.guardarProductos[i].getProductoCodigo()) {
+                    if (cantidadA <= GuardarObjetos.guardarProductos[i].getProductoCantidad() && cantidadA > 0 ) {
+                       
+                        almProducto[contador_Product][0]= Integer.toString(GuardarObjetos.guardarProductos[i].getProductoCodigo());
+                        almProducto[contador_Product][1]= GuardarObjetos.guardarProductos[i].getProductoNombre();
+                        almProducto[contador_Product][2]= Integer.toString(cantidadA);
+                        almProducto[contador_Product][3]= Float.toString(GuardarObjetos.guardarProductos[i].getProductoPrecio());
+                        float subtotal = cantidadA * GuardarObjetos.guardarProductos[i].getProductoPrecio();
+                        subTot[contador_Product] = subtotal;
+                        almProducto[contador_Product][4]= Float.toString(subtotal);
+                        
+                        modelo_agregarProd.addRow(almProducto[contador_Product]);
+                        contador_Product = contador_Product++;
+                        int nuevCantidadAlmacenada = GuardarObjetos.guardarProductos[i].getProductoCantidad()-cantidadA; //si la cantidad es menor a la existente entonces se resta
+                        GuardarObjetos.guardarProductos[i].setProductoCantidad(nuevCantidadAlmacenada);   // lo que resulta de la resta se envia como nueva cantidad existente 
+                        
+                    }else if(cantidadA > GuardarObjetos.guardarProductos[i].getProductoCantidad()){
+                         JOptionPane.showMessageDialog(null, "Solamente hay una cantidad de "+GuardarObjetos.guardarProductos[i].getProductoCantidad()+" "+GuardarObjetos.guardarProductos[i].getProductoNombre());
+                    }else if(GuardarObjetos.guardarProductos[i].getProductoCantidad() ==0){
+                        JOptionPane.showMessageDialog(null, "Producto agotado");
+                    }
+                    break;
+                }
+            }
         };
         boton1.addActionListener(accion);
 
@@ -343,7 +442,6 @@ public class Modulo_Vendedores {
         boton2.addActionListener(accion2);
 
         // tabla 
-        DefaultTableModel modelo_agregarProd = new DefaultTableModel();
         modelo_agregarProd.addColumn("Código");
         modelo_agregarProd.addColumn("Nombre");
         modelo_agregarProd.addColumn("Cantidad");
@@ -355,7 +453,7 @@ public class Modulo_Vendedores {
         panelAgregarP.add(scr);
     }
     
-    private void ventas_ListadoG(){
+    private void ventas_ListadoG() {
         //TITULO DEL PRIMER PANEL
         JLabel etiquetaTitulo = new JLabel();
         etiquetaTitulo.setText("Listado General");
@@ -450,7 +548,7 @@ public class Modulo_Vendedores {
 
         };
         boton1.addActionListener(accion);
-        
+
         // tabla 
         DefaultTableModel modelo_ListadoG = new DefaultTableModel();
         modelo_ListadoG.addColumn("No. Factura");

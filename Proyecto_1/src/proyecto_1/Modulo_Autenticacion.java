@@ -113,6 +113,7 @@ public class Modulo_Autenticacion {
                     if (Text_codigo1.getText().equals(Integer.toString(GuardarObjetos.guardarVendedor[i].getVendedorCodigo())) && Text_contraseña1.getText().equals(GuardarObjetos.guardarVendedor[i].getVendedorPassword())) {
                         Modulo_Vendedores ven = new Modulo_Vendedores();
                         ven.ventanaVendedores();
+                        ven.recibirCodigoAutenticacion(GuardarObjetos.guardarVendedor[i].getVendedorCodigo());
                         ventanaAutentic.dispose();
                         break;
                     }
