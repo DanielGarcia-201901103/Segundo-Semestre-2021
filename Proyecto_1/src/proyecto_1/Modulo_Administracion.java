@@ -1,6 +1,17 @@
 package proyecto_1;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -8,10 +19,9 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -27,15 +37,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -451,6 +454,7 @@ public class Modulo_Administracion {
         panel4.add(boton1);
         //Agregando eventos de tipo ActionListener
         ActionListener accion1 = (ActionEvent ae) -> {
+
             try {
                 vendedores_CargaMasiva();
             } catch (IOException ex) {
@@ -458,6 +462,7 @@ public class Modulo_Administracion {
             } catch (ParseException ex) {
                 Logger.getLogger(Modulo_Administracion.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         };
         boton1.addActionListener(accion1);
 
@@ -517,7 +522,11 @@ public class Modulo_Administracion {
         panel4.add(boton4);
         //Agregando eventos de tipo ActionListener
         ActionListener accion4 = (ActionEvent ae) -> {
-            vendedores_PDF();
+            try {
+                vendedores_PDF();
+            } catch (DocumentException ex) {
+                Logger.getLogger(Modulo_Administracion.class.getName()).log(Level.SEVERE, null, ex);
+            }
         };
         boton4.addActionListener(accion4);
     }
@@ -1431,75 +1440,113 @@ public class Modulo_Administracion {
     }
 
     private void vendedores_CargaMasiva() throws FileNotFoundException, IOException, ParseException {
-        try {
-            JFileChooser seleccionArchivo = new JFileChooser();
-            seleccionArchivo.showOpenDialog(panel4);
-            File arch = seleccionArchivo.getSelectedFile();
-            String pathR = arch.getAbsolutePath(); //obtiene la ruta del archivo seleccionado
-            BufferedReader abrirArchivo = new BufferedReader(new FileReader(arch));
-            String filaLectura;
-            String contenido = "";
-            String espacio = "\n";
-            while ((filaLectura = abrirArchivo.readLine()) != null) {
-                contenido = filaLectura + espacio;
-                System.out.println("" + contenido);
-            }
-            System.out.println("asdfasdfasdfasdf");
-            JSONParser pr = new JSONParser();
-            System.out.println("asdfasdfasdfasdf");
-//            JSONArray arregloDatos = (JSONArray) pr.parse(pathR);
-            JSONArray arregloDatos = (JSONArray) pr.parse(new FileReader(pathR));
-            System.out.println("asdfasdfasdfasdf"); // hasta aqui ya funciona
-          
-            
-        } catch (FileNotFoundException e) {
+//        try {
+//            JFileChooser seleccionArchivo = new JFileChooser();
+//            seleccionArchivo.showOpenDialog(panel4);
+//            File arch = seleccionArchivo.getSelectedFile();
+//            String pathR = arch.getAbsolutePath(); //obtiene la ruta del archivo seleccionado
+//            BufferedReader abrirArchivo = new BufferedReader(new FileReader(arch));
+//            String filaLectura;
+//            String contenido = "";
+//            String espacio = "\n";
+//            while ((filaLectura = abrirArchivo.readLine()) != null) {
+//                contenido = filaLectura + espacio;
+//                System.out.println("" + contenido);
+//            }
+//            System.out.println("asdfasdfasdfasdf");
+//            JSONParser pr = new JSONParser();
+//            System.out.println("asdfasdfasdfasdf");
+////            JSONArray arregloDatos = (JSONArray) pr.parse(pathR);
+//            JSONArray arregloDatos = (JSONArray) pr.parse(new FileReader(pathR));
+//            System.out.println("asdfasdfasdfasdf"); // hasta aqui ya funciona
+//          
 
-        } catch (IOException e) {
-            //manejo de error
-        } catch (ParseException e) {
-            //manejo de error
-        }
-
+//        } catch (FileNotFoundException e) {
+//
+//        } catch (IOException e) {
+//            //manejo de error
+//        } catch (ParseException e) {
+//            //manejo de error
+//        }
     }
 
-    private void vendedores_PDF() {
-//        try{
-        JFileChooser guardar = new JFileChooser();
-        int opcion = guardar.showSaveDialog(null);
-        if (opcion == JFileChooser.APPROVE_OPTION) {
-//                guardar.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-            File arch = guardar.getSelectedFile();
-            try (FileWriter escrib = new FileWriter(arch)) {
-                escrib.write("hola");// para escribir dentro del archivo
-            } catch (IOException el) {
-                el.printStackTrace();
+    private void vendedores_PDF() throws DocumentException {
+        try {
+            Document docu;
+            FileOutputStream arch = new FileOutputStream("Listado vendedores" + ".pdf");
+            Paragraph tit = new Paragraph("Listado Vendedores");
+            docu = new Document();
+            PdfWriter.getInstance((com.itextpdf.text.Document) docu, arch);
+            docu.open();
+            tit.setAlignment(1);
+            docu.add(tit);
+            docu.add(Chunk.NEWLINE);
+            Paragraph texto = new Paragraph("Los datos de los vendedores son los siguientes:");//aqui dentro va todo lo que lleve el documento
+            // es similar al html
+            texto.setAlignment(Element.ALIGN_JUSTIFIED);
+            docu.add(texto);
+            docu.add(Chunk.NEWLINE);
+            PdfPTable tab = new PdfPTable(6);
+            tab.setWidthPercentage(100);
+            PdfPCell cod = new PdfPCell(new Phrase("Codigo"));
+            cod.setBackgroundColor(BaseColor.ORANGE);
+            PdfPCell name = new PdfPCell(new Phrase("Nombre"));
+            name.setBackgroundColor(BaseColor.ORANGE);
+            PdfPCell caj = new PdfPCell(new Phrase("Caja"));
+            caj.setBackgroundColor(BaseColor.ORANGE);
+            PdfPCell vent = new PdfPCell(new Phrase("Ventas"));
+            vent.setBackgroundColor(BaseColor.ORANGE);
+            PdfPCell gen = new PdfPCell(new Phrase("Genero"));
+            gen.setBackgroundColor(BaseColor.ORANGE);
+            PdfPCell pas = new PdfPCell(new Phrase("Password"));
+            pas.setBackgroundColor(BaseColor.ORANGE);
+            tab.addCell(cod);
+            tab.addCell(name);
+            tab.addCell(caj);
+            tab.addCell(vent);
+            tab.addCell(gen);
+            tab.addCell(pas);
+            for(int i=0; i<GuardarObjetos.guardarVendedor.length;i++){
+                if (GuardarObjetos.guardarVendedor[i] != null) {
+                String tempCodigo= Integer.toString(GuardarObjetos.guardarVendedor[i].getVendedorCodigo());
+                tab.addCell(tempCodigo);
+                String tempNombre = GuardarObjetos.guardarVendedor[i].getVendedorNombre();
+                tab.addCell(tempNombre);
+                String tempCaja = Integer.toString(GuardarObjetos.guardarVendedor[i].getVendedorCaja());
+                tab.addCell(tempCaja);
+                String tempVenta = Integer.toString(GuardarObjetos.guardarVendedor[i].getVendedorVentas());
+                tab.addCell(tempVenta);
+                String tempGenero = GuardarObjetos.guardarVendedor[i].getVendedorGenero();
+                tab.addCell(tempGenero);
+                String tempPassword = GuardarObjetos.guardarVendedor[i].getVendedorPassword();
+                tab.addCell(tempPassword);
+                }else if(GuardarObjetos.guardarVendedor[i] != null){
+                    break;
+                }
             }
-//            String pathR = arch.getAbsolutePath(); //obtiene la ruta del archivo seleccionado
-//            File rut= guardar.getCurrentDirectory();
-        }
-//                guardar.setFileFilter(new FileNameExtensionFilter("Listado Vendedores","pdf"));
+            
+            
+            docu.add(tab);
+            
+            docu.close();
+            JOptionPane.showMessageDialog(null, "El archivo PDF se creó correctamente");
+            
+            try{
+            File enlace = new File ("Listado vendedores" + ".pdf");
+            Desktop.getDesktop().open(enlace);
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(null,ex,"Alerta",2);
+            }
+            //Para manejar la fecha es 
+            // Date date = new Date();
+            // Long fecha = date.getTime();
+            // String fech = fecha.toString();
+        } catch (FileNotFoundException e) {
 
-//            String nombredoc= guardar.getSelectedFile().getName();
-        // TODO LO DEL PDF
-//            PDDocument rep = new PDDocument();
-//            PDPage pag = new PDPage(PDRectangle.A4);
-//            
-//            rep.addPage(pag);
-//            PDPageContentStream conte = new PDPageContentStream(rep,pag);
-//            for(int i=1; i<=5;i++){
-//            conte.beginText();
-//            conte.setFont(PDType1Font.HELVETICA_BOLD,15);
-//            conte.newLineAtOffset(25,pag.getMediaBox().getHeight()-(45-i)); 
-//            conte.showText("Hola Mu "+i); //agrega la linea de texto y se separa las lineas para que no se sobreescriba
-//            conte.endText();
-//            }
-//            
-//            conte.close();
-//            rep.save(rut);
-//        }catch(Exception x){
-//            
-//            System.out.println("Error:"+ x.getMessage().toString());
-//        }
+        } catch (DocumentException e) {
+
+        }
+
     }
 
     // ########################## Tablas ###############################################
@@ -1639,7 +1686,7 @@ public class Modulo_Administracion {
     private void colocarGrafico_Vendedores() {
 
     }
-    
+
     // ########################## Ordenamiento Burbuja ###############################################
     private void ordenamiento_burbujaVendedores() {
         int auxiliar_vendedorCodigo;
@@ -1682,7 +1729,7 @@ public class Modulo_Administracion {
             }
         }
     }
-    
+
     private void ordenamiento_burbujaClientes() {
         int auxiliar_clienteCodigo;
         String auxiliar_clienteNombre;
@@ -1758,7 +1805,7 @@ public class Modulo_Administracion {
     }
 
     private void ordenamiento_burbujaSucursales() {
-         int auxiliar_sucursalCodigo;
+        int auxiliar_sucursalCodigo;
         String auxiliar_sucursalNombre;
         String auxiliar_sucursalDireccion;
         String auxiliar_sucursalCorreo;
