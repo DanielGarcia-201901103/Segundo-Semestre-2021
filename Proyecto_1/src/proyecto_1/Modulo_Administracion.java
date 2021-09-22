@@ -16,15 +16,18 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
@@ -37,6 +40,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class Modulo_Administracion {
@@ -760,7 +766,7 @@ public class Modulo_Administracion {
         };
         b_actualizar.addActionListener(a_actualizar);
     }
-    
+
     private void sucursales_PDF() throws DocumentException {
         try {
             Document docu1;
@@ -794,7 +800,7 @@ public class Modulo_Administracion {
             tab1.addCell(direccion);
             tab1.addCell(correo);
             tab1.addCell(telefono);
-            ordenamiento_burbujaSucursales() ;
+            ordenamiento_burbujaSucursales();
             for (int i = 0; i < GuardarObjetos.guardarSucursales.length; i++) {
                 if (GuardarObjetos.guardarSucursales[i] != null) {
                     String tempCodigo2 = Integer.toString(GuardarObjetos.guardarSucursales[i].getSucursalCodigo());
@@ -838,7 +844,7 @@ public class Modulo_Administracion {
         }
 
     }
-    
+
     // ########################## Acciones de Botones Sucursales ###############################################
     private void productos_vCrear() {
         //Creando la ventana
@@ -1360,7 +1366,7 @@ public class Modulo_Administracion {
         };
         b_actualizar.addActionListener(a_actualizar);
     }
-    
+
     private void clientes_PDF() throws DocumentException {
         try {
             Document docu1;
@@ -1683,34 +1689,33 @@ public class Modulo_Administracion {
     }
 
     private void vendedores_CargaMasiva() throws FileNotFoundException, IOException, ParseException {
-//        try {
-//            JFileChooser seleccionArchivo = new JFileChooser();
-//            seleccionArchivo.showOpenDialog(panel4);
-//            File arch = seleccionArchivo.getSelectedFile();
-//            String pathR = arch.getAbsolutePath(); //obtiene la ruta del archivo seleccionado
-//            BufferedReader abrirArchivo = new BufferedReader(new FileReader(arch));
-//            String filaLectura;
-//            String contenido = "";
-//            String espacio = "\n";
-//            while ((filaLectura = abrirArchivo.readLine()) != null) {
-//                contenido = filaLectura + espacio;
-//                System.out.println("" + contenido);
-//            }
-//            System.out.println("asdfasdfasdfasdf");
-//            JSONParser pr = new JSONParser();
-//            System.out.println("asdfasdfasdfasdf");
-////            JSONArray arregloDatos = (JSONArray) pr.parse(pathR);
-//            JSONArray arregloDatos = (JSONArray) pr.parse(new FileReader(pathR));
-//            System.out.println("asdfasdfasdfasdf"); // hasta aqui ya funciona
-//          
+        JFileChooser seleccionArchivo = new JFileChooser();
+        seleccionArchivo.showOpenDialog(panel4);
+        File arch = seleccionArchivo.getSelectedFile();
+        String nombreArchivo = seleccionArchivo.getName(arch);
+        String pathR = arch.getAbsolutePath(); //obtiene la ruta del archivo seleccionado
+        System.out.println("ruta: " + pathR + "\n" + nombreArchivo);
+        JSONParser prser = new JSONParser();
+        try {
+            JSONArray arregl = (JSONArray) prser.parse(new FileReader(pathR));
+            int contadorFor=0;
+            for (Object objeto : arregl) {
+                JSONObject objeto1 = (JSONObject) objeto; // se obtienen los datos dentro del objeto que estan dentro del arreglo y dentro del json
+                GuardarObjetos.guardarVendedor[contadorFor].setVendedorCodigo((int) objeto1.get("codigo"));
+                
+                System.out.println("codigo " + objeto1.get("codigo"));
+                System.out.println("nombre " + objeto1.get("nombre"));
+                contadorFor= contadorFor+1;
+            }
+            //hasta aqui si funciona
+            
+        } catch (FileNotFoundException e) {
+            System.out.println("" + e);
+        } catch (IOException e) {
+            System.out.println("" + e);
+        }
+        //manejo de error
 
-//        } catch (FileNotFoundException e) {
-//
-//        } catch (IOException e) {
-//            //manejo de error
-//        } catch (ParseException e) {
-//            //manejo de error
-//        }
     }
 
     private void vendedores_PDF() throws DocumentException {
