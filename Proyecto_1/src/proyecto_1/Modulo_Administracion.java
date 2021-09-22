@@ -186,7 +186,13 @@ public class Modulo_Administracion {
         panel1.add(boton1);
         //Agregando eventos de tipo ActionListener
         ActionListener accion1 = (ActionEvent ae) -> {
-
+            try {
+                sucursales_CargaMasiva();
+            } catch (IOException ex) {
+                Logger.getLogger(Modulo_Administracion.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(Modulo_Administracion.class.getName()).log(Level.SEVERE, null, ex);
+            }
         };
         boton1.addActionListener(accion1);
 
@@ -280,7 +286,13 @@ public class Modulo_Administracion {
         panel2.add(boton1);
         //Agregando eventos de tipo ActionListener
         ActionListener accion1 = (ActionEvent ae) -> {
-
+            try {
+                productos_CargaMasiva();
+            } catch (IOException ex) {
+                Logger.getLogger(Modulo_Administracion.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(Modulo_Administracion.class.getName()).log(Level.SEVERE, null, ex);
+            }
         };
         boton1.addActionListener(accion1);
 
@@ -374,7 +386,13 @@ public class Modulo_Administracion {
         panel3.add(boton1);
         //Agregando eventos de tipo ActionListener
         ActionListener accion1 = (ActionEvent ae) -> {
-
+            try {
+                clientes_CargaMasiva();
+            } catch (IOException ex) {
+                Logger.getLogger(Modulo_Administracion.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(Modulo_Administracion.class.getName()).log(Level.SEVERE, null, ex);
+            }
         };
         boton1.addActionListener(accion1);
 
@@ -766,6 +784,63 @@ public class Modulo_Administracion {
         b_actualizar.addActionListener(a_actualizar);
     }
 
+    private void sucursales_CargaMasiva() throws FileNotFoundException, IOException, ParseException {
+        JFileChooser seleccionArchivo = new JFileChooser();
+        seleccionArchivo.showOpenDialog(panel1);
+        File arch = seleccionArchivo.getSelectedFile();
+        String nombreArchivo = seleccionArchivo.getName(arch);
+        String pathR = arch.getAbsolutePath(); //obtiene la ruta del archivo seleccionado
+        JSONParser prser = new JSONParser();
+        try {
+            JSONArray arregl = (JSONArray) prser.parse(new FileReader(pathR));
+            int contadorFor = 0;
+            for (Object objeto : arregl) {
+                JSONObject objeto1 = (JSONObject) objeto; // se obtienen los datos dentro del objeto que estan dentro del arreglo y dentro del json
+//                Envio de datos al objeto vendedor
+//                enviando dato codigo al arreglo del vendedor
+                int cod = Integer.parseInt(objeto1.get("codigo").toString());
+                String nombreObjeto = objeto1.get("nombre").toString(); // convierte el objeto a string 
+                //enviando dato caja al arreglo del vendedor
+                String direccionObjeto = objeto1.get("direccion").toString();
+                //enviando dato ventas al arreglo del vendedor
+                String correoObjeto = objeto1.get("correo").toString();
+                //enviando dato genero al arreglo del vendedor
+                String telefonoObjeto = objeto1.get("telefono").toString();
+//                
+                GuardarObjetos.guardarSucursales[contadorFor] = new Sucursal(cod, nombreObjeto, direccionObjeto, correoObjeto, telefonoObjeto);
+                contadorFor = contadorFor + 1;
+            }
+            ordenamiento_burbujaSucursales();
+//            agregando datos a la tabla
+            try {
+            for (int indiceL = 0; indiceL < GuardarObjetos.guardarSucursales.length; indiceL++) {
+                if (GuardarObjetos.guardarSucursales[indiceL] != null) {
+                    almacenaSucursal[indiceL][0] = Integer.toString(GuardarObjetos.guardarSucursales[indiceL].getSucursalCodigo());
+                    almacenaSucursal[indiceL][1] = GuardarObjetos.guardarSucursales[indiceL].getSucursalNombre();
+                    almacenaSucursal[indiceL][2] = GuardarObjetos.guardarSucursales[indiceL].getSucursalDireccion();
+                    almacenaSucursal[indiceL][3] = GuardarObjetos.guardarSucursales[indiceL].getSucursalCorreo();
+                    almacenaSucursal[indiceL][4] = GuardarObjetos.guardarSucursales[indiceL].getSucursalTelefono();
+                    modelo_tabSucursal.addRow(almacenaSucursal[indiceL]);
+                } else if (GuardarObjetos.guardarSucursales[indiceL] == null) {
+
+                    break;
+                }
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+            //hasta aqui si funciona
+
+        } catch (FileNotFoundException e) {
+            System.out.println("" + e);
+        } catch (IOException e) {
+            System.out.println("" + e);
+        }
+        //manejo de error
+
+    }
+
     private void sucursales_PDF() throws DocumentException {
         try {
             Document docu1;
@@ -1068,6 +1143,63 @@ public class Modulo_Administracion {
         b_actualizar.addActionListener(a_actualizar);
     }
 
+    private void productos_CargaMasiva() throws FileNotFoundException, IOException, ParseException {
+        JFileChooser seleccionArchivo = new JFileChooser();
+        seleccionArchivo.showOpenDialog(panel2);
+        File arch = seleccionArchivo.getSelectedFile();
+        String nombreArchivo = seleccionArchivo.getName(arch);
+        String pathR = arch.getAbsolutePath(); //obtiene la ruta del archivo seleccionado
+        JSONParser prser = new JSONParser();
+        try {
+            JSONArray arregl = (JSONArray) prser.parse(new FileReader(pathR));
+            int contadorFor = 0;
+            for (Object objeto : arregl) {
+                JSONObject objeto1 = (JSONObject) objeto; // se obtienen los datos dentro del objeto que estan dentro del arreglo y dentro del json
+//                Envio de datos al objeto vendedor
+//                enviando dato codigo al arreglo del vendedor
+                int cod = Integer.parseInt(objeto1.get("codigo").toString());
+                String nombreObjeto = objeto1.get("nombre").toString(); // convierte el objeto a string 
+                //enviando dato caja al arreglo del vendedor
+                String descripObjeto = objeto1.get("descripcion").toString();
+                //enviando dato ventas al arreglo del vendedor
+                int cantObjeto = Integer.parseInt(objeto1.get("cantidad").toString());
+                //enviando dato genero al arreglo del vendedor
+                float precioObjeto = Float.parseFloat(objeto1.get("precio").toString());
+//                
+                GuardarObjetos.guardarProductos[contadorFor] = new Producto(cod, nombreObjeto, descripObjeto, cantObjeto, precioObjeto);
+                contadorFor = contadorFor + 1;
+            }
+            ordenamiento_burbujaProductos();
+//            agregando datos a la tabla
+            try {
+            for (int indiceL = 0; indiceL < GuardarObjetos.guardarProductos.length; indiceL++) {
+                if (GuardarObjetos.guardarProductos[indiceL] != null) {
+                    almacenaProducto[indiceL][0] = Integer.toString(GuardarObjetos.guardarProductos[indiceL].getProductoCodigo());
+                    almacenaProducto[indiceL][1] = GuardarObjetos.guardarProductos[indiceL].getProductoNombre();
+                    almacenaProducto[indiceL][2] = GuardarObjetos.guardarProductos[indiceL].getProductoDescripcion();
+                    almacenaProducto[indiceL][3] = Integer.toString(GuardarObjetos.guardarProductos[indiceL].getProductoCantidad());
+                    almacenaProducto[indiceL][4] = Float.toString(GuardarObjetos.guardarProductos[indiceL].getProductoPrecio());
+                    modelo_tabProducto.addRow(almacenaProducto[indiceL]);
+                } else if (GuardarObjetos.guardarProductos[indiceL] == null) {
+
+                    break;
+                }
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+            //hasta aqui si funciona
+
+        } catch (FileNotFoundException e) {
+            System.out.println("" + e);
+        } catch (IOException e) {
+            System.out.println("" + e);
+        }
+        //manejo de error
+
+    }
+
     private void productos_PDF() throws DocumentException {
         try {
             Document docu1;
@@ -1364,6 +1496,64 @@ public class Modulo_Administracion {
 
         };
         b_actualizar.addActionListener(a_actualizar);
+    }
+
+    private void clientes_CargaMasiva() throws FileNotFoundException, IOException, ParseException {
+        JFileChooser seleccionArchivo = new JFileChooser();
+        seleccionArchivo.showOpenDialog(panel3);
+        File arch = seleccionArchivo.getSelectedFile();
+        String nombreArchivo = seleccionArchivo.getName(arch);
+        String pathR = arch.getAbsolutePath(); //obtiene la ruta del archivo seleccionado
+        JSONParser prser = new JSONParser();
+        try {
+            JSONArray arregl = (JSONArray) prser.parse(new FileReader(pathR));
+            int contadorFor = 0;
+            for (Object objeto : arregl) {
+                JSONObject objeto1 = (JSONObject) objeto; // se obtienen los datos dentro del objeto que estan dentro del arreglo y dentro del json
+//                Envio de datos al objeto vendedor
+//                enviando dato codigo al arreglo del cliente
+                int cod = Integer.parseInt(objeto1.get("codigo").toString());
+                //enviando dato nombre al arreglo del cliente
+                String nombreObjeto = objeto1.get("nombre").toString(); // convierte el objeto a string 
+                //enviando dato caja al arreglo del cliente
+                int nitObjeto = Integer.parseInt(objeto1.get("nit").toString());
+                //enviando dato ventas al arreglo del cliente
+                String correoObjeto = objeto1.get("correo").toString();
+                //enviando dato genero al arreglo del cliente
+                String generoObjeto = objeto1.get("genero").toString();
+//                
+                GuardarObjetos.guardarCliente[contadorFor] = new Cliente(cod, nombreObjeto, nitObjeto, correoObjeto, generoObjeto);
+                contadorFor = contadorFor + 1;
+            }
+            ordenamiento_burbujaClientes();
+//            agregando datos a la tabla
+            try {
+                for (int indiceL = 0; indiceL < GuardarObjetos.guardarCliente.length; indiceL++) {
+                    if (GuardarObjetos.guardarCliente[indiceL] != null) {
+                        almacenaCliente[indiceL][0] = Integer.toString(GuardarObjetos.guardarCliente[indiceL].getClienteCodigo());
+                        almacenaCliente[indiceL][1] = GuardarObjetos.guardarCliente[indiceL].getClienteNombre();
+                        almacenaCliente[indiceL][2] = Integer.toString(GuardarObjetos.guardarCliente[indiceL].getClienteNit());
+                        almacenaCliente[indiceL][3] = GuardarObjetos.guardarCliente[indiceL].getClienteCorreo();
+                        almacenaCliente[indiceL][4] = GuardarObjetos.guardarCliente[indiceL].getClienteGenero();
+                        modelo_tabCliente.addRow(almacenaCliente[indiceL]);
+                    } else if (GuardarObjetos.guardarCliente[indiceL] == null) {
+
+                        break;
+                    }
+
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+            //hasta aqui si funciona
+
+        } catch (FileNotFoundException e) {
+            System.out.println("" + e);
+        } catch (IOException e) {
+            System.out.println("" + e);
+        }
+        //manejo de error
+
     }
 
     private void clientes_PDF() throws DocumentException {
@@ -1693,7 +1883,7 @@ public class Modulo_Administracion {
         File arch = seleccionArchivo.getSelectedFile();
         String nombreArchivo = seleccionArchivo.getName(arch);
         String pathR = arch.getAbsolutePath(); //obtiene la ruta del archivo seleccionado
-        System.out.println("ruta: " + pathR + "\n" + nombreArchivo);
+//        System.out.println("ruta: " + pathR + "\n" + nombreArchivo);
         JSONParser prser = new JSONParser();
         try {
             JSONArray arregl = (JSONArray) prser.parse(new FileReader(pathR));
@@ -1702,15 +1892,10 @@ public class Modulo_Administracion {
                 JSONObject objeto1 = (JSONObject) objeto; // se obtienen los datos dentro del objeto que estan dentro del arreglo y dentro del json
 //                Envio de datos al objeto vendedor
 //                enviando dato codigo al arreglo del vendedor
-                int cod = Integer.parseInt( objeto1.get("codigo").toString());
-//                GuardarObjetos.guardarVendedor[contadorFor].setVendedorCodigo(cod);
-                //enviando dato nombre al arreglo del vendedor
-//                String nombreObjeto = String.valueOf(objeto1.get("nombre")); // convierte el objeto a string 
-                
+                int cod = Integer.parseInt(objeto1.get("codigo").toString());
                 String nombreObjeto = objeto1.get("nombre").toString(); // convierte el objeto a string 
-//                GuardarObjetos.guardarVendedor[contadorFor].setVendedorNombre(nombreObjeto);
                 //enviando dato caja al arreglo del vendedor
-                int caj =Integer.parseInt(objeto1.get("caja").toString());
+                int caj = Integer.parseInt(objeto1.get("caja").toString());
 //                GuardarObjetos.guardarVendedor[contadorFor].setVendedorCaja(caj);
                 //enviando dato ventas al arreglo del vendedor
                 int ve = Integer.parseInt(objeto1.get("ventas").toString());
@@ -1720,30 +1905,10 @@ public class Modulo_Administracion {
 //                GuardarObjetos.guardarVendedor[contadorFor].setVendedorGenero(generoObjeto);
                 //enviando dato password al arreglo del vendedor
                 String passwordObjeto = objeto1.get("password").toString();
-//                GuardarObjetos.guardarVendedor[contadorFor].setVendedorGenero(passwordObjeto);
-//                System.out.println(""+ cod);
-//                System.out.println(""+objeto1.get("nombre"));
-//                System.out.println(""+objeto1.get("caja"));
-//                System.out.println(""+objeto1.get("ventas"));
-//                System.out.println(""+ objeto1.get("genero"));
-//                System.out.println(""+ objeto1.get("password"));
 //                
-                GuardarObjetos.guardarVendedor[contadorFor] = new Vendedor(cod,nombreObjeto,caj,ve,generoObjeto,passwordObjeto);
+                GuardarObjetos.guardarVendedor[contadorFor] = new Vendedor(cod, nombreObjeto, caj, ve, generoObjeto, passwordObjeto);
                 contadorFor = contadorFor + 1;
             }
-//            
-//            for(int i = 0; i < GuardarObjetos.guardarVendedor.length; i++){
-//                if (GuardarObjetos.guardarVendedor[i] != null) {
-//                    System.out.println("codigo: " + GuardarObjetos.guardarVendedor[i].getVendedorCodigo());
-//                    System.out.println("nombre: " + GuardarObjetos.guardarVendedor[i].getVendedorNombre());
-//                    System.out.println("caja: " + GuardarObjetos.guardarVendedor[i].getVendedorCaja());
-//                    System.out.println("ventas: " + GuardarObjetos.guardarVendedor[i].getVendedorVentas());
-//                    System.out.println("genero: " + GuardarObjetos.guardarVendedor[i].getVendedorGenero());
-//                    System.out.println("password: " + GuardarObjetos.guardarVendedor[i].getVendedorPassword());
-//                }else if (GuardarObjetos.guardarVendedor[i] == null) {
-//                        break;
-//                    }
-//            }
             ordenamiento_burbujaVendedores();
 //            agregando datos a la tabla
             try {
