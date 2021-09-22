@@ -1701,12 +1701,26 @@ public class Modulo_Administracion {
             int contadorFor=0;
             for (Object objeto : arregl) {
                 JSONObject objeto1 = (JSONObject) objeto; // se obtienen los datos dentro del objeto que estan dentro del arreglo y dentro del json
+                //Envio de datos al objeto vendedor
+                //enviando dato codigo al arreglo del vendedor
                 GuardarObjetos.guardarVendedor[contadorFor].setVendedorCodigo((int) objeto1.get("codigo"));
-                
-                System.out.println("codigo " + objeto1.get("codigo"));
-                System.out.println("nombre " + objeto1.get("nombre"));
+                //enviando dato nombre al arreglo del vendedor
+                String nombreObjeto = String.valueOf(objeto1.get("nombre")); // convierte el objeto a string 
+                GuardarObjetos.guardarVendedor[contadorFor].setVendedorNombre(nombreObjeto);
+                //enviando dato caja al arreglo del vendedor
+                GuardarObjetos.guardarVendedor[contadorFor].setVendedorCaja((int) objeto1.get("caja"));
+                //enviando dato ventas al arreglo del vendedor
+                GuardarObjetos.guardarVendedor[contadorFor].setVendedorVentas((int) objeto1.get("ventas"));
+                //enviando dato genero al arreglo del vendedor
+                String generoObjeto = String.valueOf(objeto1.get("genero"));
+                GuardarObjetos.guardarVendedor[contadorFor].setVendedorGenero(generoObjeto);
+                //enviando dato password al arreglo del vendedor
+                String passwordObjeto = String.valueOf(objeto1.get("password"));
+                GuardarObjetos.guardarVendedor[contadorFor].setVendedorGenero(passwordObjeto);
                 contadorFor= contadorFor+1;
             }
+            
+            
             //hasta aqui si funciona
             
         } catch (FileNotFoundException e) {
