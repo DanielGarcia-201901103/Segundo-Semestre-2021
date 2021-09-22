@@ -795,41 +795,45 @@ public class Modulo_Administracion {
             JSONArray arregl = (JSONArray) prser.parse(new FileReader(pathR));
             int contadorFor = 0;
             for (Object objeto : arregl) {
-                JSONObject objeto1 = (JSONObject) objeto; // se obtienen los datos dentro del objeto que estan dentro del arreglo y dentro del json
+                if (contadorFor < GuardarObjetos.guardarSucursales.length) {
+                    JSONObject objeto1 = (JSONObject) objeto; // se obtienen los datos dentro del objeto que estan dentro del arreglo y dentro del json
 //                Envio de datos al objeto vendedor
 //                enviando dato codigo al arreglo del vendedor
-                int cod = Integer.parseInt(objeto1.get("codigo").toString());
-                String nombreObjeto = objeto1.get("nombre").toString(); // convierte el objeto a string 
-                //enviando dato caja al arreglo del vendedor
-                String direccionObjeto = objeto1.get("direccion").toString();
-                //enviando dato ventas al arreglo del vendedor
-                String correoObjeto = objeto1.get("correo").toString();
-                //enviando dato genero al arreglo del vendedor
-                String telefonoObjeto = objeto1.get("telefono").toString();
+                    int cod = Integer.parseInt(objeto1.get("codigo").toString());
+                    String nombreObjeto = objeto1.get("nombre").toString(); // convierte el objeto a string 
+                    //enviando dato caja al arreglo del vendedor
+                    String direccionObjeto = objeto1.get("direccion").toString();
+                    //enviando dato ventas al arreglo del vendedor
+                    String correoObjeto = objeto1.get("correo").toString();
+                    //enviando dato genero al arreglo del vendedor
+                    String telefonoObjeto = objeto1.get("telefono").toString();
 //                
-                GuardarObjetos.guardarSucursales[contadorFor] = new Sucursal(cod, nombreObjeto, direccionObjeto, correoObjeto, telefonoObjeto);
-                contadorFor = contadorFor + 1;
+                    GuardarObjetos.guardarSucursales[contadorFor] = new Sucursal(cod, nombreObjeto, direccionObjeto, correoObjeto, telefonoObjeto);
+                    contadorFor = contadorFor + 1;
+                } else {
+                    break;
+                }
             }
             ordenamiento_burbujaSucursales();
 //            agregando datos a la tabla
             try {
-            for (int indiceL = 0; indiceL < GuardarObjetos.guardarSucursales.length; indiceL++) {
-                if (GuardarObjetos.guardarSucursales[indiceL] != null) {
-                    almacenaSucursal[indiceL][0] = Integer.toString(GuardarObjetos.guardarSucursales[indiceL].getSucursalCodigo());
-                    almacenaSucursal[indiceL][1] = GuardarObjetos.guardarSucursales[indiceL].getSucursalNombre();
-                    almacenaSucursal[indiceL][2] = GuardarObjetos.guardarSucursales[indiceL].getSucursalDireccion();
-                    almacenaSucursal[indiceL][3] = GuardarObjetos.guardarSucursales[indiceL].getSucursalCorreo();
-                    almacenaSucursal[indiceL][4] = GuardarObjetos.guardarSucursales[indiceL].getSucursalTelefono();
-                    modelo_tabSucursal.addRow(almacenaSucursal[indiceL]);
-                } else if (GuardarObjetos.guardarSucursales[indiceL] == null) {
+                for (int indiceL = 0; indiceL < GuardarObjetos.guardarSucursales.length; indiceL++) {
+                    if (GuardarObjetos.guardarSucursales[indiceL] != null) {
+                        almacenaSucursal[indiceL][0] = Integer.toString(GuardarObjetos.guardarSucursales[indiceL].getSucursalCodigo());
+                        almacenaSucursal[indiceL][1] = GuardarObjetos.guardarSucursales[indiceL].getSucursalNombre();
+                        almacenaSucursal[indiceL][2] = GuardarObjetos.guardarSucursales[indiceL].getSucursalDireccion();
+                        almacenaSucursal[indiceL][3] = GuardarObjetos.guardarSucursales[indiceL].getSucursalCorreo();
+                        almacenaSucursal[indiceL][4] = GuardarObjetos.guardarSucursales[indiceL].getSucursalTelefono();
+                        modelo_tabSucursal.addRow(almacenaSucursal[indiceL]);
+                    } else if (GuardarObjetos.guardarSucursales[indiceL] == null) {
 
-                    break;
+                        break;
+                    }
+
                 }
-
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
             //hasta aqui si funciona
 
         } catch (FileNotFoundException e) {
@@ -1154,41 +1158,45 @@ public class Modulo_Administracion {
             JSONArray arregl = (JSONArray) prser.parse(new FileReader(pathR));
             int contadorFor = 0;
             for (Object objeto : arregl) {
-                JSONObject objeto1 = (JSONObject) objeto; // se obtienen los datos dentro del objeto que estan dentro del arreglo y dentro del json
+                if (contadorFor < GuardarObjetos.guardarProductos.length) {
+                    JSONObject objeto1 = (JSONObject) objeto; // se obtienen los datos dentro del objeto que estan dentro del arreglo y dentro del json
 //                Envio de datos al objeto vendedor
 //                enviando dato codigo al arreglo del vendedor
-                int cod = Integer.parseInt(objeto1.get("codigo").toString());
-                String nombreObjeto = objeto1.get("nombre").toString(); // convierte el objeto a string 
-                //enviando dato caja al arreglo del vendedor
-                String descripObjeto = objeto1.get("descripcion").toString();
-                //enviando dato ventas al arreglo del vendedor
-                int cantObjeto = Integer.parseInt(objeto1.get("cantidad").toString());
-                //enviando dato genero al arreglo del vendedor
-                float precioObjeto = Float.parseFloat(objeto1.get("precio").toString());
+                    int cod = Integer.parseInt(objeto1.get("codigo").toString());
+                    String nombreObjeto = objeto1.get("nombre").toString(); // convierte el objeto a string 
+                    //enviando dato caja al arreglo del vendedor
+                    String descripObjeto = objeto1.get("descripcion").toString();
+                    //enviando dato ventas al arreglo del vendedor
+                    int cantObjeto = Integer.parseInt(objeto1.get("cantidad").toString());
+                    //enviando dato genero al arreglo del vendedor
+                    float precioObjeto = Float.parseFloat(objeto1.get("precio").toString());
 //                
-                GuardarObjetos.guardarProductos[contadorFor] = new Producto(cod, nombreObjeto, descripObjeto, cantObjeto, precioObjeto);
-                contadorFor = contadorFor + 1;
+                    GuardarObjetos.guardarProductos[contadorFor] = new Producto(cod, nombreObjeto, descripObjeto, cantObjeto, precioObjeto);
+                    contadorFor = contadorFor + 1;
+                } else {
+                    break;
+                }
             }
             ordenamiento_burbujaProductos();
 //            agregando datos a la tabla
             try {
-            for (int indiceL = 0; indiceL < GuardarObjetos.guardarProductos.length; indiceL++) {
-                if (GuardarObjetos.guardarProductos[indiceL] != null) {
-                    almacenaProducto[indiceL][0] = Integer.toString(GuardarObjetos.guardarProductos[indiceL].getProductoCodigo());
-                    almacenaProducto[indiceL][1] = GuardarObjetos.guardarProductos[indiceL].getProductoNombre();
-                    almacenaProducto[indiceL][2] = GuardarObjetos.guardarProductos[indiceL].getProductoDescripcion();
-                    almacenaProducto[indiceL][3] = Integer.toString(GuardarObjetos.guardarProductos[indiceL].getProductoCantidad());
-                    almacenaProducto[indiceL][4] = Float.toString(GuardarObjetos.guardarProductos[indiceL].getProductoPrecio());
-                    modelo_tabProducto.addRow(almacenaProducto[indiceL]);
-                } else if (GuardarObjetos.guardarProductos[indiceL] == null) {
+                for (int indiceL = 0; indiceL < GuardarObjetos.guardarProductos.length; indiceL++) {
+                    if (GuardarObjetos.guardarProductos[indiceL] != null) {
+                        almacenaProducto[indiceL][0] = Integer.toString(GuardarObjetos.guardarProductos[indiceL].getProductoCodigo());
+                        almacenaProducto[indiceL][1] = GuardarObjetos.guardarProductos[indiceL].getProductoNombre();
+                        almacenaProducto[indiceL][2] = GuardarObjetos.guardarProductos[indiceL].getProductoDescripcion();
+                        almacenaProducto[indiceL][3] = Integer.toString(GuardarObjetos.guardarProductos[indiceL].getProductoCantidad());
+                        almacenaProducto[indiceL][4] = Float.toString(GuardarObjetos.guardarProductos[indiceL].getProductoPrecio());
+                        modelo_tabProducto.addRow(almacenaProducto[indiceL]);
+                    } else if (GuardarObjetos.guardarProductos[indiceL] == null) {
 
-                    break;
+                        break;
+                    }
+
                 }
-
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
             //hasta aqui si funciona
 
         } catch (FileNotFoundException e) {
@@ -1509,21 +1517,25 @@ public class Modulo_Administracion {
             JSONArray arregl = (JSONArray) prser.parse(new FileReader(pathR));
             int contadorFor = 0;
             for (Object objeto : arregl) {
-                JSONObject objeto1 = (JSONObject) objeto; // se obtienen los datos dentro del objeto que estan dentro del arreglo y dentro del json
+                if (contadorFor < GuardarObjetos.guardarCliente.length) {
+                    JSONObject objeto1 = (JSONObject) objeto; // se obtienen los datos dentro del objeto que estan dentro del arreglo y dentro del json
 //                Envio de datos al objeto vendedor
 //                enviando dato codigo al arreglo del cliente
-                int cod = Integer.parseInt(objeto1.get("codigo").toString());
-                //enviando dato nombre al arreglo del cliente
-                String nombreObjeto = objeto1.get("nombre").toString(); // convierte el objeto a string 
-                //enviando dato caja al arreglo del cliente
-                int nitObjeto = Integer.parseInt(objeto1.get("nit").toString());
-                //enviando dato ventas al arreglo del cliente
-                String correoObjeto = objeto1.get("correo").toString();
-                //enviando dato genero al arreglo del cliente
-                String generoObjeto = objeto1.get("genero").toString();
+                    int cod = Integer.parseInt(objeto1.get("codigo").toString());
+                    //enviando dato nombre al arreglo del cliente
+                    String nombreObjeto = objeto1.get("nombre").toString(); // convierte el objeto a string 
+                    //enviando dato caja al arreglo del cliente
+                    int nitObjeto = Integer.parseInt(objeto1.get("nit").toString());
+                    //enviando dato ventas al arreglo del cliente
+                    String correoObjeto = objeto1.get("correo").toString();
+                    //enviando dato genero al arreglo del cliente
+                    String generoObjeto = objeto1.get("genero").toString();
 //                
-                GuardarObjetos.guardarCliente[contadorFor] = new Cliente(cod, nombreObjeto, nitObjeto, correoObjeto, generoObjeto);
-                contadorFor = contadorFor + 1;
+                    GuardarObjetos.guardarCliente[contadorFor] = new Cliente(cod, nombreObjeto, nitObjeto, correoObjeto, generoObjeto);
+                    contadorFor = contadorFor + 1;
+                } else {
+                    break;
+                }
             }
             ordenamiento_burbujaClientes();
 //            agregando datos a la tabla
@@ -1889,25 +1901,29 @@ public class Modulo_Administracion {
             JSONArray arregl = (JSONArray) prser.parse(new FileReader(pathR));
             int contadorFor = 0;
             for (Object objeto : arregl) {
-                JSONObject objeto1 = (JSONObject) objeto; // se obtienen los datos dentro del objeto que estan dentro del arreglo y dentro del json
+                if (contadorFor < GuardarObjetos.guardarVendedor.length) {
+                    JSONObject objeto1 = (JSONObject) objeto; // se obtienen los datos dentro del objeto que estan dentro del arreglo y dentro del json
 //                Envio de datos al objeto vendedor
 //                enviando dato codigo al arreglo del vendedor
-                int cod = Integer.parseInt(objeto1.get("codigo").toString());
-                String nombreObjeto = objeto1.get("nombre").toString(); // convierte el objeto a string 
-                //enviando dato caja al arreglo del vendedor
-                int caj = Integer.parseInt(objeto1.get("caja").toString());
+                    int cod = Integer.parseInt(objeto1.get("codigo").toString());
+                    String nombreObjeto = objeto1.get("nombre").toString(); // convierte el objeto a string 
+                    //enviando dato caja al arreglo del vendedor
+                    int caj = Integer.parseInt(objeto1.get("caja").toString());
 //                GuardarObjetos.guardarVendedor[contadorFor].setVendedorCaja(caj);
-                //enviando dato ventas al arreglo del vendedor
-                int ve = Integer.parseInt(objeto1.get("ventas").toString());
+                    //enviando dato ventas al arreglo del vendedor
+                    int ve = Integer.parseInt(objeto1.get("ventas").toString());
 //                GuardarObjetos.guardarVendedor[contadorFor].setVendedorVentas(ve);
-                //enviando dato genero al arreglo del vendedor
-                String generoObjeto = objeto1.get("genero").toString();
+                    //enviando dato genero al arreglo del vendedor
+                    String generoObjeto = objeto1.get("genero").toString();
 //                GuardarObjetos.guardarVendedor[contadorFor].setVendedorGenero(generoObjeto);
-                //enviando dato password al arreglo del vendedor
-                String passwordObjeto = objeto1.get("password").toString();
+                    //enviando dato password al arreglo del vendedor
+                    String passwordObjeto = objeto1.get("password").toString();
 //                
-                GuardarObjetos.guardarVendedor[contadorFor] = new Vendedor(cod, nombreObjeto, caj, ve, generoObjeto, passwordObjeto);
-                contadorFor = contadorFor + 1;
+                    GuardarObjetos.guardarVendedor[contadorFor] = new Vendedor(cod, nombreObjeto, caj, ve, generoObjeto, passwordObjeto);
+                    contadorFor = contadorFor + 1;
+                } else {
+                    break;
+                }
             }
             ordenamiento_burbujaVendedores();
 //            agregando datos a la tabla
