@@ -2171,10 +2171,43 @@ public class Modulo_Administracion {
 
     // ########################## Graficos ###############################################
     private void colocarGrafico_Productos() {
+        //pasando datos del objeto al arreglo para obtener todos los valores 
+        String auxiliarGuardarN [] = new String[GuardarObjetos.guardarProductos.length];
+        int auxiliarGuardarC [] = new int[GuardarObjetos.guardarProductos.length];
+        for (int i = 0; i < GuardarObjetos.guardarProductos.length; i++) {
+            if (GuardarObjetos.guardarProductos[i] != null) {
+                auxiliarGuardarN [i]= GuardarObjetos.guardarProductos[i].getProductoNombre();
+                auxiliarGuardarC [i] = GuardarObjetos.guardarProductos[i].getProductoCantidad();
+            }
+        }
         
-        
-        
-        ordenamiento_Top3Productos();
+        //se realiza el ordenamiento utilizando los arreglos
+        String auxiliar_productoNom;
+        int auxiliar_productoCant;
+        for (int i = 0; i < auxiliarGuardarC.length; i++) {
+            for (int j = 0; j < auxiliarGuardarC.length; j++) {
+                if ((GuardarObjetos.guardarProductos[j] != null) && (GuardarObjetos.guardarProductos[j + 1] != null)) {
+                    if ((auxiliarGuardarC [j] > auxiliarGuardarC [j+1])) {
+                        //cambiando nombre
+                        auxiliar_productoNom = auxiliarGuardarN [j];
+                        auxiliarGuardarN [j]=auxiliarGuardarN [j+1];
+                        auxiliarGuardarN [j+1]=auxiliar_productoNom;
+                        //cambiando cantidad
+                        auxiliar_productoCant = auxiliarGuardarC [j];
+                        auxiliarGuardarC [j]=auxiliarGuardarC [j+1];
+                        auxiliarGuardarC [j+1]=auxiliar_productoCant;
+                    }
+
+                }
+            }
+        }
+        //obteniendo los datos para ingresarlos en la grafica
+        for (int j = auxiliarGuardarC.length; j > auxiliarGuardarC.length; j--) {
+                if ((GuardarObjetos.guardarProductos[j] != null) && (GuardarObjetos.guardarProductos[j + 1] != null)) {
+                    
+
+                }
+            }
        //Grafica de barras
        DefaultCategoryDataset barras_producto = new DefaultCategoryDataset();
        barras_producto.setValue(5, "nombredel producto 1", "nombredel producto 1");
@@ -2195,29 +2228,6 @@ public class Modulo_Administracion {
     private void colocarGrafico_Vendedores() {
 
     }
-    private void ordenamiento_Top3Productos(){
-        String auxiliar_productoNombre;
-        int auxiliar_productoCantidad;
-        for (int i = 0; i < GuardarObjetos.guardarProductos.length; i++) {
-            for (int j = 0; j < GuardarObjetos.guardarProductos.length; j++) {
-                if ((GuardarObjetos.guardarProductos[j] != null) && (GuardarObjetos.guardarProductos[j + 1] != null)) {
-                    if ((GuardarObjetos.guardarProductos[j].getProductoCodigo() > GuardarObjetos.guardarProductos[j + 1].getProductoCodigo())) {
-                        
-                        //cambiando nombre
-                        auxiliar_productoNombre = GuardarObjetos.guardarProductos[j].getProductoNombre();
-                        GuardarObjetos.guardarProductos[j].setProductoNombre(GuardarObjetos.guardarProductos[j + 1].getProductoNombre());
-                        GuardarObjetos.guardarProductos[j + 1].setProductoNombre(auxiliar_productoNombre);
-                        //cambiando cantidad
-                        auxiliar_productoCantidad = GuardarObjetos.guardarProductos[j].getProductoCantidad();
-                        GuardarObjetos.guardarProductos[j].setProductoCantidad(GuardarObjetos.guardarProductos[j + 1].getProductoCantidad());
-                        GuardarObjetos.guardarProductos[j + 1].setProductoCantidad(auxiliar_productoCantidad);
-                    }
-
-                }
-            }
-        }
-    }
-
     // ########################## Ordenamiento Burbuja ###############################################
     private void ordenamiento_burbujaVendedores() {
         int auxiliar_vendedorCodigo;
