@@ -44,6 +44,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -100,15 +101,12 @@ public class Modulo_Administracion {
         //Para pestaña productos
         colocarBotones_Productos();
         colocarTabla_Productos();
-        colocarGrafico_Productos();
         //Para pestaña clientes
         colocarBotones_Clientes();
         colocarTabla_Clientes();
-        colocarGrafico_Clientes();
         //Para pestaña vendedores
         colocarBotones_Vendedores();
         colocarTabla_Vendedores();
-        colocarGrafico_Vendedores();
     }
 
     private void colocarPanel() {
@@ -293,6 +291,7 @@ public class Modulo_Administracion {
         ActionListener accion1 = (ActionEvent ae) -> {
             try {
                 productos_CargaMasiva();
+                colocarGrafico_Productos();
             } catch (IOException ex) {
                 Logger.getLogger(Modulo_Administracion.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ParseException ex) {
@@ -393,6 +392,7 @@ public class Modulo_Administracion {
         ActionListener accion1 = (ActionEvent ae) -> {
             try {
                 clientes_CargaMasiva();
+                colocarGrafico_Clientes();
             } catch (IOException ex) {
                 Logger.getLogger(Modulo_Administracion.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ParseException ex) {
@@ -494,6 +494,7 @@ public class Modulo_Administracion {
 
             try {
                 vendedores_CargaMasiva();
+                colocarGrafico_Vendedores();
             } catch (IOException ex) {
                 Logger.getLogger(Modulo_Administracion.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ParseException ex) {
@@ -2172,62 +2173,149 @@ public class Modulo_Administracion {
     // ########################## Graficos ###############################################
     private void colocarGrafico_Productos() {
         //pasando datos del objeto al arreglo para obtener todos los valores 
-        String auxiliarGuardarN [] = new String[GuardarObjetos.guardarProductos.length];
-        int auxiliarGuardarC [] = new int[GuardarObjetos.guardarProductos.length];
+        String auxiliarGuardarN[] = new String[GuardarObjetos.guardarProductos.length];
+        int auxiliarGuardarC[] = new int[GuardarObjetos.guardarProductos.length];
         for (int i = 0; i < GuardarObjetos.guardarProductos.length; i++) {
             if (GuardarObjetos.guardarProductos[i] != null) {
-                auxiliarGuardarN [i]= GuardarObjetos.guardarProductos[i].getProductoNombre();
-                auxiliarGuardarC [i] = GuardarObjetos.guardarProductos[i].getProductoCantidad();
+                auxiliarGuardarN[i] = GuardarObjetos.guardarProductos[i].getProductoNombre();
+                auxiliarGuardarC[i] = GuardarObjetos.guardarProductos[i].getProductoCantidad();
             }
         }
-        
+
         //se realiza el ordenamiento utilizando los arreglos
         String auxiliar_productoNom;
         int auxiliar_productoCant;
         for (int i = 0; i < auxiliarGuardarC.length; i++) {
             for (int j = 0; j < auxiliarGuardarC.length; j++) {
                 if ((GuardarObjetos.guardarProductos[j] != null) && (GuardarObjetos.guardarProductos[j + 1] != null)) {
-                    if ((auxiliarGuardarC [j] > auxiliarGuardarC [j+1])) {
+                    if ((auxiliarGuardarC[j] < auxiliarGuardarC[j + 1])) {
                         //cambiando nombre
-                        auxiliar_productoNom = auxiliarGuardarN [j];
-                        auxiliarGuardarN [j]=auxiliarGuardarN [j+1];
-                        auxiliarGuardarN [j+1]=auxiliar_productoNom;
+                        auxiliar_productoNom = auxiliarGuardarN[j];
+                        auxiliarGuardarN[j] = auxiliarGuardarN[j + 1];
+                        auxiliarGuardarN[j + 1] = auxiliar_productoNom;
                         //cambiando cantidad
-                        auxiliar_productoCant = auxiliarGuardarC [j];
-                        auxiliarGuardarC [j]=auxiliarGuardarC [j+1];
-                        auxiliarGuardarC [j+1]=auxiliar_productoCant;
+                        auxiliar_productoCant = auxiliarGuardarC[j];
+                        auxiliarGuardarC[j] = auxiliarGuardarC[j + 1];
+                        auxiliarGuardarC[j + 1] = auxiliar_productoCant;
                     }
 
                 }
             }
         }
-        //obteniendo los datos para ingresarlos en la grafica
-        for (int j = auxiliarGuardarC.length; j > auxiliarGuardarC.length; j--) {
-                if ((GuardarObjetos.guardarProductos[j] != null) && (GuardarObjetos.guardarProductos[j + 1] != null)) {
-                    
+        for (int i = 0; i < GuardarObjetos.guardarProductos.length; i++) {
+            if (GuardarObjetos.guardarProductos[i] != null) {
+                //obteniendo los datos para ingresarlos en la grafica
+                String nombProducto1 = auxiliarGuardarN[0];
+                String nombProducto2 = auxiliarGuardarN[1];
+                String nombProducto3 = auxiliarGuardarN[2];
+                int cantidadProducto1 = auxiliarGuardarC[0];
+                int cantidadProducto2 = auxiliarGuardarC[1];
+                int cantidadProducto3 = auxiliarGuardarC[2];
 
-                }
+//Grafica de barras
+                DefaultCategoryDataset barras_producto = new DefaultCategoryDataset();
+                barras_producto.setValue(cantidadProducto1, nombProducto1, nombProducto1);
+                barras_producto.setValue(cantidadProducto2, nombProducto2, nombProducto2);
+                barras_producto.setValue(cantidadProducto3, nombProducto3, nombProducto3);
+
+                JFreeChart barraP = ChartFactory.createBarChart3D("Top 3 - Productos con más disponibilidad", "Productos", "Cantidad", barras_producto, PlotOrientation.VERTICAL, true, true, false);
+                ChartPanel panelBarras = new ChartPanel(barraP);
+                panelBarras.setBounds(450, 270, 280, 400);
+                panel2.add(panelBarras);
+                break;
             }
-       //Grafica de barras
-       DefaultCategoryDataset barras_producto = new DefaultCategoryDataset();
-       barras_producto.setValue(5, "nombredel producto 1", "nombredel producto 1");
-       barras_producto.setValue(6, "nombredel producto 2", "nombredel producto 2");
-       barras_producto.setValue(7, "nombredel producto 3", "nombredel producto 3");
-       
-       JFreeChart barraP = ChartFactory.createBarChart("Top 3 - Productos con más disponibilidad", "Productos", "Cantidad", barras_producto, PlotOrientation.VERTICAL, true, true, false);
-       ChartPanel panelBarras = new ChartPanel(barraP);
-       panelBarras.setBounds(450, 270, 280, 400);
-       panel2.add(panelBarras);
-       //Esto funciona solo se debe validar para que haga los top 3 y que funcione solo cuando esté lleno el arreglo
+        }
     }
 
     private void colocarGrafico_Clientes() {
+        //pasando datos del objeto al arreglo para obtener todos los valores 
+        int cuentaMasculino = 0;
+        int cuentaFemenino = 0;
+        for (int i = 0; i < GuardarObjetos.guardarCliente.length; i++) {
+            if (GuardarObjetos.guardarCliente[i] != null) {
+                if (GuardarObjetos.guardarCliente[i].getClienteGenero().equals("M")) {
+                    cuentaMasculino = cuentaMasculino + 1;
+                } else if (GuardarObjetos.guardarCliente[i].getClienteGenero().equals("F")) {
+                    cuentaFemenino = cuentaFemenino + 1;
+                }
+            }
+        }
 
+        for (int i = 0; i < GuardarObjetos.guardarCliente.length; i++) {
+            if (GuardarObjetos.guardarCliente[i] != null) {
+                //obteniendo los datos para ingresarlos en la grafica
+
+//Grafica de barras
+                DefaultPieDataset pie_cliente = new DefaultPieDataset();
+                pie_cliente.setValue("Femenino", new Integer(cuentaFemenino));
+                pie_cliente.setValue("Masculino", new Integer(cuentaMasculino));
+
+                JFreeChart pieC = ChartFactory.createPieChart("Genero de clientes", pie_cliente, true, true, false);
+                ChartPanel panelPie = new ChartPanel(pieC);
+                panelPie.setBounds(450, 270, 280, 400);
+                panel3.add(panelPie);
+                break;
+            }
+        }
     }
 
     private void colocarGrafico_Vendedores() {
 
+        //pasando datos del objeto al arreglo para obtener todos los valores 
+        String auxiliarGuardarN[] = new String[GuardarObjetos.guardarVendedor.length];
+        int auxiliarGuardarVentas[] = new int[GuardarObjetos.guardarVendedor.length];
+        for (int i = 0; i < GuardarObjetos.guardarVendedor.length; i++) {
+            if (GuardarObjetos.guardarVendedor[i] != null) {
+                auxiliarGuardarN[i] = GuardarObjetos.guardarVendedor[i].getVendedorNombre();
+                auxiliarGuardarVentas[i] = GuardarObjetos.guardarVendedor[i].getVendedorVentas();
+            }
+        }
+
+        //se realiza el ordenamiento utilizando los arreglos
+        String auxiliar_productoNom;
+        int auxiliar_productoCant;
+        for (int i = 0; i < auxiliarGuardarVentas.length; i++) {
+            for (int j = 0; j < auxiliarGuardarVentas.length; j++) {
+                if ((GuardarObjetos.guardarVendedor[j] != null) && (GuardarObjetos.guardarVendedor[j + 1] != null)) {
+                    if ((auxiliarGuardarVentas[j] < auxiliarGuardarVentas[j + 1])) {
+                        //cambiando nombre
+                        auxiliar_productoNom = auxiliarGuardarN[j];
+                        auxiliarGuardarN[j] = auxiliarGuardarN[j + 1];
+                        auxiliarGuardarN[j + 1] = auxiliar_productoNom;
+                        //cambiando cantidad
+                        auxiliar_productoCant = auxiliarGuardarVentas[j];
+                        auxiliarGuardarVentas[j] = auxiliarGuardarVentas[j + 1];
+                        auxiliarGuardarVentas[j + 1] = auxiliar_productoCant;
+                    }
+
+                }
+            }
+        }
+        for (int i = 0; i < GuardarObjetos.guardarVendedor.length; i++) {
+            if (GuardarObjetos.guardarVendedor[i] != null) {
+                //obteniendo los datos para ingresarlos en la grafica
+                String nombVendedor1 = auxiliarGuardarN[0];
+                String nombVendedor2 = auxiliarGuardarN[1];
+                String nombVendedor3 = auxiliarGuardarN[2];
+                int cantidadVentasV1 = auxiliarGuardarVentas[0];
+                int cantidadVentasV2 = auxiliarGuardarVentas[1];
+                int cantidadVentasV3 = auxiliarGuardarVentas[2];
+
+//Grafica de barras
+                DefaultCategoryDataset barras_vendedor = new DefaultCategoryDataset();
+                barras_vendedor.setValue(cantidadVentasV1, nombVendedor1, nombVendedor1);
+                barras_vendedor.setValue(cantidadVentasV2, nombVendedor2, nombVendedor2);
+                barras_vendedor.setValue(cantidadVentasV3, nombVendedor3, nombVendedor3);
+
+                JFreeChart barraP = ChartFactory.createBarChart3D("Top 3 - Vendedores con más ventas", "Vendedores", "Cantidad", barras_vendedor, PlotOrientation.VERTICAL, true, true, false);
+                ChartPanel panelBarras = new ChartPanel(barraP);
+                panelBarras.setBounds(450, 270, 280, 400);
+                panel4.add(panelBarras);
+                break;
+            }
+        }
     }
+
     // ########################## Ordenamiento Burbuja ###############################################
     private void ordenamiento_burbujaVendedores() {
         int auxiliar_vendedorCodigo;
