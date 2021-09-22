@@ -16,7 +16,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -1698,31 +1697,75 @@ public class Modulo_Administracion {
         JSONParser prser = new JSONParser();
         try {
             JSONArray arregl = (JSONArray) prser.parse(new FileReader(pathR));
-            int contadorFor=0;
+            int contadorFor = 0;
             for (Object objeto : arregl) {
                 JSONObject objeto1 = (JSONObject) objeto; // se obtienen los datos dentro del objeto que estan dentro del arreglo y dentro del json
-                //Envio de datos al objeto vendedor
-                //enviando dato codigo al arreglo del vendedor
-                GuardarObjetos.guardarVendedor[contadorFor].setVendedorCodigo((int) objeto1.get("codigo"));
+//                Envio de datos al objeto vendedor
+//                enviando dato codigo al arreglo del vendedor
+                int cod = Integer.parseInt( objeto1.get("codigo").toString());
+//                GuardarObjetos.guardarVendedor[contadorFor].setVendedorCodigo(cod);
                 //enviando dato nombre al arreglo del vendedor
-                String nombreObjeto = String.valueOf(objeto1.get("nombre")); // convierte el objeto a string 
-                GuardarObjetos.guardarVendedor[contadorFor].setVendedorNombre(nombreObjeto);
+//                String nombreObjeto = String.valueOf(objeto1.get("nombre")); // convierte el objeto a string 
+                
+                String nombreObjeto = objeto1.get("nombre").toString(); // convierte el objeto a string 
+//                GuardarObjetos.guardarVendedor[contadorFor].setVendedorNombre(nombreObjeto);
                 //enviando dato caja al arreglo del vendedor
-                GuardarObjetos.guardarVendedor[contadorFor].setVendedorCaja((int) objeto1.get("caja"));
+                int caj =Integer.parseInt(objeto1.get("caja").toString());
+//                GuardarObjetos.guardarVendedor[contadorFor].setVendedorCaja(caj);
                 //enviando dato ventas al arreglo del vendedor
-                GuardarObjetos.guardarVendedor[contadorFor].setVendedorVentas((int) objeto1.get("ventas"));
+                int ve = Integer.parseInt(objeto1.get("ventas").toString());
+//                GuardarObjetos.guardarVendedor[contadorFor].setVendedorVentas(ve);
                 //enviando dato genero al arreglo del vendedor
-                String generoObjeto = String.valueOf(objeto1.get("genero"));
-                GuardarObjetos.guardarVendedor[contadorFor].setVendedorGenero(generoObjeto);
+                String generoObjeto = objeto1.get("genero").toString();
+//                GuardarObjetos.guardarVendedor[contadorFor].setVendedorGenero(generoObjeto);
                 //enviando dato password al arreglo del vendedor
-                String passwordObjeto = String.valueOf(objeto1.get("password"));
-                GuardarObjetos.guardarVendedor[contadorFor].setVendedorGenero(passwordObjeto);
-                contadorFor= contadorFor+1;
+                String passwordObjeto = objeto1.get("password").toString();
+//                GuardarObjetos.guardarVendedor[contadorFor].setVendedorGenero(passwordObjeto);
+//                System.out.println(""+ cod);
+//                System.out.println(""+objeto1.get("nombre"));
+//                System.out.println(""+objeto1.get("caja"));
+//                System.out.println(""+objeto1.get("ventas"));
+//                System.out.println(""+ objeto1.get("genero"));
+//                System.out.println(""+ objeto1.get("password"));
+//                
+                GuardarObjetos.guardarVendedor[contadorFor] = new Vendedor(cod,nombreObjeto,caj,ve,generoObjeto,passwordObjeto);
+                contadorFor = contadorFor + 1;
             }
-            
-            
+//            
+//            for(int i = 0; i < GuardarObjetos.guardarVendedor.length; i++){
+//                if (GuardarObjetos.guardarVendedor[i] != null) {
+//                    System.out.println("codigo: " + GuardarObjetos.guardarVendedor[i].getVendedorCodigo());
+//                    System.out.println("nombre: " + GuardarObjetos.guardarVendedor[i].getVendedorNombre());
+//                    System.out.println("caja: " + GuardarObjetos.guardarVendedor[i].getVendedorCaja());
+//                    System.out.println("ventas: " + GuardarObjetos.guardarVendedor[i].getVendedorVentas());
+//                    System.out.println("genero: " + GuardarObjetos.guardarVendedor[i].getVendedorGenero());
+//                    System.out.println("password: " + GuardarObjetos.guardarVendedor[i].getVendedorPassword());
+//                }else if (GuardarObjetos.guardarVendedor[i] == null) {
+//                        break;
+//                    }
+//            }
+            ordenamiento_burbujaVendedores();
+//            agregando datos a la tabla
+            try {
+                for (int indiceL = 0; indiceL < GuardarObjetos.guardarVendedor.length; indiceL++) {
+                    if (GuardarObjetos.guardarVendedor[indiceL] != null) {
+                        almacenaVendedor[indiceL][0] = Integer.toString(GuardarObjetos.guardarVendedor[indiceL].getVendedorCodigo());
+                        almacenaVendedor[indiceL][1] = GuardarObjetos.guardarVendedor[indiceL].getVendedorNombre();
+                        almacenaVendedor[indiceL][2] = Integer.toString(GuardarObjetos.guardarVendedor[indiceL].getVendedorCaja());
+                        almacenaVendedor[indiceL][3] = Integer.toString(GuardarObjetos.guardarVendedor[indiceL].getVendedorVentas());
+                        almacenaVendedor[indiceL][4] = GuardarObjetos.guardarVendedor[indiceL].getVendedorGenero();
+                        modelo_tabVende.addRow(almacenaVendedor[indiceL]);
+                    } else if (GuardarObjetos.guardarVendedor[indiceL] == null) {
+
+                        break;
+                    }
+
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
             //hasta aqui si funciona
-            
+
         } catch (FileNotFoundException e) {
             System.out.println("" + e);
         } catch (IOException e) {
