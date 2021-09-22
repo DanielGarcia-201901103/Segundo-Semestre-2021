@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
@@ -32,11 +33,12 @@ public class Modulo_Vendedores {
     private JTabbedPane primeras_pestañas = new JTabbedPane();
     private int codigoVendedorRecib;
     private String nombreVendedorEncontrado;
-    
+
     int contador_Product = 0;
     private DefaultTableModel modelo_agregarProd = new DefaultTableModel();
     String almProducto[][] = new String[GuardarObjetos.guardarProductos.length][5];
-    float subTot[] = new float[contador_Product+1];
+    float subTot[] = new float[contador_Product + 1];
+
     public void ventanaVendedores() {
         ventanaVende.setSize(800, 800);
         ventanaVende.setTitle("Modulo Vendedores");
@@ -211,6 +213,21 @@ public class Modulo_Vendedores {
         etiqueta_cliente.setHorizontalAlignment(SwingConstants.CENTER); // pone la palabra en el centro de la etiqueta 
         panelSeleccionarC.add(etiqueta_cliente);
 
+        //lista desplegable
+        String[] listadoCliente = new String[GuardarObjetos.guardarCliente.length];
+        for (int i = 0; i < GuardarObjetos.guardarCliente.length; i++) {
+            if (GuardarObjetos.guardarCliente[i] != null) {
+                listadoCliente[i] = GuardarObjetos.guardarCliente[i].getClienteNombre();
+            } else if (GuardarObjetos.guardarCliente[i] == null) {
+                break;
+            }
+        }
+        JComboBox listaClientes = new JComboBox(listadoCliente);
+        listaClientes.setBounds(180, 185, 100, 25);
+//        listaClientes.addItem("aqui se agrega el que se quiera");// añade objeto a la lista
+//    listaClientes.setSelectedItem(""); // Selecciona el primer visto
+        panelSeleccionarC.add(listaClientes);
+
         //Cajas de texto
         JTextField c_nom = new JTextField();
         c_nom.setBounds(175, 35, 200, 27);
@@ -239,22 +256,48 @@ public class Modulo_Vendedores {
         panelSeleccionarC.add(boton1);
         //Agregando eventos de tipo ActionListener
         ActionListener accion = (ActionEvent ae) -> {
-            String seleccionar_clienteNombre = c_nom.getText();
-            int seleccionar_clienteNit = Integer.parseInt(c_nit.getText());
-            String seleccionar_clienteCorreo = c_correo.getText();
-            String seleccionar_clienteGenero = c_genero.getText();
+//             int contadorBusqueda = 0;
+            if (GuardarObjetos.guardarCliente != null) {
+                for (int contadorBusqueda = 0; contadorBusqueda < GuardarObjetos.guardarCliente.length; contadorBusqueda++) {
+//                    while (contadorBusqueda < GuardarObjetos.guardarCliente.length) {
+                    if (c_nom.getText().equals(GuardarObjetos.guardarCliente[contadorBusqueda].getClienteNombre())
+                            || (c_nit.getText().equals(Integer.toString(GuardarObjetos.guardarCliente[contadorBusqueda].getClienteNit())))
+                            || (c_correo.getText().equals(GuardarObjetos.guardarCliente[contadorBusqueda].getClienteCorreo()))
+                            || (c_genero.getText().equals(GuardarObjetos.guardarCliente[contadorBusqueda].getClienteGenero()))) {
+                        // falta el componente para mostrar el dato
+                        System.out.println("entro al if");
+                        listaClientes.setSelectedItem(c_nom.getText());
 
-            for (int i = 0; i < GuardarObjetos.guardarCliente.length; i++) {
-                if (seleccionar_clienteNombre.equals(GuardarObjetos.guardarCliente[i].getClienteNombre()) || (seleccionar_clienteNit == GuardarObjetos.guardarCliente[i].getClienteNit())
-                        || (seleccionar_clienteCorreo.equals(GuardarObjetos.guardarCliente[i].getClienteCorreo())) || (seleccionar_clienteGenero.equals(GuardarObjetos.guardarCliente[i].getClienteGenero()))) {
-                    // falta el componente para mostrar el dato
-                    JOptionPane.showMessageDialog(null, GuardarObjetos.guardarCliente[i].getClienteNombre());
-                    break;
-                } else if (!(seleccionar_clienteNombre.equals(GuardarObjetos.guardarCliente[i].getClienteNombre()) || (seleccionar_clienteNit == GuardarObjetos.guardarCliente[i].getClienteNit())
-                        || (seleccionar_clienteCorreo.equals(GuardarObjetos.guardarCliente[i].getClienteCorreo())) || (seleccionar_clienteGenero.equals(GuardarObjetos.guardarCliente[i].getClienteGenero())))) {
-                    JOptionPane.showMessageDialog(null, "El cliente no existe por favor crear uno nuevo");
-                    break;
+                    } else if (c_nom.getText().equals(GuardarObjetos.guardarCliente[contadorBusqueda].getClienteNombre())) {
+                        // falta el componente para mostrar el dato
+                        System.out.println("entro al if");
+                        listaClientes.setSelectedItem(c_nom.getText());
+
+                    } else if ((c_nit.getText().equals(Integer.toString(GuardarObjetos.guardarCliente[contadorBusqueda].getClienteNit())))) {
+                        // falta el componente para mostrar el dato
+                        System.out.println("entro al if");
+                        listaClientes.setSelectedItem(c_nom.getText());
+
+                    } else if ((c_correo.getText().equals(GuardarObjetos.guardarCliente[contadorBusqueda].getClienteCorreo()))) {
+                        // falta el componente para mostrar el dato
+                        System.out.println("entro al if");
+                        listaClientes.setSelectedItem(c_nom.getText());
+
+                    } else if ((c_genero.getText().equals(GuardarObjetos.guardarCliente[contadorBusqueda].getClienteGenero()))) {
+                        // falta el componente para mostrar el dato
+                        System.out.println("entro al if");
+                        listaClientes.setSelectedItem(c_nom.getText());
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "El cliente no existe por favor crear uno nuevo");
+                        
+                        break;
+                    }
+//                        contadorBusqueda = contadorBusqueda + 1;
+
                 }
+            } else if (GuardarObjetos.guardarCliente == null) {
+
             }
         };
         boton1.addActionListener(accion);
@@ -268,7 +311,7 @@ public class Modulo_Vendedores {
         boton2.setBackground(Color.LIGHT_GRAY); //cambia el color del fondo del boton
         panelSeleccionarC.add(boton2);
         //Agregando eventos de tipo ActionListener
-        ActionListener accion2 = (ActionEvent ae) -> {  
+        ActionListener accion2 = (ActionEvent ae) -> {
             Modulo_Administracion vCrearNuevo = new Modulo_Administracion();
             vCrearNuevo.clientes_vCrear();
         };
@@ -376,28 +419,27 @@ public class Modulo_Vendedores {
         ActionListener accion = (ActionEvent ae) -> {
             int codigoA = Integer.parseInt(c_codigo.getText());
             int cantidadA = Integer.parseInt(c_cantidad.getText());
-            
-            
+
             for (int i = 0; i < GuardarObjetos.guardarProductos.length; i++) {
                 if (codigoA == GuardarObjetos.guardarProductos[i].getProductoCodigo()) {
-                    if (cantidadA <= GuardarObjetos.guardarProductos[i].getProductoCantidad() && cantidadA > 0 ) {
-                       
-                        almProducto[contador_Product][0]= Integer.toString(GuardarObjetos.guardarProductos[i].getProductoCodigo());
-                        almProducto[contador_Product][1]= GuardarObjetos.guardarProductos[i].getProductoNombre();
-                        almProducto[contador_Product][2]= Integer.toString(cantidadA);
-                        almProducto[contador_Product][3]= Float.toString(GuardarObjetos.guardarProductos[i].getProductoPrecio());
+                    if (cantidadA <= GuardarObjetos.guardarProductos[i].getProductoCantidad() && cantidadA > 0) {
+
+                        almProducto[contador_Product][0] = Integer.toString(GuardarObjetos.guardarProductos[i].getProductoCodigo());
+                        almProducto[contador_Product][1] = GuardarObjetos.guardarProductos[i].getProductoNombre();
+                        almProducto[contador_Product][2] = Integer.toString(cantidadA);
+                        almProducto[contador_Product][3] = Float.toString(GuardarObjetos.guardarProductos[i].getProductoPrecio());
                         float subtotal = cantidadA * GuardarObjetos.guardarProductos[i].getProductoPrecio();
                         subTot[contador_Product] = subtotal;
-                        almProducto[contador_Product][4]= Float.toString(subtotal);
-                        
+                        almProducto[contador_Product][4] = Float.toString(subtotal);
+
                         modelo_agregarProd.addRow(almProducto[contador_Product]);
                         contador_Product = contador_Product++;
-                        int nuevCantidadAlmacenada = GuardarObjetos.guardarProductos[i].getProductoCantidad()-cantidadA; //si la cantidad es menor a la existente entonces se resta
+                        int nuevCantidadAlmacenada = GuardarObjetos.guardarProductos[i].getProductoCantidad() - cantidadA; //si la cantidad es menor a la existente entonces se resta
                         GuardarObjetos.guardarProductos[i].setProductoCantidad(nuevCantidadAlmacenada);   // lo que resulta de la resta se envia como nueva cantidad existente 
-                        
-                    }else if(cantidadA > GuardarObjetos.guardarProductos[i].getProductoCantidad()){
-                         JOptionPane.showMessageDialog(null, "Solamente hay una cantidad de "+GuardarObjetos.guardarProductos[i].getProductoCantidad()+" "+GuardarObjetos.guardarProductos[i].getProductoNombre());
-                    }else if(GuardarObjetos.guardarProductos[i].getProductoCantidad() ==0){
+
+                    } else if (cantidadA > GuardarObjetos.guardarProductos[i].getProductoCantidad()) {
+                        JOptionPane.showMessageDialog(null, "Solamente hay una cantidad de " + GuardarObjetos.guardarProductos[i].getProductoCantidad() + " " + GuardarObjetos.guardarProductos[i].getProductoNombre());
+                    } else if (GuardarObjetos.guardarProductos[i].getProductoCantidad() == 0) {
                         JOptionPane.showMessageDialog(null, "Producto agotado");
                     }
                     break;
@@ -431,7 +473,7 @@ public class Modulo_Vendedores {
         scr.setBounds(25, 85, 640, 150);
         panelAgregarP.add(scr);
     }
-    
+
     private void ventas_ListadoG() {
         //TITULO DEL PRIMER PANEL
         JLabel etiquetaTitulo = new JLabel();

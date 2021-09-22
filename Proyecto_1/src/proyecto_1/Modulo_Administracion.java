@@ -39,6 +39,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -2166,7 +2171,21 @@ public class Modulo_Administracion {
 
     // ########################## Graficos ###############################################
     private void colocarGrafico_Productos() {
-
+        
+        
+        
+        ordenamiento_Top3Productos();
+       //Grafica de barras
+       DefaultCategoryDataset barras_producto = new DefaultCategoryDataset();
+       barras_producto.setValue(5, "nombredel producto 1", "nombredel producto 1");
+       barras_producto.setValue(6, "nombredel producto 2", "nombredel producto 2");
+       barras_producto.setValue(7, "nombredel producto 3", "nombredel producto 3");
+       
+       JFreeChart barraP = ChartFactory.createBarChart("Top 3 - Productos con más disponibilidad", "Productos", "Cantidad", barras_producto, PlotOrientation.VERTICAL, true, true, false);
+       ChartPanel panelBarras = new ChartPanel(barraP);
+       panelBarras.setBounds(450, 270, 280, 400);
+       panel2.add(panelBarras);
+       //Esto funciona solo se debe validar para que haga los top 3 y que funcione solo cuando esté lleno el arreglo
     }
 
     private void colocarGrafico_Clientes() {
@@ -2175,6 +2194,28 @@ public class Modulo_Administracion {
 
     private void colocarGrafico_Vendedores() {
 
+    }
+    private void ordenamiento_Top3Productos(){
+        String auxiliar_productoNombre;
+        int auxiliar_productoCantidad;
+        for (int i = 0; i < GuardarObjetos.guardarProductos.length; i++) {
+            for (int j = 0; j < GuardarObjetos.guardarProductos.length; j++) {
+                if ((GuardarObjetos.guardarProductos[j] != null) && (GuardarObjetos.guardarProductos[j + 1] != null)) {
+                    if ((GuardarObjetos.guardarProductos[j].getProductoCodigo() > GuardarObjetos.guardarProductos[j + 1].getProductoCodigo())) {
+                        
+                        //cambiando nombre
+                        auxiliar_productoNombre = GuardarObjetos.guardarProductos[j].getProductoNombre();
+                        GuardarObjetos.guardarProductos[j].setProductoNombre(GuardarObjetos.guardarProductos[j + 1].getProductoNombre());
+                        GuardarObjetos.guardarProductos[j + 1].setProductoNombre(auxiliar_productoNombre);
+                        //cambiando cantidad
+                        auxiliar_productoCantidad = GuardarObjetos.guardarProductos[j].getProductoCantidad();
+                        GuardarObjetos.guardarProductos[j].setProductoCantidad(GuardarObjetos.guardarProductos[j + 1].getProductoCantidad());
+                        GuardarObjetos.guardarProductos[j + 1].setProductoCantidad(auxiliar_productoCantidad);
+                    }
+
+                }
+            }
+        }
     }
 
     // ########################## Ordenamiento Burbuja ###############################################
