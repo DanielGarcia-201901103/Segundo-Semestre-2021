@@ -861,7 +861,7 @@ public class Modulo_Administracion {
             texto.setAlignment(Element.ALIGN_JUSTIFIED);
             docu1.add(texto);
             docu1.add(Chunk.NEWLINE);
-            PdfPTable tab1 = new PdfPTable(6);
+            PdfPTable tab1 = new PdfPTable(5);
             tab1.setWidthPercentage(100);
             PdfPCell cod2 = new PdfPCell(new Phrase("Codigo"));
             cod2.setBackgroundColor(BaseColor.ORANGE);
@@ -1224,7 +1224,7 @@ public class Modulo_Administracion {
             texto.setAlignment(Element.ALIGN_JUSTIFIED);
             docu1.add(texto);
             docu1.add(Chunk.NEWLINE);
-            PdfPTable tab1 = new PdfPTable(6);
+            PdfPTable tab1 = new PdfPTable(5);
             tab1.setWidthPercentage(100);
             PdfPCell cod2 = new PdfPCell(new Phrase("Codigo"));
             cod2.setBackgroundColor(BaseColor.ORANGE);
@@ -1287,7 +1287,7 @@ public class Modulo_Administracion {
     }
 
     // ########################## Acciones de Botones Clientes ###############################################
-    private void clientes_vCrear() {
+    public void clientes_vCrear() {
         //Creando la ventana
         JFrame vCrear = new JFrame();
         vCrear.setSize(400, 400);
@@ -1507,16 +1507,16 @@ public class Modulo_Administracion {
     }
 
     private void clientes_CargaMasiva() throws FileNotFoundException, IOException, ParseException {
-        JFileChooser seleccionArchivo = new JFileChooser();
-        seleccionArchivo.showOpenDialog(panel3);
-        File arch = seleccionArchivo.getSelectedFile();
-        String nombreArchivo = seleccionArchivo.getName(arch);
-        String pathR = arch.getAbsolutePath(); //obtiene la ruta del archivo seleccionado
-        JSONParser prser = new JSONParser();
+        JFileChooser seleccionArchivo1 = new JFileChooser();
+        seleccionArchivo1.showOpenDialog(panel3);
+        File arch1 = seleccionArchivo1.getSelectedFile();
+        String nombreArchivo = seleccionArchivo1.getName(arch1);
+        String pathR1 = arch1.getAbsolutePath(); //obtiene la ruta del archivo seleccionado
+        JSONParser prser1 = new JSONParser();
         try {
-            JSONArray arregl = (JSONArray) prser.parse(new FileReader(pathR));
+            JSONArray arregl1 = (JSONArray) prser1.parse(new FileReader(pathR1));
             int contadorFor = 0;
-            for (Object objeto : arregl) {
+            for (Object objeto : arregl1) {
                 if (contadorFor < GuardarObjetos.guardarCliente.length) {
                     JSONObject objeto1 = (JSONObject) objeto; // se obtienen los datos dentro del objeto que estan dentro del arreglo y dentro del json
 //                Envio de datos al objeto vendedor
@@ -1584,7 +1584,7 @@ public class Modulo_Administracion {
             texto.setAlignment(Element.ALIGN_JUSTIFIED);
             docu1.add(texto);
             docu1.add(Chunk.NEWLINE);
-            PdfPTable tab1 = new PdfPTable(6);
+            PdfPTable tab1 = new PdfPTable(5);
             tab1.setWidthPercentage(100);
             PdfPCell cod1 = new PdfPCell(new Phrase("Codigo"));
             cod1.setBackgroundColor(BaseColor.ORANGE);

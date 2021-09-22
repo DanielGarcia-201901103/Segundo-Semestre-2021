@@ -9,7 +9,6 @@ import java.awt.font.TextAttribute;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
-import static javafx.scene.text.Font.font;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -246,13 +245,13 @@ public class Modulo_Vendedores {
             String seleccionar_clienteGenero = c_genero.getText();
 
             for (int i = 0; i < GuardarObjetos.guardarCliente.length; i++) {
-                if (seleccionar_clienteNombre.equals(GuardarObjetos.guardarCliente[i].getClienteNombre()) && (seleccionar_clienteNit == GuardarObjetos.guardarCliente[i].getClienteNit())
-                        && (seleccionar_clienteCorreo.equals(GuardarObjetos.guardarCliente[i].getClienteCorreo())) && (seleccionar_clienteGenero.equals(GuardarObjetos.guardarCliente[i].getClienteGenero()))) {
+                if (seleccionar_clienteNombre.equals(GuardarObjetos.guardarCliente[i].getClienteNombre()) || (seleccionar_clienteNit == GuardarObjetos.guardarCliente[i].getClienteNit())
+                        || (seleccionar_clienteCorreo.equals(GuardarObjetos.guardarCliente[i].getClienteCorreo())) || (seleccionar_clienteGenero.equals(GuardarObjetos.guardarCliente[i].getClienteGenero()))) {
                     // falta el componente para mostrar el dato
                     JOptionPane.showMessageDialog(null, GuardarObjetos.guardarCliente[i].getClienteNombre());
                     break;
-                } else if (!(seleccionar_clienteNombre.equals(GuardarObjetos.guardarCliente[i].getClienteNombre()) && (seleccionar_clienteNit == GuardarObjetos.guardarCliente[i].getClienteNit())
-                        && (seleccionar_clienteCorreo.equals(GuardarObjetos.guardarCliente[i].getClienteCorreo())) && (seleccionar_clienteGenero.equals(GuardarObjetos.guardarCliente[i].getClienteGenero())))) {
+                } else if (!(seleccionar_clienteNombre.equals(GuardarObjetos.guardarCliente[i].getClienteNombre()) || (seleccionar_clienteNit == GuardarObjetos.guardarCliente[i].getClienteNit())
+                        || (seleccionar_clienteCorreo.equals(GuardarObjetos.guardarCliente[i].getClienteCorreo())) || (seleccionar_clienteGenero.equals(GuardarObjetos.guardarCliente[i].getClienteGenero())))) {
                     JOptionPane.showMessageDialog(null, "El cliente no existe por favor crear uno nuevo");
                     break;
                 }
@@ -269,29 +268,9 @@ public class Modulo_Vendedores {
         boton2.setBackground(Color.LIGHT_GRAY); //cambia el color del fondo del boton
         panelSeleccionarC.add(boton2);
         //Agregando eventos de tipo ActionListener
-        ActionListener accion2 = (ActionEvent ae) -> {  // no me funciona el crear nuevo
-//            String seleccionarN_clienteNombre = c_nom.getText();
-//            int seleccionarN_clienteNit = Integer.parseInt(c_nit.getText());
-//            String seleccionarN_clienteCorreo = c_correo.getText();
-//            String seleccionarN_clienteGenero = c_genero.getText();
-//            int seleccionarN_clienteClodigo = GuardarObjetos.guardarCliente[0].getClienteCodigo();
-//            int temporal_indice = 0;
-//            // encontrar el codigo mas alto y sumarle 1 para agregarle el codigo al nuevo cliente
-//            for (int i = 1; i < GuardarObjetos.guardarCliente.length; i++) {
-//                if (GuardarObjetos.guardarCliente[i].getClienteCodigo() > seleccionarN_clienteClodigo) {
-//                    seleccionarN_clienteClodigo = GuardarObjetos.guardarCliente[i].getClienteCodigo();
-//                    temporal_indice = i;
-//                }
-//            }
-//            System.out.println(""+  GuardarObjetos.guardarCliente[temporal_indice].getClienteCodigo());
-//            int nuevoCod = GuardarObjetos.guardarCliente[temporal_indice].getClienteCodigo() + 1;
-//            System.out.println(""+nuevoCod );
-//            for (int i = 0; i < GuardarObjetos.guardarCliente.length; i++) {
-//                if (GuardarObjetos.guardarCliente[i] == null && i < GuardarObjetos.guardarCliente.length) {
-//                    GuardarObjetos.guardarCliente[i] = new Cliente(nuevoCod, seleccionarN_clienteNombre, seleccionarN_clienteNit, seleccionarN_clienteCorreo, seleccionarN_clienteGenero);
-//                    break;
-//                }
-//            }
+        ActionListener accion2 = (ActionEvent ae) -> {  
+            Modulo_Administracion vCrearNuevo = new Modulo_Administracion();
+            vCrearNuevo.clientes_vCrear();
         };
         boton2.addActionListener(accion2);
     }
