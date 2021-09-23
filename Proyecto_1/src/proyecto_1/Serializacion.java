@@ -9,16 +9,14 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class Serializacion implements Serializable {
-    GuardarObjetos gu = new GuardarObjetos();
     
      public void serializando() throws FileNotFoundException, IOException{
         ObjectOutputStream guardD = new ObjectOutputStream(new FileOutputStream("GuardarDatos.bin"));
-        guardD.writeObject(gu);
-//        guardD.writeObject(guardarCliente);
-//        guardD.writeObject(guardarProductos);
-//        guardD.writeObject(guardarSucursales);
-//        guardD.writeObject(guardarVendedor);
-//        guardD.writeObject(guardarVentas);
+        guardD.writeObject(GuardarObjetos.guardarCliente);
+        guardD.writeObject(GuardarObjetos.guardarProductos);
+        guardD.writeObject(GuardarObjetos.guardarSucursales);
+        guardD.writeObject(GuardarObjetos.guardarVendedor);
+        guardD.writeObject(GuardarObjetos.guardarVentas);
         guardD.close();
 //        ObjectOutputStream guardProduc = new ObjectOutputStream(new FileOutputStream("GuardarProducto.bin"));
 //        guardProduc.writeObject(guardarProductos);
@@ -36,13 +34,11 @@ public class Serializacion implements Serializable {
      
     public void cargarBinario() throws FileNotFoundException, IOException, ClassNotFoundException{
         ObjectInputStream abrirD = new ObjectInputStream(new FileInputStream("GuardarDatos.bin"));
-        gu = (GuardarObjetos) abrirD.readObject();
-//        gu = (GuardarObjetos) ca.readObject();
-//        Cliente[] recupClient = (Cliente[]) abrirD.readObject();
-//        Producto[] recupProdu = (Producto[]) abrirD.readObject();
-//        Sucursal[] recupSucu = (Sucursal[]) abrirD.readObject();
-//        Vendedor[] recupVendedor = (Vendedor[]) abrirD.readObject();
-//        Venta[] recupVenta = (Venta[]) abrirD.readObject();
+        Cliente[] recupClient = (Cliente[]) abrirD.readObject();
+        Producto[] recupProdu = (Producto[]) abrirD.readObject();
+        Sucursal[] recupSucu = (Sucursal[]) abrirD.readObject();
+        Vendedor[] recupVendedor = (Vendedor[]) abrirD.readObject();
+        Venta[] recupVenta = (Venta[]) abrirD.readObject();
         abrirD.close();
     }
 }
