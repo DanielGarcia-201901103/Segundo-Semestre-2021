@@ -101,12 +101,15 @@ public class Modulo_Administracion {
         //Para pestaña productos
         colocarBotones_Productos();
         colocarTabla_Productos();
+        colocarGrafico_Productos();
         //Para pestaña clientes
         colocarBotones_Clientes();
         colocarTabla_Clientes();
+        colocarGrafico_Clientes();
         //Para pestaña vendedores
         colocarBotones_Vendedores();
         colocarTabla_Vendedores();
+        colocarGrafico_Vendedores();
     }
 
     private void colocarPanel() {
@@ -157,7 +160,13 @@ public class Modulo_Administracion {
         //Agregando eventos de tipo ActionListener
         ActionListener accion = (ActionEvent ae) -> {
             Modulo_Autenticacion au = new Modulo_Autenticacion();
-            au.ventanaPrincipal();
+            try {
+                au.ventanaPrincipal();
+            } catch (IOException ex) {
+                Logger.getLogger(Modulo_Administracion.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Modulo_Administracion.class.getName()).log(Level.SEVERE, null, ex);
+            }
             ventanaAdmin.dispose();
         };
         boton1.addActionListener(accion);
@@ -663,18 +672,18 @@ public class Modulo_Administracion {
             String direccionSuc = c3.getText();
             String correoSuc = c4.getText();
             String telefonoSuc = c5.getText();
-
-            if (GuardarObjetos.guardarSucursales[contador_Sucursal] == null && contador_Sucursal < GuardarObjetos.guardarSucursales.length) {
-                GuardarObjetos.guardarSucursales[contador_Sucursal] = new Sucursal(codigoSuc, nombreSuc, direccionSuc, correoSuc, telefonoSuc);
-                almacenaSucursal[contador_Sucursal][0] = Integer.toString(GuardarObjetos.guardarSucursales[contador_Sucursal].getSucursalCodigo());
-                almacenaSucursal[contador_Sucursal][1] = GuardarObjetos.guardarSucursales[contador_Sucursal].getSucursalNombre();
-                almacenaSucursal[contador_Sucursal][2] = GuardarObjetos.guardarSucursales[contador_Sucursal].getSucursalDireccion();
-                almacenaSucursal[contador_Sucursal][3] = GuardarObjetos.guardarSucursales[contador_Sucursal].getSucursalCorreo();
-                almacenaSucursal[contador_Sucursal][4] = GuardarObjetos.guardarSucursales[contador_Sucursal].getSucursalTelefono();
-                modelo_tabSucursal.addRow(almacenaSucursal[contador_Sucursal]);
+            
+                if (GuardarObjetos.guardarSucursales[contador_Sucursal] == null && contador_Sucursal < GuardarObjetos.guardarSucursales.length) {
+                    GuardarObjetos.guardarSucursales[contador_Sucursal] = new Sucursal(codigoSuc, nombreSuc, direccionSuc, correoSuc, telefonoSuc);
+                    almacenaSucursal[contador_Sucursal][0] = Integer.toString(GuardarObjetos.guardarSucursales[contador_Sucursal].getSucursalCodigo());
+                    almacenaSucursal[contador_Sucursal][1] = GuardarObjetos.guardarSucursales[contador_Sucursal].getSucursalNombre();
+                    almacenaSucursal[contador_Sucursal][2] = GuardarObjetos.guardarSucursales[contador_Sucursal].getSucursalDireccion();
+                    almacenaSucursal[contador_Sucursal][3] = GuardarObjetos.guardarSucursales[contador_Sucursal].getSucursalCorreo();
+                    almacenaSucursal[contador_Sucursal][4] = GuardarObjetos.guardarSucursales[contador_Sucursal].getSucursalTelefono();
+                    modelo_tabSucursal.addRow(almacenaSucursal[contador_Sucursal]);
                 contador_Sucursal = contador_Sucursal + 1;
-            }
-
+                }
+                
             vCrear.dispose();
         };
         b_agregar.addActionListener(a_agregar);
@@ -2250,7 +2259,7 @@ public class Modulo_Administracion {
                 pie_cliente.setValue("Femenino", new Integer(cuentaFemenino));
                 pie_cliente.setValue("Masculino", new Integer(cuentaMasculino));
 
-                JFreeChart pieC = ChartFactory.createPieChart("Genero de clientes", pie_cliente, true, true, false);
+                JFreeChart pieC = ChartFactory.createPieChart3D("Genero de clientes", pie_cliente, true, true, false);
                 ChartPanel panelPie = new ChartPanel(pieC);
                 panelPie.setBounds(450, 270, 280, 400);
                 panel3.add(panelPie);

@@ -1,6 +1,8 @@
 package proyecto_1;
 
-public class Producto {
+import java.io.Serializable;
+
+public class Producto implements Serializable{
     private int productoCodigo;
     private String productoNombre;
     private String productoDescripcion;

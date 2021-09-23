@@ -6,9 +6,12 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.font.TextAttribute;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -134,7 +137,13 @@ public class Modulo_Vendedores {
         //Agregando eventos de tipo ActionListener
         ActionListener accion = (ActionEvent ae) -> {
             Modulo_Autenticacion au = new Modulo_Autenticacion();
-            au.ventanaPrincipal();
+            try {
+                au.ventanaPrincipal();
+            } catch (IOException ex) {
+                Logger.getLogger(Modulo_Vendedores.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Modulo_Vendedores.class.getName()).log(Level.SEVERE, null, ex);
+            }
             ventanaVende.dispose();
         };
         boton1.addActionListener(accion);

@@ -1,6 +1,8 @@
 package proyecto_1;
 
-public class Sucursal {
+import java.io.Serializable;
+
+public class Sucursal implements Serializable {
     private int sucursalCodigo;
     private String sucursalNombre;
     private String sucursalDireccion;

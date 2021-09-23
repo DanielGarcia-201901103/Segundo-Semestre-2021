@@ -5,6 +5,11 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
@@ -24,15 +29,56 @@ public class Modulo_Autenticacion {
     public Modulo_Autenticacion() {
     }
 
-    public void ventanaPrincipal() {
+    public void ventanaPrincipal() throws IOException, FileNotFoundException, ClassNotFoundException {
+        GuardarObjetos sn = new GuardarObjetos();
+        
         ventanaAutentic.setSize(350, 250);
         ventanaAutentic.setTitle("Autenticación");
         ventanaAutentic.setLocationRelativeTo(null);
         ventanaAutentic.setMinimumSize(new Dimension(200, 200));
-        ventanaAutentic.setDefaultCloseOperation(EXIT_ON_CLOSE);    //Permite cerrar todo el programa
+//        ventanaAutentic.setDefaultCloseOperation(EXIT_ON_CLOSE);    //Permite cerrar todo el programa
         ventanaAutentic.setResizable(false);
         ventanaAutentic.setVisible(true);
+
         iniciarComponentes();
+
+        ventanaAutentic.addWindowListener(new java.awt.event.WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent we) {
+              
+            }
+
+            @Override
+            public void windowClosing(WindowEvent we) {
+                try {
+                    sn.serializando();
+                    ventanaAutentic.setDefaultCloseOperation(EXIT_ON_CLOSE);
+//                    we.getWindow().dispose();
+                } catch (IOException ex) {
+                    Logger.getLogger(Modulo_Autenticacion.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            @Override
+            public void windowClosed(WindowEvent we) {
+            }
+
+            @Override
+            public void windowIconified(WindowEvent we) {
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent we) {
+            }
+
+            @Override
+            public void windowActivated(WindowEvent we) {
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent we) {
+            }
+        });
     }
 
     private void iniciarComponentes() {
@@ -108,22 +154,20 @@ public class Modulo_Autenticacion {
                     Modulo_Administracion ad = new Modulo_Administracion();
                     ad.ventanaAdmin();
                     ventanaAutentic.dispose();
-                } else if(GuardarObjetos.guardarVendedor!= null){
+                } else if (GuardarObjetos.guardarVendedor != null) {
                     for (int i = 0; i < GuardarObjetos.guardarVendedor.length; i++) {
-                    if (Text_codigo1.getText().equals(Integer.toString(GuardarObjetos.guardarVendedor[i].getVendedorCodigo())) && Text_contraseña1.getText().equals(GuardarObjetos.guardarVendedor[i].getVendedorPassword())) {
-                        Modulo_Vendedores ven = new Modulo_Vendedores();
-                        ven.ventanaVendedores();
-                        ven.recibirCodigoAutenticacion(GuardarObjetos.guardarVendedor[i].getVendedorCodigo());
-                        ventanaAutentic.dispose();
-                        break;
+                        if (Text_codigo1.getText().equals(Integer.toString(GuardarObjetos.guardarVendedor[i].getVendedorCodigo())) && Text_contraseña1.getText().equals(GuardarObjetos.guardarVendedor[i].getVendedorPassword())) {
+                            Modulo_Vendedores ven = new Modulo_Vendedores();
+                            ven.ventanaVendedores();
+                            ven.recibirCodigoAutenticacion(GuardarObjetos.guardarVendedor[i].getVendedorCodigo());
+                            ventanaAutentic.dispose();
+                            break;
+                        }
                     }
-                }
-                }else if(GuardarObjetos.guardarVendedor== null){
-                }else {
+                } else if (GuardarObjetos.guardarVendedor == null) {
+                } else {
                     JOptionPane.showMessageDialog(null, "Codigo o Contraseña incorrectos");
                 }
-                
-                
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Codigo o Contraseña incorrectos");
