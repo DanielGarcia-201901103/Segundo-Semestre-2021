@@ -9,8 +9,6 @@ public class Proyecto_1 {
         Modulo_Autenticacion autenticacion = new Modulo_Autenticacion();
         autenticacion.ventanaPrincipal();
         
-         GuardarObjetos sn = new GuardarObjetos();
-         sn.cargarBinario();
     }
 
 }

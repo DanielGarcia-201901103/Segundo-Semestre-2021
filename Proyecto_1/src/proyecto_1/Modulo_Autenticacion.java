@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -19,7 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class Modulo_Autenticacion {
+public class Modulo_Autenticacion implements Serializable{
 
     private JFrame ventanaAutentic = new JFrame();
     private JPanel panel;
@@ -30,7 +31,7 @@ public class Modulo_Autenticacion {
     }
 
     public void ventanaPrincipal() throws IOException, FileNotFoundException, ClassNotFoundException {
-        GuardarObjetos sn = new GuardarObjetos();
+        Serializacion sn = new Serializacion();
         
         ventanaAutentic.setSize(350, 250);
         ventanaAutentic.setTitle("Autenticación");
@@ -45,7 +46,13 @@ public class Modulo_Autenticacion {
         ventanaAutentic.addWindowListener(new java.awt.event.WindowListener() {
             @Override
             public void windowOpened(WindowEvent we) {
-              
+                try {
+                    sn.cargarBinario();
+                } catch (IOException ex) {
+                    Logger.getLogger(Modulo_Autenticacion.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Modulo_Autenticacion.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
             @Override
