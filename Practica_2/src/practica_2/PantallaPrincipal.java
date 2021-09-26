@@ -1,11 +1,14 @@
 package practica_2;
 
 import java.awt.Font;
+import java.util.HashSet;
+import java.util.Set;
 
 public class PantallaPrincipal extends javax.swing.JFrame {
 
     public PantallaPrincipal() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -87,7 +90,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
+            .addGap(0, 46, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -126,7 +129,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addComponent(configBoton)
                 .addGap(20, 20, 20)
                 .addComponent(exitBoton)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
         );
@@ -146,7 +149,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nuevoJBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoJBotonActionPerformed
-        // TODO add your handling code here:
+        Juego nuevJuego = new Juego();
+        nuevJuego.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_nuevoJBotonActionPerformed
 
     private void juegoABotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_juegoABotonActionPerformed
