@@ -23,7 +23,7 @@ public class Juego extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         pAtorreB = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        exitJuego = new javax.swing.JButton();
         pBtorreC = new javax.swing.JButton();
         pBtorreA = new javax.swing.JButton();
         pCtorreB = new javax.swing.JButton();
@@ -31,7 +31,7 @@ public class Juego extends javax.swing.JFrame {
         pAtorreC = new javax.swing.JButton();
         botonRojo = new javax.swing.JButton();
         botonVerde = new javax.swing.JButton();
-        TorresYDiscos = new fondoDPanel();
+        torresYDiscos = new fondoDPanel();
         disco7 = new javax.swing.JLabel();
         disco6 = new javax.swing.JLabel();
         disco5 = new javax.swing.JLabel();
@@ -73,10 +73,10 @@ public class Juego extends javax.swing.JFrame {
         pAtorreB.setForeground(new java.awt.Color(0, 0, 0));
         pAtorreB.setText(">");
 
-        jButton3.setBackground(new java.awt.Color(255, 102, 102));
-        jButton3.setFont(new java.awt.Font("Segoe UI Black", 1, 15)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 0, 0));
-        jButton3.setText("Salir");
+        exitJuego.setBackground(new java.awt.Color(255, 102, 102));
+        exitJuego.setFont(new java.awt.Font("Segoe UI Black", 1, 15)); // NOI18N
+        exitJuego.setForeground(new java.awt.Color(0, 0, 0));
+        exitJuego.setText("Salir");
 
         pBtorreC.setBackground(new java.awt.Color(204, 255, 204));
         pBtorreC.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
@@ -155,40 +155,40 @@ public class Juego extends javax.swing.JFrame {
         disco1.setText("     1");
         disco1.setOpaque(true);
 
-        javax.swing.GroupLayout TorresYDiscosLayout = new javax.swing.GroupLayout(TorresYDiscos);
-        TorresYDiscos.setLayout(TorresYDiscosLayout);
-        TorresYDiscosLayout.setHorizontalGroup(
-            TorresYDiscosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TorresYDiscosLayout.createSequentialGroup()
-                .addGroup(TorresYDiscosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(TorresYDiscosLayout.createSequentialGroup()
+        javax.swing.GroupLayout torresYDiscosLayout = new javax.swing.GroupLayout(torresYDiscos);
+        torresYDiscos.setLayout(torresYDiscosLayout);
+        torresYDiscosLayout.setHorizontalGroup(
+            torresYDiscosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(torresYDiscosLayout.createSequentialGroup()
+                .addGroup(torresYDiscosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(torresYDiscosLayout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(disco7, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(TorresYDiscosLayout.createSequentialGroup()
+                    .addGroup(torresYDiscosLayout.createSequentialGroup()
                         .addGap(44, 44, 44)
                         .addComponent(disco6, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(TorresYDiscosLayout.createSequentialGroup()
+                    .addGroup(torresYDiscosLayout.createSequentialGroup()
                         .addGap(56, 56, 56)
                         .addComponent(disco5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(TorresYDiscosLayout.createSequentialGroup()
+                    .addGroup(torresYDiscosLayout.createSequentialGroup()
                         .addGap(68, 68, 68)
                         .addComponent(disco4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(TorresYDiscosLayout.createSequentialGroup()
+                    .addGroup(torresYDiscosLayout.createSequentialGroup()
                         .addGap(80, 80, 80)
-                        .addGroup(TorresYDiscosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(torresYDiscosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(disco3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(TorresYDiscosLayout.createSequentialGroup()
+                            .addGroup(torresYDiscosLayout.createSequentialGroup()
                                 .addGap(12, 12, 12)
-                                .addGroup(TorresYDiscosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(torresYDiscosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(disco2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(TorresYDiscosLayout.createSequentialGroup()
+                                    .addGroup(torresYDiscosLayout.createSequentialGroup()
                                         .addGap(12, 12, 12)
                                         .addComponent(disco1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        TorresYDiscosLayout.setVerticalGroup(
-            TorresYDiscosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TorresYDiscosLayout.createSequentialGroup()
+        torresYDiscosLayout.setVerticalGroup(
+            torresYDiscosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, torresYDiscosLayout.createSequentialGroup()
                 .addContainerGap(138, Short.MAX_VALUE)
                 .addComponent(disco1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -241,11 +241,11 @@ public class Juego extends javax.swing.JFrame {
                             .addComponent(botonRojo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(botonVerde, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(TorresYDiscos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(torresYDiscos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(62, 62, 62))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton3)))
+                        .addComponent(exitJuego)))
                 .addGap(35, 35, 35))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
@@ -281,7 +281,7 @@ public class Juego extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(TorresYDiscos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(torresYDiscos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pAtorreB)
@@ -291,7 +291,7 @@ public class Juego extends javax.swing.JFrame {
                     .addComponent(pAtorreC)
                     .addComponent(pBtorreA))
                 .addGap(37, 37, 37)
-                .addComponent(jButton3)
+                .addComponent(exitJuego)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -320,7 +320,6 @@ public class Juego extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel TorresYDiscos;
     private javax.swing.JButton botonRojo;
     private javax.swing.JButton botonVerde;
     private javax.swing.JLabel disco1;
@@ -330,7 +329,7 @@ public class Juego extends javax.swing.JFrame {
     private javax.swing.JLabel disco5;
     private javax.swing.JLabel disco6;
     private javax.swing.JLabel disco7;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton exitJuego;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -343,6 +342,7 @@ public class Juego extends javax.swing.JFrame {
     private javax.swing.JButton pBtorreC;
     private javax.swing.JButton pCtorreA;
     private javax.swing.JButton pCtorreB;
+    private javax.swing.JPanel torresYDiscos;
     // End of variables declaration//GEN-END:variables
     class fondoDPanel extends JPanel{
         private Image imagenfon;
