@@ -1,11 +1,17 @@
 
 package practica_2;
 
-public class Juego extends javax.swing.JFrame {
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
+public class Juego extends javax.swing.JFrame {
     public Juego() {
         initComponents();
         setLocationRelativeTo(null);
+        setResizable(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -23,14 +29,18 @@ public class Juego extends javax.swing.JFrame {
         pCtorreB = new javax.swing.JButton();
         pCtorreA = new javax.swing.JButton();
         pAtorreC = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        torreA = new javax.swing.JTextField();
-        torreB = new javax.swing.JTextField();
-        torreC = new javax.swing.JTextField();
         botonRojo = new javax.swing.JButton();
         botonVerde = new javax.swing.JButton();
+        TorresYDiscos = new fondoDPanel();
+        disco7 = new javax.swing.JLabel();
+        disco6 = new javax.swing.JLabel();
+        disco5 = new javax.swing.JLabel();
+        disco4 = new javax.swing.JLabel();
+        disco3 = new javax.swing.JLabel();
+        disco2 = new javax.swing.JLabel();
+        disco1 = new javax.swing.JLabel();
+        mostrarTiempo = new javax.swing.JLabel();
+        mostrarMovimientos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Torres de Hanoi - FIUSAC");
@@ -93,74 +103,163 @@ public class Juego extends javax.swing.JFrame {
         pAtorreC.setForeground(new java.awt.Color(0, 0, 0));
         pAtorreC.setText("<");
 
-        jTextField1.setEditable(false);
-        jTextField1.setBackground(new java.awt.Color(153, 153, 153));
+        botonRojo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/relojRojo 48 pixeles.png"))); // NOI18N
+        botonRojo.setContentAreaFilled(false);
 
-        jTextField2.setEditable(false);
-        jTextField2.setBackground(new java.awt.Color(153, 153, 153));
+        botonVerde.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/relojVerde 48pixeles.png"))); // NOI18N
+        botonVerde.setContentAreaFilled(false);
 
-        jTextField3.setEditable(false);
-        jTextField3.setBackground(new java.awt.Color(153, 153, 153));
+        disco7.setBackground(new java.awt.Color(153, 255, 255));
+        disco7.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        disco7.setForeground(new java.awt.Color(51, 51, 51));
+        disco7.setText("                       7");
+        disco7.setToolTipText("");
+        disco7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        disco7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        disco7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        disco7.setOpaque(true);
 
-        torreA.setEditable(false);
-        torreA.setBackground(new java.awt.Color(204, 204, 204));
+        disco6.setBackground(new java.awt.Color(153, 153, 255));
+        disco6.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        disco6.setForeground(new java.awt.Color(51, 51, 51));
+        disco6.setText("                    6");
+        disco6.setOpaque(true);
 
-        torreB.setEditable(false);
-        torreB.setBackground(new java.awt.Color(204, 204, 204));
+        disco5.setBackground(new java.awt.Color(255, 153, 153));
+        disco5.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        disco5.setForeground(new java.awt.Color(51, 51, 51));
+        disco5.setText("                 5");
+        disco5.setOpaque(true);
 
-        torreC.setEditable(false);
-        torreC.setBackground(new java.awt.Color(204, 204, 204));
+        disco4.setBackground(new java.awt.Color(255, 255, 153));
+        disco4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        disco4.setForeground(new java.awt.Color(51, 51, 51));
+        disco4.setText("              4");
+        disco4.setOpaque(true);
+
+        disco3.setBackground(new java.awt.Color(153, 255, 153));
+        disco3.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        disco3.setForeground(new java.awt.Color(51, 51, 51));
+        disco3.setText("           3");
+        disco3.setOpaque(true);
+
+        disco2.setBackground(new java.awt.Color(204, 204, 204));
+        disco2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        disco2.setForeground(new java.awt.Color(51, 51, 51));
+        disco2.setText("        2");
+        disco2.setOpaque(true);
+
+        disco1.setBackground(new java.awt.Color(0, 153, 153));
+        disco1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        disco1.setForeground(new java.awt.Color(51, 51, 51));
+        disco1.setText("     1");
+        disco1.setOpaque(true);
+
+        javax.swing.GroupLayout TorresYDiscosLayout = new javax.swing.GroupLayout(TorresYDiscos);
+        TorresYDiscos.setLayout(TorresYDiscosLayout);
+        TorresYDiscosLayout.setHorizontalGroup(
+            TorresYDiscosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TorresYDiscosLayout.createSequentialGroup()
+                .addGroup(TorresYDiscosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(TorresYDiscosLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(disco7, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(TorresYDiscosLayout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(disco6, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(TorresYDiscosLayout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addComponent(disco5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(TorresYDiscosLayout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(disco4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(TorresYDiscosLayout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addGroup(TorresYDiscosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(disco3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(TorresYDiscosLayout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addGroup(TorresYDiscosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(disco2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(TorresYDiscosLayout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addComponent(disco1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        TorresYDiscosLayout.setVerticalGroup(
+            TorresYDiscosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TorresYDiscosLayout.createSequentialGroup()
+                .addContainerGap(138, Short.MAX_VALUE)
+                .addComponent(disco1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(disco2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(disco3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(disco4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(disco5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(disco6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(disco7)
+                .addGap(19, 19, 19))
+        );
+
+        disco7.getAccessibleContext().setAccessibleName("               7");
+
+        mostrarTiempo.setForeground(new java.awt.Color(255, 102, 0));
+        mostrarTiempo.setText("120");
+
+        mostrarMovimientos.setForeground(new java.awt.Color(255, 102, 0));
+        mostrarMovimientos.setText("000");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(35, 35, 35))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(146, 146, 146)
+                .addGap(161, 161, 161)
                 .addComponent(pAtorreC)
                 .addGap(18, 18, 18)
                 .addComponent(pAtorreB)
-                .addGap(210, 210, 210)
+                .addGap(187, 187, 187)
                 .addComponent(pBtorreA)
                 .addGap(18, 18, 18)
                 .addComponent(pBtorreC)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 193, Short.MAX_VALUE)
                 .addComponent(pCtorreB)
                 .addGap(18, 18, 18)
                 .addComponent(pCtorreA)
-                .addGap(155, 155, 155))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(79, 79, 79)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91))
+                .addGap(179, 179, 179))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botonRojo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonVerde, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(TorresYDiscos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(62, 62, 62))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton3)))
+                .addGap(35, 35, 35))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(botonRojo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(botonVerde, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(113, 113, 113)
-                        .addComponent(torreA, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(272, 272, 272)
-                        .addComponent(torreB, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(torreC, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(182, 182, 182))
+                        .addGap(19, 19, 19)
+                        .addComponent(mostrarTiempo)
+                        .addGap(129, 129, 129)
+                        .addComponent(mostrarMovimientos))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(73, 73, 73)
-                        .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,26 +268,21 @@ public class Juego extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(mostrarMovimientos, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(mostrarTiempo))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(torreB, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                                .addComponent(torreC, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
-                            .addComponent(torreA)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
+                        .addGap(64, 64, 64)
                         .addComponent(botonRojo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonVerde, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(95, 95, 95)
+                        .addComponent(botonVerde, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(TorresYDiscos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pAtorreB)
                     .addComponent(pBtorreC)
@@ -226,24 +320,38 @@ public class Juego extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel TorresYDiscos;
     private javax.swing.JButton botonRojo;
     private javax.swing.JButton botonVerde;
+    private javax.swing.JLabel disco1;
+    private javax.swing.JLabel disco2;
+    private javax.swing.JLabel disco3;
+    private javax.swing.JLabel disco4;
+    private javax.swing.JLabel disco5;
+    private javax.swing.JLabel disco6;
+    private javax.swing.JLabel disco7;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel mostrarMovimientos;
+    private javax.swing.JLabel mostrarTiempo;
     private javax.swing.JButton pAtorreB;
     private javax.swing.JButton pAtorreC;
     private javax.swing.JButton pBtorreA;
     private javax.swing.JButton pBtorreC;
     private javax.swing.JButton pCtorreA;
     private javax.swing.JButton pCtorreB;
-    private javax.swing.JTextField torreA;
-    private javax.swing.JTextField torreB;
-    private javax.swing.JTextField torreC;
     // End of variables declaration//GEN-END:variables
+    class fondoDPanel extends JPanel{
+        private Image imagenfon;
+        @Override
+        public void paint(Graphics g){
+            imagenfon = new ImageIcon(getClass().getResource("/imagenes/Torres.png")).getImage();
+            g.drawImage(imagenfon, 0, 0,getWidth(),getHeight(), this);
+            setOpaque(false);
+            super.paint(g);
+        }
+    }
 }
