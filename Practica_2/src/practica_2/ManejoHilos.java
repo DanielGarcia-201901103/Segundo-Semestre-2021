@@ -23,6 +23,7 @@ public class ManejoHilos {
     public HiloTiempo t18 = new HiloTiempo();
     public HiloTiempo t19 = new HiloTiempo();
     static int cantidadHil;
+    public HiloPotenciadoresMov pm = new HiloPotenciadoresMov();
     
     public void recibirNhilo(int cantidadHil){
         this.cantidadHil=cantidadHil;
@@ -30,6 +31,7 @@ public class ManejoHilos {
     public void iniciarTiempoJ() {
         if(cantidadHil==0){
             t.start();
+            pm.start();
         }else if(cantidadHil==1){
             t1.start();
         }else if(cantidadHil==2){
@@ -75,6 +77,7 @@ public class ManejoHilos {
     public void pararTiempoJ() {
         if(cantidadHil==0){
             t.v=false;
+            pm.ve=false;
         }else if(cantidadHil==1){
             t1.v=false;
         }else if(cantidadHil==2){

@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Juego extends javax.swing.JFrame {
-
+    
     int movimientoJugador = 0;
    
     public Juego() {
@@ -445,7 +445,7 @@ public class Juego extends javax.swing.JFrame {
         torresYDiscosLayout.setVerticalGroup(
             torresYDiscosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, torresYDiscosLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(133, Short.MAX_VALUE)
                 .addGroup(torresYDiscosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(torresYDiscosLayout.createSequentialGroup()
                         .addComponent(disco__1)
@@ -544,6 +544,9 @@ public class Juego extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(torresYDiscos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(62, 62, 62))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(20, 20, 20)
@@ -554,10 +557,7 @@ public class Juego extends javax.swing.JFrame {
                                         .addComponent(jLabel2)
                                         .addGap(73, 73, 73)
                                         .addComponent(jLabel1)))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(torresYDiscos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(62, 62, 62)))))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(35, 35, 35))
         );
         jPanel1Layout.setVerticalGroup(
@@ -565,11 +565,11 @@ public class Juego extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(129, 129, 129)
+                        .addContainerGap()
                         .addComponent(botonRojo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(95, 95, 95)
+                        .addGap(165, 165, 165)
                         .addComponent(botonVerde, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -578,7 +578,7 @@ public class Juego extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(mostrarMovimientos)
-                            .addComponent(mostrarTiempo))
+                            .addComponent(mostrarTiempo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(torresYDiscos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(33, 33, 33)))
@@ -640,8 +640,9 @@ public class Juego extends javax.swing.JFrame {
     }//GEN-LAST:event_botonRojoActionPerformed
     
     public void mosT(){
-        mostrarTiempo.setText(GuardarOb.getTiempoJN());
-        System.out.println( mostrarTiempo.getText());
+//        mostrarTiempo.setText(GuardarOb.getTiempoJN());
+//        System.out.println( mostrarTiempo.getText());
+                System.out.println(mostrarTiempo.getText());
     }
 //Boton para mover los discos de la torre A a la torre B
     private void pAtorreBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pAtorreBActionPerformed
@@ -1218,7 +1219,7 @@ public class Juego extends javax.swing.JFrame {
     private javax.swing.JLabel disco__7;
     private javax.swing.JButton exitJuego;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    public javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton juegoRegresar;
@@ -1244,4 +1245,60 @@ public class Juego extends javax.swing.JFrame {
             super.paint(g);
         }
     }
+//    
+//    public class HiloTiempo extends Thread {
+////         PantallaPrincipal pp = new PantallaPrincipal();
+//    int tiempoRegresivo;
+//    boolean v;
+////    Juego jN = new Juego();
+//
+//    public HiloTiempo() {
+//        this.v = true;
+//    }
+//
+//    @Override
+//    public void run() {
+//
+//        if (GuardarOb.getTiempoJN() == null) {
+//            tiempoRegresivo = 120;
+//        } else if (GuardarOb.getTiempoJN() != null) {
+//            tiempoRegresivo = Integer.parseInt((String) GuardarOb.getTiempoJN());
+//        }
+//        while ((this.v == true)) {
+//
+//            if (tiempoRegresivo == 0) {
+//                JOptionPane.showMessageDialog(null, "Perdió el juego");
+//                v = false;
+//                tiempoRegresivo = 0;
+//                GuardarOb.setTiempoJN(null);
+////                pp.setVisible(true);
+////                jN.dispose();
+//                break;
+//            } else if (tiempoRegresivo < 0) {
+//                JOptionPane.showMessageDialog(null, "Perdió el juego");
+//                v = false;
+//                tiempoRegresivo = 0;
+//                GuardarOb.setTiempoJN(null);
+////                pp.setVisible(true);
+////                jN.dispose();
+//                break;
+//            } else {
+//                mostrarTiempo.setText(Integer.toString(tiempoRegresivo));
+////                String mos = Integer.toString(tiempoRegresivo);
+////                GuardarOb.setTiempoJN(mos);
+////                jN.mostrarTiempo.setText(GuardarOb.getTiempoJN());
+////                System.out.println(jN.mostrarTiempo.getText());
+////                jN.pruebaTiempo.setText(mos);
+//                  mosT();
+//                tiempoRegresivo = tiempoRegresivo - 1;
+//
+//                try {
+//                    //tiempo de creacion
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException ex) {
+//                }
+//            }
+//        }
+//    }
+//    }
 }

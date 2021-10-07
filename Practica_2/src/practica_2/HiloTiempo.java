@@ -39,13 +39,13 @@ public class HiloTiempo extends Thread {
 //                jN.dispose();
                 break;
             } else {
+                jN.mostrarTiempo.setText(Integer.toString(tiempoRegresivo));
                 String mos = Integer.toString(tiempoRegresivo);
                 GuardarOb.setTiempoJN(mos);
 //                jN.mostrarTiempo.setText(GuardarOb.getTiempoJN());
 //                System.out.println(jN.mostrarTiempo.getText());
 //                jN.pruebaTiempo.setText(mos);
                   jN.mosT();
-//                JOptionPane.showMessageDialog(null, GuardarOb.getTiempoJN());
                 tiempoRegresivo = tiempoRegresivo - 1;
 
                 try {
