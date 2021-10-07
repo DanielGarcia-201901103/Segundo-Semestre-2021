@@ -24,9 +24,7 @@ import javax.swing.JPanel;
 
 public class Juego extends javax.swing.JFrame {
 
-//    int cantidadJugadores = 1;
     int movimientoJugador = 0;
-//    Jugador[]  jugadorGuardar = new Jugador[cantidadJugadores];
    
     public Juego() {
         initComponents();
@@ -526,7 +524,7 @@ public class Juego extends javax.swing.JFrame {
                 .addComponent(pBtorreA)
                 .addGap(18, 18, 18)
                 .addComponent(pBtorreC)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 193, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pCtorreB)
                 .addGap(18, 18, 18)
                 .addComponent(pCtorreA)
@@ -581,7 +579,7 @@ public class Juego extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(mostrarMovimientos)
                             .addComponent(mostrarTiempo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(torresYDiscos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(33, 33, 33)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -623,13 +621,14 @@ public class Juego extends javax.swing.JFrame {
         int conf = JOptionPane.showConfirmDialog(null, "Está seguro de abandonar la partida?");
         if (JOptionPane.OK_OPTION == conf) {
             Main.pararHilos();
+            GuardarOb.tiempoJN=null;
             PantallaPrincipal pp = new PantallaPrincipal();
             pp.setVisible(true);
             this.dispose();
         } else if (JOptionPane.CANCEL_OPTION == conf) {
 
         }
-
+        
     }//GEN-LAST:event_juegoRegresarActionPerformed
 
     private void botonVerdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVerdeActionPerformed
@@ -639,7 +638,11 @@ public class Juego extends javax.swing.JFrame {
     private void botonRojoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRojoActionPerformed
         Main.botRoj();
     }//GEN-LAST:event_botonRojoActionPerformed
-
+    
+    public void mosT(){
+        mostrarTiempo.setText(GuardarOb.getTiempoJN());
+        System.out.println( mostrarTiempo.getText());
+    }
 //Boton para mover los discos de la torre A a la torre B
     private void pAtorreBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pAtorreBActionPerformed
 //        System.out.println(disco1.getWidth()); // el ancho del disco
@@ -1045,30 +1048,35 @@ public class Juego extends javax.swing.JFrame {
 //          String nombre = JOptionPane.showInputDialog(null,"Felicidades ha ganado la partida \n"+" Por favor ingrese su nombre");
             Main.pararHilos();
             guardarNomJ();
+            GuardarOb.tiempoJN=null;
             PantallaPrincipal pp = new PantallaPrincipal();
             pp.setVisible(true);
             this.dispose();
         } else if (GuardarOb.numDisc.equals("4") && disco__1.isVisible() == true && disco__2.isVisible() == true && disco__3.isVisible() == true && disco__4.isVisible() == true) {
             Main.pararHilos();
             guardarNomJ();
+            GuardarOb.tiempoJN=null;
             PantallaPrincipal pp = new PantallaPrincipal();
             pp.setVisible(true);
             this.dispose();
         } else if (GuardarOb.numDisc.equals("5") && disco__1.isVisible() == true && disco__2.isVisible() == true && disco__3.isVisible() == true && disco__4.isVisible() == true && disco__5.isVisible() == true) {
             Main.pararHilos();
             guardarNomJ();
+            GuardarOb.tiempoJN=null;
             PantallaPrincipal pp = new PantallaPrincipal();
             pp.setVisible(true);
             this.dispose();
         } else if (GuardarOb.numDisc.equals("6") && disco__1.isVisible() == true && disco__2.isVisible() == true && disco__3.isVisible() == true && disco__4.isVisible() == true && disco__5.isVisible() == true && disco__6.isVisible() == true) {
             Main.pararHilos();
             guardarNomJ();
+            GuardarOb.tiempoJN=null;
             PantallaPrincipal pp = new PantallaPrincipal();
             pp.setVisible(true);
             this.dispose();
         } else if (GuardarOb.numDisc.equals("7") && disco__1.isVisible() == true && disco__2.isVisible() == true && disco__3.isVisible() == true && disco__4.isVisible() == true && disco__5.isVisible() == true && disco__6.isVisible() == true && disco__7.isVisible() == true) {
             Main.pararHilos();
             guardarNomJ();
+            GuardarOb.tiempoJN=null;
             PantallaPrincipal pp = new PantallaPrincipal();
             pp.setVisible(true);
             this.dispose();

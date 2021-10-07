@@ -3,7 +3,7 @@ package practica_2;
 import javax.swing.JOptionPane;
 
 public class HiloTiempo extends Thread {
-
+//    PantallaPrincipal pp = new PantallaPrincipal();
     int tiempoRegresivo;
     boolean v;
     Juego jN = new Juego();
@@ -11,35 +11,43 @@ public class HiloTiempo extends Thread {
     public HiloTiempo() {
         this.v = true;
     }
+
     @Override
     public void run() {
-        
+
         if (GuardarOb.getTiempoJN() == null) {
             tiempoRegresivo = 120;
         } else if (GuardarOb.getTiempoJN() != null) {
-            tiempoRegresivo = Integer.parseInt((String)GuardarOb.getTiempoJN());
+            tiempoRegresivo = Integer.parseInt((String) GuardarOb.getTiempoJN());
         }
         while ((this.v == true)) {
-            
+
             if (tiempoRegresivo == 0) {
                 JOptionPane.showMessageDialog(null, "Perdió el juego");
                 v = false;
-                tiempoRegresivo=0;
+                tiempoRegresivo = 0;
                 GuardarOb.setTiempoJN(null);
+//                pp.setVisible(true);
+//                jN.dispose();
                 break;
-            }else if(tiempoRegresivo < 0) {
+            } else if (tiempoRegresivo < 0) {
                 JOptionPane.showMessageDialog(null, "Perdió el juego");
                 v = false;
-                tiempoRegresivo=0;
+                tiempoRegresivo = 0;
                 GuardarOb.setTiempoJN(null);
+//                pp.setVisible(true);
+//                jN.dispose();
                 break;
-            }else {
+            } else {
                 String mos = Integer.toString(tiempoRegresivo);
                 GuardarOb.setTiempoJN(mos);
-                jN.mostrarTiempo.setText(GuardarOb.getTiempoJN());
-                System.out.println(jN.mostrarTiempo.getText());
+//                jN.mostrarTiempo.setText(GuardarOb.getTiempoJN());
+//                System.out.println(jN.mostrarTiempo.getText());
+//                jN.pruebaTiempo.setText(mos);
+                  jN.mosT();
+//                JOptionPane.showMessageDialog(null, GuardarOb.getTiempoJN());
                 tiempoRegresivo = tiempoRegresivo - 1;
-                
+
                 try {
                     //tiempo de creacion
                     Thread.sleep(1000);

@@ -4,7 +4,7 @@ public class GuardarOb {
 
     public static String numDisc;
     public static String tiempoJN;
-    public static Jugador[]  jugadorGuardar = new Jugador[50];
+    public static Jugador[]  jugadorGuardar = new Jugador[80];
     public GuardarOb(String numDisc, String tiempoJN) {
         this.numDisc = numDisc;
         this.tiempoJN = tiempoJN;

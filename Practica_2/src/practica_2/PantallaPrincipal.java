@@ -5,7 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PantallaPrincipal extends javax.swing.JFrame {
-
+    static int cantidadHilo=0;
     public PantallaPrincipal() {
         initComponents();
         setLocationRelativeTo(null);
@@ -148,12 +148,17 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    public void recibircantidad(int cantidadHilo){
+        this.cantidadHilo = cantidadHilo;
+    }
     private void nuevoJBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoJBotonActionPerformed
         Juego nuevJuego = new Juego();
         nuevJuego.setVisible(true);
         this.dispose();
+        ManejoHilos m = new ManejoHilos();
+        m.recibirNhilo(cantidadHilo);
         Main.iniciarHilos();
+        cantidadHilo = cantidadHilo+1;
     }//GEN-LAST:event_nuevoJBotonActionPerformed
 
     private void juegoABotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_juegoABotonActionPerformed
