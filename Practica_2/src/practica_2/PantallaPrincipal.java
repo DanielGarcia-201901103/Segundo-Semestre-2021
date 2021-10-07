@@ -1,8 +1,8 @@
 package practica_2;
 
-import java.awt.Font;
-import java.util.HashSet;
-import java.util.Set;
+import com.itextpdf.text.DocumentException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PantallaPrincipal extends javax.swing.JFrame {
 
@@ -153,16 +153,22 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         Juego nuevJuego = new Juego();
         nuevJuego.setVisible(true);
         this.dispose();
+        Main.iniciarHilos();
     }//GEN-LAST:event_nuevoJBotonActionPerformed
 
     private void juegoABotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_juegoABotonActionPerformed
-       JuegoAutomatico automaticJuego = new JuegoAutomatico();
-       automaticJuego.setVisible(true);
-       this.dispose();
+        JuegoAutomatico automaticJuego = new JuegoAutomatico();
+        automaticJuego.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_juegoABotonActionPerformed
 
     private void topBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_topBotonActionPerformed
-        // TODO add your handling code here:
+         Juego nuevJuego = new Juego();
+        try {
+            nuevJuego.jugadores_PDF();
+        } catch (DocumentException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_topBotonActionPerformed
 
     private void configBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configBotonActionPerformed
@@ -174,16 +180,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private void exitBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBotonActionPerformed
         System.exit(0);
     }//GEN-LAST:event_exitBotonActionPerformed
-
-    public static void main(String args[]) {
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PantallaPrincipal().setVisible(true);
-
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton configBoton;
