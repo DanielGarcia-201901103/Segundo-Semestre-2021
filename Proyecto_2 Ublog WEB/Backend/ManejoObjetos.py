@@ -60,7 +60,7 @@ def registroUsers(): #al presionar el boton de resgistrarse debe de utilizar est
     fenacimiento = "aqui recibe la fecha de nacimiento del usuario"
     correo = "aqui recibe el correo del usuario"
     users.append(Usuario(nombre,apellido,usuarioO,gener,fenacimiento,correo))
-    for u in users:
+    #for u in users:
         
     
 if __name__ == '__main__':
