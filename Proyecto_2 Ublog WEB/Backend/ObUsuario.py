@@ -16,6 +16,7 @@ class Usuario:
         self.fnacimiento = fnacimiento
         self.celectronico = celectronico
         self.contraseña = contraseña
+        
     #METODOS GETTERS
     def getName(self):
         return self.name
